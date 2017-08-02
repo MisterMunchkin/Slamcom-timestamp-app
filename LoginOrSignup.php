@@ -83,17 +83,6 @@
                     <h2 class="section-heading">Don't have an account? Sign up</h2>
                     <hr class="light">
                     <div class="form-div">
-                    <?php 
-                        if(isset($_SESSION['userAlreadyExistErr'])){
-                            $message = "error mother fucker";
-
-                            echo "<script>alert($message)</script>";
-                            $errormessage = $_SESSION['userAlreadyExistErr'];
-                            echo "<p>$errormessage</p>";
-
-                            unset($_SESSION['userAlreadyExistErr']);
-                        }
-                    ?>
                         <div class="signUp-div">
                             <form action="signUpBackground.php" method="post" id="signUp_Form">
                                 <div class="form-group">

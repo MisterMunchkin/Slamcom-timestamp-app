@@ -1,7 +1,7 @@
 <?php
     if($_POST){
         session_start();
-
+        require_once("password.php")
 
         include("DBconnect.php");
         $firstname = mysqli_real_escape_string($conn, $_POST['txt_firstname']);
@@ -21,9 +21,10 @@
  
             header("Location: LoginOrSignup.php");
         }else{
+
             $sql = "INSERT INTO `user`(`firstname`, `lastname`, `emailadd`, `password`)
-            VALUES ('$firstname','$lastname','$emailaddress','$password')";
-     
+            VALUES ('$firstname','$lastname','$emailaddress','$hash')";
+    
             if(mysqli_query($conn,$sql)){
                 echo "you have been added successfully!";
                 header("Location: LoginOrSignup.php");

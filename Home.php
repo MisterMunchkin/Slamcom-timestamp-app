@@ -27,12 +27,31 @@ include("loginVerification.php");
 
         echo "<h1> Welcome, $firstname</h1>";
     ?>
+
+    <div class="demo" data-bg-img-url="clock-face20.png">
+
+    </div>
+
     <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
     <a class="btn btn-primary btn-lg" href="LogoutBackground.php" role="button">Log Out</a>
   </div>
   <p>This is some text.</p>
   <p>This is another text.</p>
 </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+  <script src="jquery.canvasClock.js"></script>
+
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      jQuery('.canvas-clock').canvasClock({
+        brandName: 'jQueryScript',
+        showSecondHand: true,
+        showMinuteHand: true,
+        showHourHand: true
+      });
+    });
+  </script>
 
 </body>
 </html>

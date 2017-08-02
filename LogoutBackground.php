@@ -1,5 +1,6 @@
 <?php
     include("DBconnect.php");
+    date_default_timezone_set("Asia/Manila");
     session_start();
 
     $_SESSION['LogoutTime'] = date('Y-m-d H:i:s');
