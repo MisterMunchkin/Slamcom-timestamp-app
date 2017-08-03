@@ -1,7 +1,7 @@
 <?php
     if($_POST){
         session_start();
-        require_once("password.php")
+
 
         include("DBconnect.php");
         $firstname = mysqli_real_escape_string($conn, $_POST['txt_firstname']);
@@ -21,6 +21,7 @@
  
             header("Location: LoginOrSignup.php");
         }else{
+            $hash = password_hash($password, PASSWORD_DEFAULT);
 
             $sql = "INSERT INTO `user`(`firstname`, `lastname`, `emailadd`, `password`)
             VALUES ('$firstname','$lastname','$emailaddress','$hash')";
@@ -32,8 +33,9 @@
                 echo "oh noes, something went wrong!";
             }
 
-            mysqli_close($conn);
+           
         }
+        mysqli_close($conn);
     }else{
         echo "POST error";
     }

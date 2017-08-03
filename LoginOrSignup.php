@@ -55,9 +55,6 @@
                             </div>
                             <div class="form-group">
                                 <input id="btnLogin" type="submit" class="btn btn-primary btn-xl page-scroll" value="Login">
-                                <!--<button id="btnLogout" class="btn btn-primary btn-cl page-scroll hide">
-                                    Log out
-                                </button>-->
                             </div>
                         </form>
                         <div class="form-group" id="divLoginError" style="display: none;">
@@ -102,11 +99,6 @@
                                     <input class="form-control" id="signUpConfPassword" placeholder="confirm password" name="txt_userconfpassword" type="password" required>
                                 </div>
                                 <div class="form-group">
-                                    <!--<a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Sign Up!</a>
-                                    <button id="btnSignup" class="btn btn-primary btn-xl page-scroll">
-                                        Sign Up!
-                                    </button>
-                                    -->
                                     <input id="btnSignup" type="submit" class="btn btn-primary btn-xl page-scroll" value="Sign Up">
                                 </div>
                             </form>
@@ -147,9 +139,6 @@
 
     <script>
         $(document).ready(function(){
-
-
-
             var txtLoginEmail = $('#LoginEmail');
             var txtLoginPassword = $('#LoginPassword');
             var btnLogin = $('#btnLogin');
@@ -185,7 +174,7 @@
 
                 return ($email.length > 0 && emailReg.test($email));
             }
-            $("#signUpEmail").keyup(function(){
+            $("#signUpEmail").on("input",function(){
                 if(!validateEmail($("#signUpEmail").val())){
                     $("#signUpEmail").css('border-color', 'red');
                     $("#signUpEmail").css('border-width', '2px');
@@ -201,7 +190,7 @@
 
                 return ($password.length > 0 && passwordReg.test($password));
             }
-            $("#signUpPassword").keyup(function(){
+            $("#signUpPassword").on("input",function(){
                 if(!validatePassword($("#signUpPassword").val())){
 
                     $("#signUpPassword").css('border-color', 'red');
@@ -212,7 +201,7 @@
             });
 
             //password confirmation
-            $("#signUpConfPassword").keyup(function(){
+            $("#signUpConfPassword").on("input",function(){
                 if($("#signUpConfPassword").val() == $("#signUpPassword").val()){
                     $("#signUpConfPassword").css('border-color','green');
                     $("#signUpConfPassword").css('border-width', '2px');
