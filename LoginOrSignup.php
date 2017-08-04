@@ -37,7 +37,7 @@
 
     <header>
         <div class="header-content">
-            <div class="header-content-inner">
+            <div class="header-content-inner"> 
                 <h1 id="homeHeading">Welcome to Slamcom!</h1>
                 <hr>
 
@@ -119,6 +119,13 @@
 
                                 </p>
                             </div>
+                             <div class="divErrorSignUp" id="divEmailalreadyexist" style="display:none;">
+                                <p id="PasswordLength" aria-atomic="true" role="alert">
+
+                                    The email you entered already exists.
+
+                                </p>
+                            </div>
                             <div class="form-group">
                                 <a id="signUpHasAcc" href="#">Already have an account?</a>
                             </div>
@@ -144,6 +151,21 @@
             var btnLogin = $('#btnLogin');
             var btnLogout = $('#btnLogout');
             var btnLoginNoAccount = $('#LoginNoAccount');
+
+            <?php 
+                if(isset($_GET['err'])){
+                    echo '$("#divLoginError").css("display","block")
+                            setTimeout(function() {
+                                $("#divLoginError").fadeOut("slow");
+                            }, 10000); ';
+                }
+                if(isset($_GET['EmailalreadyExist'])){
+                    echo '$("#divEmailalreadyexist").css("display","block")
+                            setTimeout(function() {
+                                $("#divEmailalreadyexist").fadeOut("slow");
+                            }, 10000); ';
+                }
+            ?>
 
             //toggle between login and signup
             $("#LoginNoAccount").click(function(){
@@ -244,7 +266,7 @@
                 }
             });
 
-            $("#signUp_Formp").submit(function(){
+            $("#signUp_Form").submit(function(){
                 var self = this;
 
                 var txtSignUpEmail = $("#signUpEmail").val();

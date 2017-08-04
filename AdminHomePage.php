@@ -148,7 +148,7 @@ include("AdminLoginVerification.php");
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="AdminLogout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
@@ -244,7 +244,7 @@ include("AdminLoginVerification.php");
                                                 <td>'.$row[1].'</td>
                                                 <td>'.$row[2].'</td>
                                                 <td>'.$row[3].'</td>
-                                              ';
+                                                </tr>';
                                     }
                                 ?>
                             </tbody>
@@ -257,20 +257,36 @@ include("AdminLoginVerification.php");
                 
                 <div class="modal fade" id="myModal" role="dialog">
                     <div class="modal-dialog">
-                    
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
+                      
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Modal Header</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table-responsive">
+                                        <table id="UserHoursTable" class="table table-hover table-striped" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Time In</th>
+                                                    <th>Time Out</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr id="userHoursWork">
+                                                    <td id="CellTimeIn"></td>
+                                                    <td id="CellTimeOut"></td>
+                                                </tr>
+                                          
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                            <p>Some text in the modal.</p>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
                     
                     </div>
                 </div>
@@ -299,14 +315,24 @@ include("AdminLoginVerification.php");
             $("#UsersTable tbody").on('click', 'tr', function(){
                 var data = table.row(this).data();
 
-                alert(data[0]);
-
                 $.ajax({
-                    type: 'post',
+                    type: 'POST',
                     url: 'GetUserHours.php',
-                    data: $(data[0]).serialize(),
-                    success: function(){
+                    data: {userID: data[0]},
+                   // dataType: 'json',
+                    success: function(data){
+
+                       // var obj = $.parseJSON(data);
                         console.log("success in retrieving user hours");
+                        
+                        var timeIn = data[0].timeIn;
+
+                        console.log(timeIn);
+
+                        $("#userbuttonRow").trigger('click',function(){
+                            $("#CellTimeIn").html($data["timeIn"]);
+                            $("#CellTimeOut").html($data["timeOut"]);
+                        });
                     },
                     error: function(){
                         console.log("failed in retrieving user hours");

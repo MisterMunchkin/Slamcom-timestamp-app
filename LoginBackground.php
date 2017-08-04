@@ -40,11 +40,12 @@
                 header("Location: Home.php");
             }
         }else{
-            echo "password does not exist";
+            //echo "password does not exist";
+            header("Location: LoginOrSignup.php?err");
         }
     }else{
      
        // header("Location: LoginOrSignup.php");
-        echo "email does not exist";
+        header("Location: LoginOrSignup.php?err");
     }
 ?>

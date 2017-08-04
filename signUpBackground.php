@@ -17,9 +17,9 @@
         $result = mysqli_query($conn,$sql);
 
         if(mysqli_num_rows($result) > 0){
-            $_SESSION['userAlreadyExistErr'] = "the user already exists!"; //not working
- 
-            header("Location: LoginOrSignup.php");
+           // $_SESSION['userAlreadyExistErr'] = "the user already exists!"; //not working
+            //use ?err or something
+            header("Location: LoginOrSignup.php?EmailalreadyExist");
         }else{
             $hash = password_hash($password, PASSWORD_DEFAULT);
 

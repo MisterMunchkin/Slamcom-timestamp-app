@@ -16,4 +16,5 @@
         session_destroy();
         header("Location: LoginOrSignup.php");
     }
+    mysqli_close($conn);
 ?>
