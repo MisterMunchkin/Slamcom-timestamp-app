@@ -30,6 +30,9 @@ include("AdminLoginVerification.php");
     <!-- Custom Fonts -->
     <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+
+    <link href="munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
+    <link href="mrjsontable/css/mrjsontable.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -219,7 +222,7 @@ include("AdminLoginVerification.php");
                 <!-- /.row -->
                 <div class="col-lg-6">
 
-                    <h2>Striped Rows</h2>
+                    <h2>Agents</h2>
                     <div class="table-responsive">
                         <table id="UsersTable" class="table table-hover table-striped" cellspacing="0" width="100%">
                             <thead>
@@ -262,29 +265,37 @@ include("AdminLoginVerification.php");
                             <div class="modal-content">
                                 <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Modal Header</h4>
+                                <h4 id="UserModalName" class="modal-title">Modal Header</h4>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="table-responsive">
-                                        <table id="UserHoursTable" class="table table-hover table-striped" cellspacing="0" width="100%">
-                                            <thead>
+                                <div id="ContentContainer" class="modal-body">
+                                    <div class="dropdown" style="float:right;">
+                                        <button class="dropbtn">Sort By</button>
+                                        <div class="dropdown-content">
+                                            <a id="sortByMonth" href="#">Month</a>
+                                            <a id="sortByYear" href="#">Year</a>
+                                            <a id="sortByAllTime" href="#">of All time</a>
+                                        </div>
+                                    </div>
+                                    <div id="userHoursTableContainer" class="table-responsive" style="display: none">
+                               
+                                        <table id="UserHoursTable" class="table table-hover table-striped" cellspacing="0" width="100%" style="display: none">
                                                 <tr>
+                                                    <th>Day</th>
                                                     <th>Time In</th>
                                                     <th>Time Out</th>
+                                                    <th>Number of hours</th>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr id="userHoursWork">
-                                                    <td id="CellTimeIn"></td>
-                                                    <td id="CellTimeOut"></td>
-                                                </tr>
-                                          
-                                            </tbody>
+                                                <tbody id="UserHoursTableBody">
+                                                </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                
+                                    <div class="form-group">
+                                        <span>Total Hours : </span> <input class="form-control" id="totalHours"  name="txt_totalHours" readonly="readonly">
+                                    </div>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                     
@@ -307,10 +318,75 @@ include("AdminLoginVerification.php");
     <!-- Latest compiled and minified JavaScript -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
    
+   
 
     <script> 
         jQuery(document).ready(function(){
             var table = $("#UsersTable").DataTable();
+
+            function getUserhours(data){
+                if(data){    
+                    console.log("success in retrieving user hours");
+                    var obj = $.parseJSON(data);
+                    
+                    var len = obj.length;
+                    var txt = "";
+
+                    if(len > 0){
+                        var cnt = 1;
+                        var diff;
+                        var SS;
+                        var HH;
+                        var MM;
+
+                        var time_In;
+                        var time_Out;
+                        
+                        var totalHH = 0;
+                        var totalMM = 0;
+
+                        var totalformatted = 0;
+                        var formatted;
+
+                        for(var i = 0; i < len && (obj[i].timeIn && obj[i].timeOut); i++){
+                            time_In = new Date(Date.parse(obj[i].timeIn));
+                            time_Out = new Date(Date.parse(obj[i].timeOut));
+                            
+                            diff = time_Out - time_In;
+                            SS = diff/1000;
+                            MM = Math.floor((SS % 3600)/60);
+                            HH = Math.floor(SS / 3600);
+
+                            formatted = ((HH < 10) ? ("0" + HH) : HH) + ":" + ((MM < 10) ? ("0" + MM) : MM);
+
+                            txt += "<tr><td>"+cnt+"</td><td>"+obj[i].timeIn+"</td><td>"+obj[i].timeOut+"</td><td>"+formatted+"</td></tr>";
+
+                            totalHH += HH;
+                            totalMM += MM;
+                            cnt++;
+                        }
+                        if(txt != ""){
+
+                            totalformatted = ((totalHH < 10) ? ("0" + totalHH) : totalHH) + ":" + ((totalMM < 10) ? ("0" + totalMM) : totalMM);
+
+                            $("#userHoursTableContainer").css("display","block");
+                            $("#UserHoursTable").css("display","block");
+                            $("#UserHoursTableBody").html(txt);
+                            $("#totalHours").attr('value', totalformatted);
+
+                            return totalformatted;
+                            
+                        }
+                    }else{
+                        alert("something weird happened");
+                    }
+                }else{
+                        txt = "<p>user has no activity...</p>";
+
+                        $("#UserHoursTableBody").html(txt);
+                }
+
+            }
 
             $("#UsersTable tbody").on('click', 'tr', function(){
                 var data = table.row(this).data();
@@ -321,18 +397,10 @@ include("AdminLoginVerification.php");
                     data: {userID: data[0]},
                    // dataType: 'json',
                     success: function(data){
-
-                       // var obj = $.parseJSON(data);
-                        console.log("success in retrieving user hours");
-                        
-                        var timeIn = data[0].timeIn;
-
-                        console.log(timeIn);
-
-                        $("#userbuttonRow").trigger('click',function(){
-                            $("#CellTimeIn").html($data["timeIn"]);
-                            $("#CellTimeOut").html($data["timeOut"]);
-                        });
+                        // var timeIn = obj[0].timeIn;
+                        // console.log(timeIn);
+                        getUserhours(data);
+                        $("#userbuttonRow").trigger('click');
                     },
                     error: function(){
                         console.log("failed in retrieving user hours");

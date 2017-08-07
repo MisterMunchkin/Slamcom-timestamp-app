@@ -13,6 +13,7 @@
             $data_array = array();
 
             while($row = mysqli_fetch_assoc($result)){
+                /*
                 $data_array[$x]['timeIn'] = $row['timeIn'];
                 $data_array[$x]['timeOut'] = $row['timeOut'];
 
@@ -21,7 +22,14 @@
                                                             ));
 
                 $x++;
+                */
+                $data_array[] = array(
+                    'timeIn' => $row['timeIn'],
+                    'timeOut' => $row['timeOut']
+                );
             }
+            $json = json_encode($data_array);
+            echo $json;
         }
     }
 ?>

@@ -1,4 +1,7 @@
 <?php
+
+    ini_set('session.gc_maxlifetime', 36000);
+    session_set_cookie_params(36000);
     session_start();
 
     
@@ -9,43 +12,44 @@
     $password = mysqli_real_escape_string($conn, $_POST['txt_loginPassword']);
 
 
-    $sql = "SELECT `userID`, `firstname`, `lastname`, `emailadd`, `password`
-            FROM `user`
-            WHERE `emailadd` = '$email'";
+    if($email == "slamcom.admin@gmail.com" && $password == "admin1234"){ //ASK sir if its better to make user input own ID so we 
+    //can keep track of who gets admin permissions.
+        $_SESSION['firstname'] = "Admin";
+        $_SESSION['lastname'] = "Admin";
+        $_SESSION['AdminLoginValid'] = true;
+        header("Location: AdminHomePage.php");
 
-    $result = mysqli_query($conn,$sql);
+    }else{
 
-    if(mysqli_num_rows($result) > 0){
+        $sql = "SELECT `userID`, `firstname`, `lastname`, `emailadd`, `password`
+                FROM `user`
+                WHERE `emailadd` = '$email'";
 
-        $row = mysqli_fetch_assoc($result);
+        $result = mysqli_query($conn,$sql);
 
-        if(password_verify($password, $row['password'])){
-            $_SESSION['userID'] = $row['userID'];
-            $_SESSION['firstname'] = $row['firstname'];
-            $_SESSION['lastname'] = $row['lastname'];
-            $_SESSION['email'] = $row['email'];
-            
+        if(mysqli_num_rows($result) > 0){
 
-            if($row['emailadd'] == "dalmiet@gmail.com"){ //ASK sir if its better to make user input own ID so we 
-            //can keep track of who gets admin permissions.
+            $row = mysqli_fetch_assoc($result);
 
-                $_SESSION['AdminLoginValid'] = true;
-                header("Location: AdminHomePage.php");
-
-            }else{
+            if(password_verify($password, $row['password'])){
+                $_SESSION['userID'] = $row['userID'];
+                $_SESSION['firstname'] = $row['firstname'];
+                $_SESSION['lastname'] = $row['lastname'];
+                $_SESSION['email'] = $row['email'];
+                
 
                 $_SESSION['LoginValid'] = true;
                 $_SESSION['LoginTime'] = date('Y-m-d H:i:s');
 
                 header("Location: Home.php");
+            }else{
+                //echo "password does not exist";
+                header("Location: LoginOrSignup.php?err");
             }
         }else{
-            //echo "password does not exist";
+        
+        // header("Location: LoginOrSignup.php");
             header("Location: LoginOrSignup.php?err");
         }
-    }else{
-     
-       // header("Location: LoginOrSignup.php");
-        header("Location: LoginOrSignup.php?err");
     }
 ?>
