@@ -457,14 +457,37 @@ include("AdminLoginVerification.php");
             $(".sortByMonth").on('click',function(){
                 var totalhoursformatted;
                 var UserMonth = userHours;
-
-                alert(UserMonth);
+                
+                var dateMonths = [][];
+                var row = 0;
+                var col = 0;
+               // alert(UserMonth);
                 var obj = $.parseJSON(UserMonth);
 
                 alert(obj[1].timeIn.substring(5,7))
+                
+                dateMonths[row][col] = obj[0].timeIn.substring(5,7);
+                var lengthobj = obj.length;
+
+                for(var x = 1;x < lengthobj; x++){
+                    if(dateMonths[cnt] != obj[x].timeIn.substring(5,7)){
+                        cnt++;
+                        dateMonths[cnt] = obj[x].timeIn.substring(5,7);
+                    }
+                    for(var y = 0; y < lengthobj && dateMonths)
+                }
+                alert(dateMonths);
+
+                generateMonths(dateMonths);//list is already in ascending order, what if I just group 
+                //stringify json before passing to this function
+
+                //use 2d array to store the month, and then the consecutive data in the month
                 totalhoursformatted = getUserhours(data);
             });
 
+            function generateMonths(dateMonths){
+            
+            }
             function userHoursByDay(data,firstname,lastname){
                 var totalhoursformatted;
 
@@ -492,7 +515,7 @@ include("AdminLoginVerification.php");
               
                     success: function(data){
                         userHours = data;
-
+            
                         userHoursByDay(data,firstname,lastname);
                     },
                     error: function(){
