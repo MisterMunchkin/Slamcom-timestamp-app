@@ -265,28 +265,32 @@ include("AdminLoginVerification.php");
                             <div class="modal-content">
                                 <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 id="UserModalName" class="modal-title">Modal Header</h4>
+                                <h4 id="UserModalName" class="modal-title"></h4>
                                 </div>
                                 <div id="ContentContainer" class="modal-body">
                                     <div class="dropdown" style="float:right;">
                                         <button class="dropbtn">Sort By</button>
                                         <div class="dropdown-content">
-                                            <a id="sortByMonth" href="#">Month</a>
-                                            <a id="sortByYear" href="#">Year</a>
-                                            <a id="sortByAllTime" href="#">of All time</a>
+                                            <a class="sortByMonth" href="#">Month</a>
+                                            <a class="sortByYear" href="#">Year</a>
+                                            <a class="sortByAllTime" href="#">of All time</a>
                                         </div>
                                     </div>
                                     <div id="userHoursTableContainer" class="table-responsive" style="display: none">
                                
                                         <table id="UserHoursTable" class="table table-hover table-striped" cellspacing="0" width="100%" style="display: none">
+                                            <thead>
                                                 <tr>
                                                     <th>Day</th>
                                                     <th>Time In</th>
                                                     <th>Time Out</th>
                                                     <th>Number of hours</th>
                                                 </tr>
-                                                <tbody id="UserHoursTableBody">
-                                                </tbody>
+                                            </thead>
+                                            <tbody id="UserHoursTableBody">
+                                            </tbody>
+                                            <tfoot>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
@@ -302,6 +306,58 @@ include("AdminLoginVerification.php");
                     </div>
                 </div>
 
+                <button type="button" id="MonthButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#MonthModal" style="display: none">Open Modal</button>
+                
+                <div class="modal fade" id="MonthModal" role="dialog">
+                    <div class="modal-dialog">
+                      
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 id="MonthModalName" class="modal-title"></h4>
+                                </div>
+                                <div id="MonthContentContainer" class="modal-body">
+                                    <div class="dropdown" style="float:right;">
+                                        <button class="dropbtn">Sort By</button>
+                                        <div class="dropdown-content">
+                                            <a class="sortByMonth" href="#">Month</a>
+                                            <a class="sortByYear" href="#">Year</a>
+                                            <a class="sortByAllTime" href="#">of All time</a>
+                                        </div>
+                                    </div>
+                                    <div id="ContaineruserHoursTableByMonth" class="table-responsive" style="display: none">
+                               
+                                        <table id="UserHoursTableByMonth" class="table table-hover table-striped" cellspacing="0" width="100%" style="display: none">
+                                            <thead>
+                                                <tr>
+                                                    <th>Day</th>
+                                                    <th>Time In</th>
+                                                    <th>Time Out</th>
+                                                    <th>Number of hours</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="UserHoursTableBody">
+                                            </tbody>
+                                            <tfoot>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                
+                                    <div class="form-group">
+                                        <span>Total Hours : </span> <input class="form-control" id="totalHoursByMonth"  name="txt_totalHours" readonly="readonly">
+                                    </div>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                    
+                    </div>
+                </div>
+
+                
+
         </div>
         <!-- /#page-wrapper -->
 
@@ -310,8 +366,8 @@ include("AdminLoginVerification.php");
     
       <!-- jQuery -->
  
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
     
-    <script src="AdminPageBootStrap/js/jquery.js"></script>
     <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="AdminPageBootStrap/js/bootstrap.min.js"></script>
@@ -322,7 +378,23 @@ include("AdminLoginVerification.php");
 
     <script> 
         jQuery(document).ready(function(){
-            var table = $("#UsersTable").DataTable();
+            var tableUser = $("#UsersTable").DataTable();
+            var userHours;
+            var txt = "";
+            $("#UsersHoursTable").DataTable({
+                "bLengthChange":false
+            });
+          /*
+            $("#UsersTable tbody").on('click', 'tr', function(){
+                $("#UserHoursTable").DataTable({
+                    ajax: {
+                        url: "GetUserHours.php",
+                        dataSrc: "timeIn"
+                    }
+                })
+            });
+            */
+            
 
             function getUserhours(data){
                 if(data){    
@@ -330,8 +402,8 @@ include("AdminLoginVerification.php");
                     var obj = $.parseJSON(data);
                     
                     var len = obj.length;
-                    var txt = "";
-
+                    //var txt = "";
+                   
                     if(len > 0){
                         var cnt = 1;
                         var diff;
@@ -369,10 +441,6 @@ include("AdminLoginVerification.php");
 
                             totalformatted = ((totalHH < 10) ? ("0" + totalHH) : totalHH) + ":" + ((totalMM < 10) ? ("0" + totalMM) : totalMM);
 
-                            $("#userHoursTableContainer").css("display","block");
-                            $("#UserHoursTable").css("display","block");
-                            $("#UserHoursTableBody").html(txt);
-                            $("#totalHours").attr('value', totalformatted);
 
                             return totalformatted;
                             
@@ -382,31 +450,57 @@ include("AdminLoginVerification.php");
                     }
                 }else{
                         txt = "<p>user has no activity...</p>";
-
-                        $("#UserHoursTableBody").html(txt);
                 }
 
             }
 
-            $("#UsersTable tbody").on('click', 'tr', function(){
-                var data = table.row(this).data();
+            $(".sortByMonth").on('click',function(){
+                var totalhoursformatted;
+                var UserMonth = userHours;
 
+                alert(UserMonth);
+                var obj = $.parseJSON(UserMonth);
+
+                alert(obj[1].timeIn.substring(5,7))
+                totalhoursformatted = getUserhours(data);
+            });
+
+            function userHoursByDay(data,firstname,lastname){
+                var totalhoursformatted;
+
+                userHours = data;
+
+                totalhoursformatted = getUserhours(data);
+                $("#UserHoursTableBody").html(txt);
+                $("#totalHours").attr('value', totalhoursformatted);
+                $("#userbuttonRow").trigger('click');
+                $("#UserModalName").html(firstname+" "+lastname);
+                $("#userHoursTableContainer").css("display","block");
+                $("#UserHoursTable").css("display","block");
+
+                txt = "";
+            }
+
+            $("#UsersTable tbody").on('click', 'tr', function(){
+                var data = tableUser.row(this).data();
+                var firstname = data[1];
+                var lastname = data[2];
                 $.ajax({
                     type: 'POST',
                     url: 'GetUserHours.php',
                     data: {userID: data[0]},
-                   // dataType: 'json',
+              
                     success: function(data){
-                        // var timeIn = obj[0].timeIn;
-                        // console.log(timeIn);
-                        getUserhours(data);
-                        $("#userbuttonRow").trigger('click');
+                        userHours = data;
+
+                        userHoursByDay(data,firstname,lastname);
                     },
                     error: function(){
                         console.log("failed in retrieving user hours");
                     }
                 })
             });
+            
         });
     
     </script>
