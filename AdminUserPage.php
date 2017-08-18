@@ -27,6 +27,8 @@ include("AdminLoginVerification.php");
     <!-- Morris Charts CSS -->
     <link href="AdminPageBootStrap/css/plugins/morris.css" rel="stylesheet">
 
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
@@ -34,7 +36,7 @@ include("AdminLoginVerification.php");
     <link href="munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
     <link href="mrjsontable/css/mrjsontable.css" rel="stylesheet" />
 
-
+    <link href="bootstrapmonthPicker/css/style.css" rel="stylesheet">
 
     <link href= "https://fonts.googleapis.com/icon?family=Material+Icons" rel = "stylesheet">
     <link href= "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" rel = "stylesheet">
@@ -330,6 +332,44 @@ include("AdminLoginVerification.php");
                                         <md-tab-label>{{data.secondLabel}}</md-tab-label>
                                         <md-tab-body>
                                             <div id="MonthContainer">
+                                                <!--<input class="date-own form-control" style="width: 300px;" type="text">
+                                                <div class="month-picker">
+                                                    <a href="index.html" class="month-picker-nav" title="Not implemented">&lt;</a>
+                                                    <fieldset class="month-picker-fieldset">
+                                                    <input type="radio" name="month" value="jan" id="jan">
+                                                    <label for="jan" class="month-picker-label">Jan</label>
+                                                    <input type="radio" name="month" value="feb" id="feb">
+                                                    <label for="feb" class="month-picker-label">Feb</label>
+                                                    <input type="radio" name="month" value="mar" id="mar">
+                                                    <label for="mar" class="month-picker-label">Mar</label>
+                                                    <input type="radio" name="month" value="apr" id="apr">
+                                                    <label for="apr" class="month-picker-label">Apr</label>
+                                                    <input type="radio" name="month" value="may" id="may">
+                                                    <label for="may" class="month-picker-label">May</label>
+                                                    <input type="radio" name="month" value="jun" id="jun">
+                                                    <label for="jun" class="month-picker-label">Jun</label>
+                                                    <input type="radio" name="month" value="jul" id="jul">
+                                                    <label for="jul" class="month-picker-label">Jul</label>
+                                                    <input type="radio" name="month" value="aug" id="aug">
+                                                    <label for="aug" class="month-picker-label">Aug</label>
+                                                    <input type="radio" name="month" value="sep" id="sep" checked>
+                                                    <label for="sep" class="month-picker-label">Sep</label>
+                                                    <input type="radio" name="month" value="oct" id="oct">
+                                                    <label for="oct" class="month-picker-label">Oct</label>
+                                                    <input type="radio" name="month" value="nov" id="nov">
+                                                    <label for="nov" class="month-picker-label">Nov</label>
+                                                    <input type="radio" name="month" value="dec" id="dec">
+                                                    <label for="dec" class="month-picker-label">Dec</label>
+                                                    </fieldset>
+                                                    <a href="index.html" class="month-picker-nav" title="Not implemented">&gt;</a>
+                                                </div>
+                                                                -->                                                 
+                                                <p id="DatePicker">
+                                                    <input id = "startDate" type="text" class="date start" placeholder="start date" />                                                 
+                                                    <input id = "endDate" type="text" class="date end" placeholder="end date"/>
+                                                    <button id="submitDateInterval" class="btn  btn-primary">submit</button>
+                                                </p>
+
                                                 <table id="UserMonthTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
                                                     <thead>
                                                         <tr>
@@ -341,30 +381,7 @@ include("AdminLoginVerification.php");
                                                         </tr>
                                                     </thead>
                                                     <tbody id="UserMonthTableBody">
-                                                    <?php
-
-                                                        include("DBconnect.php");
-
-                                                        $userID = $_SESSION["employeeID"];
-
-                                                        $query = "SELECT * FROM `timetable` WHERE `userID` = '$userID'";
-
-                                                        $result = mysqli_query($conn,$query);
-                                                        // echo "$userID";
-
-                                                        $x = 0;
-                                                        while($row = mysqli_fetch_array($result)){
-                                                        // $interval = date_diff($row[0],$row[1]);
-                                                            $x++;
-                                                            echo '<tr id='.$row[0].'>
-                                                                    <td>'.$x.'</td>
-                                                                    <td>'.$row[0].'</td>
-                                                                    <td>'.$row[1].'</td>
-                                                                    <td>'.$row[2].'</td>
-                                                                    <td>'.$row[3].'</td>
-                                                                    </tr>';
-                                                        }
-                                                    ?>
+                                                    <?php // add table shit here?>
                                                     </tbody>
                                                     <tfoot>
                                                     </tfoot>
@@ -393,13 +410,19 @@ include("AdminLoginVerification.php");
 
     </div>
     <!-- /#wrapper -->
+                                         
 
       <!-- jQuery -->
       <script src="HomePageBootStrap/vendor/jquery/jquery.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+      <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <!--<script src="//code.jquery.com/jquery-1.12.4.js"></script>-->
-
-    <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+    
+    <script type="text/javascript" src="datepair.js"></script>
+    <script type="text/javascript" src="jquery.datepair.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="AdminPageBootStrap/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
@@ -410,8 +433,53 @@ include("AdminLoginVerification.php");
     <script>
         jQuery(document).ready(function(){
 
-            var hoursTable = $("#UserHoursTable").DataTables();
+            var hoursTable = $("#UserHoursTable").DataTable();
+            var monthsTable = $("#UserMonthTable").DataTable();
 
+            /*$("#jan").on("click",function(){
+                
+                var month = 1;
+                MonthAjax(month);
+            });
+            $("#aug").on("click",function(){
+                var month = 8;
+                MonthAjax(month);
+            });
+            */
+            $("#DatePicker .date").datepicker({
+                'format': 'yyyy-m-d',
+                'autoclose': true
+            });
+            var datePicker = document.getElementById('DatePicker');
+            var datePair = new Datepair(datePicker);
+
+            $('.date-own').datepicker({
+                minViewMode: 2,
+                format: 'yyyy'
+            });
+            
+            $("#submitDateInterval").on("click",function(){
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+
+                var startYear = startDate.substring(0,4);
+                var startMonth = startDate.substring()
+            });
+            function MonthAjax(data){
+               
+                $.ajax({
+                    url: "exactMonthTableLoader.php",
+                    method: "POST",
+                    data: {month : data},
+                    success: function(data){
+                        alert("i like kittens");
+                        alert(data);
+                    },
+                    error: function(data){
+                        alert(data);
+                    }
+                });
+            }
         });
 
     </script>
