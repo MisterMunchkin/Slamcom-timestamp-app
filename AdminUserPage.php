@@ -332,38 +332,7 @@ include("AdminLoginVerification.php");
                                         <md-tab-label>{{data.secondLabel}}</md-tab-label>
                                         <md-tab-body>
                                             <div id="MonthContainer">
-                                                <!--<input class="date-own form-control" style="width: 300px;" type="text">
-                                                <div class="month-picker">
-                                                    <a href="index.html" class="month-picker-nav" title="Not implemented">&lt;</a>
-                                                    <fieldset class="month-picker-fieldset">
-                                                    <input type="radio" name="month" value="jan" id="jan">
-                                                    <label for="jan" class="month-picker-label">Jan</label>
-                                                    <input type="radio" name="month" value="feb" id="feb">
-                                                    <label for="feb" class="month-picker-label">Feb</label>
-                                                    <input type="radio" name="month" value="mar" id="mar">
-                                                    <label for="mar" class="month-picker-label">Mar</label>
-                                                    <input type="radio" name="month" value="apr" id="apr">
-                                                    <label for="apr" class="month-picker-label">Apr</label>
-                                                    <input type="radio" name="month" value="may" id="may">
-                                                    <label for="may" class="month-picker-label">May</label>
-                                                    <input type="radio" name="month" value="jun" id="jun">
-                                                    <label for="jun" class="month-picker-label">Jun</label>
-                                                    <input type="radio" name="month" value="jul" id="jul">
-                                                    <label for="jul" class="month-picker-label">Jul</label>
-                                                    <input type="radio" name="month" value="aug" id="aug">
-                                                    <label for="aug" class="month-picker-label">Aug</label>
-                                                    <input type="radio" name="month" value="sep" id="sep" checked>
-                                                    <label for="sep" class="month-picker-label">Sep</label>
-                                                    <input type="radio" name="month" value="oct" id="oct">
-                                                    <label for="oct" class="month-picker-label">Oct</label>
-                                                    <input type="radio" name="month" value="nov" id="nov">
-                                                    <label for="nov" class="month-picker-label">Nov</label>
-                                                    <input type="radio" name="month" value="dec" id="dec">
-                                                    <label for="dec" class="month-picker-label">Dec</label>
-                                                    </fieldset>
-                                                    <a href="index.html" class="month-picker-nav" title="Not implemented">&gt;</a>
-                                                </div>
-                                                                -->                                                 
+                                                                                              
                                                 <p id="DatePicker">
                                                     <input id = "startDate" type="text" class="date start" placeholder="start date" />                                                 
                                                     <input id = "endDate" type="text" class="date end" placeholder="end date"/>
@@ -417,12 +386,19 @@ include("AdminLoginVerification.php");
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
       <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
-    <!--<script src="//code.jquery.com/jquery-1.12.4.js"></script>-->
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
     
-    <script type="text/javascript" src="datepair.js"></script>
-    <script type="text/javascript" src="jquery.datepair.js"></script>
+    
+    
+    <script type="text/javascript" src="DatePair/dist/datepair.js"></script>
+    <script type="text/javascript" src="DatePair/dist/jquery.datepair.js"></script>
+
+    <script type="text/javascript" src="jquery.timepicker.js"></script>
+
+    
+    
     <!-- Bootstrap Core JavaScript -->
     <script src="AdminPageBootStrap/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
@@ -447,7 +423,7 @@ include("AdminLoginVerification.php");
             });
             */
             $("#DatePicker .date").datepicker({
-                'format': 'yyyy-m-d',
+                'format': 'yyyy-mm-dd',
                 'autoclose': true
             });
             var datePicker = document.getElementById('DatePicker');
@@ -462,15 +438,38 @@ include("AdminLoginVerification.php");
                 var startDate = $("#startDate").val();
                 var endDate = $("#endDate").val();
 
+                /*
                 var startYear = startDate.substring(0,4);
-                var startMonth = startDate.substring()
+                var startMonth = startDate.substring(5,7);
+                var startDay = startDate.substring(8,10);
+                alert(startYear);
+                alert(startMonth);
+                alert(startDay);
+                var endYear = endDate.substring(0,4);
+                var endMonth = endDate.substring(5,7);
+                var endDay = endDate.substring(8,10);
+
+                var start = [startYear,startMonth,startDay];
+                var end = [endYear,endMonth,endDay];
+                //alert(start[0]+""+start[1]+""+start[2]);
+                //alert(end[0]+""+end[1]+""+end[2]);
+                */
+                MonthAjax(startDate,endDate);
             });
-            function MonthAjax(data){
+
+            function MonthAjax(startDate, endDate){
                
                 $.ajax({
                     url: "exactMonthTableLoader.php",
                     method: "POST",
-                    data: {month : data},
+                    /*data: {startYear : start[0],
+                            startMonth : start[1],
+                            startDay : start[2],
+                            endYear : end[0],
+                            endMonth : end[1],
+                            endDay : end[2]},*/
+                    data: {startDate : startDate,
+                            endDate : endDate},
                     success: function(data){
                         alert("i like kittens");
                         alert(data);

@@ -2,14 +2,27 @@
     if($_POST){
         include("DBconnect.php");
         session_start();
-        $month = $_POST["month"];
-        $userID = $_SESSION["employeeID"];
+        /*
+        $startYear = $_POST["startYear"];
+        $startMonth = $_POST["startMonth"];
+        $startDay = $_POST["startDay"];
 
+        $endYear = $_POST["endYear"];
+        $endMonth = $_POST["endMonth"];
+        $endDay = $_POST["endDay"];
+*/      
+        $startDate = $_POST["startDate"];
+        $endDate = $_POST["endDate"];
+        $userID = $_SESSION["employeeID"];
+/*
         $sql = "SELECT * FROM `timetable`
         WHERE `userID` = '$userID' 
         AND YEAR(`timeIn`) = 2017 
         AND MONTH(`timeIn`) = '$month'";
-
+*/      
+        $sql = "SELECT * 
+                FROM `timetable` 
+                WHERE `userID` = '$userID' AND `timeIn` BETWEEN '$startDate' AND '$endDate'";
         $x = 0;
         $result = mysqli_query($conn, $sql);
 
