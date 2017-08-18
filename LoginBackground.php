@@ -4,20 +4,31 @@
     session_set_cookie_params(36000);
     session_start();
 
-    
+
     date_default_timezone_set("Asia/Manila");
     include("DBconnect.php");
 
     $email = mysqli_real_escape_string($conn, $_POST['txt_loginEmail']);
     $password = mysqli_real_escape_string($conn, $_POST['txt_loginPassword']);
 
+    $sql = "SELECT * 
+    FROM `adminusers` 
+    WHERE `emailaddress` = '$email'";
 
-    if($email == "slamcom.admin@gmail.com" && $password == "admin1234"){ //ASK sir if its better to make user input own ID so we 
+    $result = mysqli_query($conn,$sql);
+
+    if(mysqli_num_rows($result) > 0){ //ASK sir if its better to make user input own ID so we
     //can keep track of who gets admin permissions.
-        $_SESSION['firstname'] = "Admin";
-        $_SESSION['lastname'] = "Admin";
-        $_SESSION['AdminLoginValid'] = true;
-        header("Location: AdminHomePage.php");
+        $row = mysqli_fetch_assoc($result);
+
+       // if(password_verify($password, $row['password'])){
+            $_SESSION['Adminfirstname'] = $row['firstname'];
+            $_SESSION['Adminlastname'] = $row['lastname'];
+            $_SESSION['AdminLoginValid'] = true;
+            header("Location: AdminDashboard.php");
+       // }else{
+           // header("Location: LoginOrSignup.php?err");
+       // }
 
     }else{
 
@@ -32,11 +43,11 @@
             $row = mysqli_fetch_assoc($result);
 
             if(password_verify($password, $row['password'])){
-                $_SESSION['userID'] = $row['userID'];
+               // $_SESSION['userID'] = $row['userID'];
                 $_SESSION['firstname'] = $row['firstname'];
                 $_SESSION['lastname'] = $row['lastname'];
-                $_SESSION['email'] = $row['email'];
-                
+               // $_SESSION['email'] = $row['email'];
+
 
                 $_SESSION['LoginValid'] = true;
                 $_SESSION['LoginTime'] = date('Y-m-d H:i:s');
@@ -47,7 +58,7 @@
                 header("Location: LoginOrSignup.php?err");
             }
         }else{
-        
+
         // header("Location: LoginOrSignup.php");
             header("Location: LoginOrSignup.php?err");
         }

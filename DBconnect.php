@@ -1,5 +1,5 @@
 <?php
-  $conn = new mysqli("localhost","root","","slamcom");
+  $conn = mysqli_connect("localhost","root","","slamcom");
 
   if(!$conn){
     die("Connection failed: ".$conn->connection_error);

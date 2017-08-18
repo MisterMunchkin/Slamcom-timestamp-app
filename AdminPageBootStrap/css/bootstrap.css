@@ -2630,6 +2630,7 @@ input[type="search"] {
 }
 .form-group {
   margin-bottom: 15px;
+  width: 32%;
 }
 .radio,
 .checkbox {
@@ -2637,6 +2638,12 @@ input[type="search"] {
   display: block;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.form-div{
+  width: 32%;
+}
+.signIn-div{
+  
 }
 .radio label,
 .checkbox label {

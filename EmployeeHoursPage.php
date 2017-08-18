@@ -15,8 +15,7 @@ include("AdminLoginVerification.php");
 
     <title>SB Admin - Bootstrap Admin Template</title>
 
-    <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-      <link rel = "stylesheet" href = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
 
     <!-- Bootstrap Core CSS -->
     <link href="AdminPageBootStrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,42 +32,7 @@ include("AdminLoginVerification.php");
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 
     <link href="munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
-    <link href="mrjsontable/css/mrjsontable.css" rel="stylesheet" >
-    <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
-
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-
-
-
-    <script language="javascript">
-      angular
-        .module("EmployeeTabApp", ['ngMaterial'])
-        .controller('tabController', tabController);
-
-      function tabController($scope){
-        $scope.data = {
-          selectedIndex: 0,
-          bottom: false,
-          firstLabel: "Active Employees",
-          secondLabel: "Non-Active Employees",
-          thirdLabel: "Weekly"
-
-        };
-        $scope.next = function(){
-          $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
-
-        }
-        $scope.previous = function(){
-          $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
-        }
-      }
-
-    </script>
+    <link href="mrjsontable/css/mrjsontable.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -171,8 +135,8 @@ include("AdminLoginVerification.php");
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php
-                                                                                                                $firstname = $_SESSION['Adminfirstname'];
-                                                                                                                $lastname = $_SESSION['Adminlastname'];
+                                                                                                                $firstname = $_SESSION['firstname'];
+                                                                                                                $lastname = $_SESSION['lastname'];
                                                                                                                 echo "$firstname $lastname";
                                                                                                             ?></small> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -199,9 +163,21 @@ include("AdminLoginVerification.php");
                         <a href="AdminDashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="AdminHomePage.php"><i class="fa fa-fw fa-edit"></i> Employees</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Employees <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li class="active">
+                                <a href="AdminHomePage.php">Active Employees</a>
+                            </li>
+                            <li>
+                                <a href="deletedEmployees.php">Non Active Employees</a>
+                            </li>
+                        </ul>
                     </li>
-    
+                    <!--
+                    <li>
+                      <a href="deletedEmployees.php"><i class="fa fa-fw fa-dashboard"></i> Deleted Employees</a>
+                    </li>
+                  -->
                     <li>
                         <a href="AdminPageBootStrap/charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
                     </li>
@@ -241,14 +217,14 @@ include("AdminLoginVerification.php");
 
         <div id="page-wrapper">
 
-            <div id="mainContent">
+            <div class="container-fluid">
 
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Welcome, <?php
-                                                $name = $_SESSION['Adminfirstname'];
+                                                $name = $_SESSION['firstname'];
                                                 echo "$name";
                                             ?>
                         </h1>
@@ -260,175 +236,93 @@ include("AdminLoginVerification.php");
                     </div>
                 </div>
                 <!-- /.row -->
-                <button id="RButton" class="btn  btn-primary">Refresh</button>
-                <div  id="tableContent" ng-app = "EmployeeTabApp" >
+                <div class="container-fluid">
                   <div id="userEditSuccess" class="alert alert-success" style="display: none;">
 
                   </div>
-                  <div flex layout = "column" id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak >
-                        <!--<div id="ContentContainer">-->
-                            <md-content layout = "column" layout-fill >
-                                <md-tabs  layout-fill class = "md-accent" md-selected = "data.selectedIndex" 
-                                    md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
-                                    <md-tab id = "tab1">
-                                        <md-tab-label>{{data.firstLabel}}</md-tab-label>
-                                        <md-tab-body>
-                                            
-                                            <div class="table-responsive">
-                                                <table id="ActiveEmployeeTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>User ID</th>
-                                                            <th>First name</th>
-                                                            <th>Last name</th>
-                                                            <th>Email add</th>
-                                                            <th>Delete/edit</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <!-- turn this into a form so we can serialize and pass to ajax POST  -->
-                                                        <?php
-                                                            include("DBconnect.php");
-                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailadd` FROM `user` WHERE `active` = 1';
+                    <h2 style="display: inline-block;">Agents</h2>  <button id="refreshButton" type="button" class="btn  btn-primary">Refresh</button>
+                    <div class="table-responsive">
+                        <table id="UsersTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>First name</th>
+                                    <th>Last name</th>
+                                    <th>Email add</th>
+                                    <th>Delete/edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <!-- turn this into a form so we can serialize and pass to ajax POST  -->
+                                <?php
+                                    include("DBconnect.php");
+                                    $query = 'SELECT `userID`, `firstname`, `lastname`, `emailadd` FROM `user` WHERE `active` = 1';
 
-                                                            $result = mysqli_query($conn,$query);
+                                    $result = mysqli_query($conn,$query);
 
-                                                            while($row = mysqli_fetch_array($result)){
-                                                                echo '<tr id='.$row[0].'>
-                                                                        <td>'.$row[0].'</td>
-                                                                        <td>'.$row[1].'</td>
-                                                                        <td>'.$row[2].'</td>
-                                                                        <td>'.$row[3].'</td>
-                                                                        <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                                            <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
-                                                                        </tr>';
-                                                            }
-                                                        ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </md-tab-body>
-                                    </md-tab>
-                                    <md-tab id = "tab2">
-                                        <md-tab-label>{{data.secondLabel}}</md-tab-label>
-                                        <md-tab-body>
-                                            <div class="table-responsive">
-                                                <table id="NonActiveEmployeeTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>User ID</th>
-                                                            <th>First name</th>
-                                                            <th>Last name</th>
-                                                            <th>Email add</th>
-                                                            <th>Delete/edit</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <!-- turn this into a form so we can serialize and pass to ajax POST  -->
-                                                        <?php
-                                                            include("DBconnect.php");
-                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailadd` FROM `user` WHERE `active` = 0';
-
-                                                            $result = mysqli_query($conn,$query);
-
-                                                            
-                                                            while($row = mysqli_fetch_array($result)){
-
-                                                                echo '<tr id='.$row[0].'>
-                                                                        <td>'.$row[0].'</td>
-                                                                        <td>'.$row[1].'</td>
-                                                                        <td>'.$row[2].'</td>
-                                                                        <td>'.$row[3].'</td>
-                                                                        <td><button id="resurrectButton" type="button" class="btn btn-sm btn-primary">Resurrect</button></td>
-
-                                                                        </tr>';
-                                                            }
-                                                        ?>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </md-tab-body>
-                                    </md-tab>
-                                </md-tabs>
-                            </md-content>
-                        <!--</div>-->
+                                    while($row = mysqli_fetch_array($result)){
+                                        echo '<tr id='.$row[0].'>
+                                                <td>'.$row[0].'</td>
+                                                <td>'.$row[1].'</td>
+                                                <td>'.$row[2].'</td>
+                                                <td>'.$row[3].'</td>
+                                                <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                    <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
+                                                </tr>';
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
-                    
                 </div>
             </div>
             <!-- /.container-fluid -->
              <button type="button" id="userbuttonRow" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display: none">Open Modal</button>
 
-                <div ng-app = "UsersModalApp" class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog" role="document">
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
                             <!-- Modal content-->
                             <div class="modal-content">
-
-
                                 <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h4 id="UserModalName" class="modal-title"></h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 id="UserModalName" class="modal-title"></h4>
                                 </div>
-
-
-                                    <div id = "tabContainer" ng-controller = "tabController as ctrl" ng-cloak>
-                                      <md-content class = "md-padding">
-                                        <md-tabs class = "md-accent" md-selected = "data.selectedIndex"
-                                        md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
-                                          <md-tab id = "tab1">
-                                            <md-tab-label>{{data.firstLabel}}</md-tab-label>
-                                            <md-tab-body>
-                                        <!--
-                                        <div class="dropdown" style="float:right;">
-                                            <button class="dropbtn">Sort By</button>
-                                            <div class="dropdown-content">
-                                                <a class="sortByMonth" href="#">Month</a>
-                                                <a class="sortByYear" href="#">Year</a>
-                                                <a class="sortByAllTime" href="#">of All time</a>
-                                            </div>
+                                <div id="ContentContainer" class="modal-body">
+                                    <div class="dropdown" style="float:right;">
+                                        <button class="dropbtn">Sort By</button>
+                                        <div class="dropdown-content">
+                                            <a class="sortByMonth" href="#">Month</a>
+                                            <a class="sortByYear" href="#">Year</a>
+                                            <a class="sortByAllTime" href="#">of All time</a>
                                         </div>
-                                      -->
-                                              <div id="ContentContainer" class="modal-body">
-                                              <div id="userHoursTableContainer" class="table-responsive" style="display: none">
+                                    </div>
+                                    <div id="userHoursTableContainer" class="table-responsive" style="display: none">
 
-                                                  <table id="UserHoursTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%" style="display: none">
-                                                      <thead>
-                                                          <tr>
-                                                              <th>Day</th>
-                                                              <th>Time In</th>
-                                                              <th>Time Out</th>
-                                                              <th>Number of hours</th>
-                                                          </tr>
-                                                      </thead>
-                                                      <tbody id="UserHoursTableBody">
-                                                      </tbody>
-                                                      <tfoot>
-                                                      </tfoot>
-                                                  </table>
-                                              </div>
-                                              <div class="form-group">
-                                                  <span>Total Hours : </span> <input class="form-control" id="totalHours"  name="txt_totalHours" readonly="readonly">
-                                              </div>
-                                              </div>
-                                          </md-tab-body>
-                                          </md-tab>
-
-                                          <md-tab id = "tab2">
-                                            <md-tab-label>{{data.secondLabel}}</md-tab-label>
-                                            <md-tab-body>
-
-                                            </md-tab-body>
-                                          </md-tab>
-
-                                        </md-tabs>
-                                      </md-content>
-
-                                      <div class="modal-footer">
-                                          <button type="button" id="closedefaultUserHours" class="btn btn-default" data-dismiss="modal">Close</button>
-                                      </div>
+                                        <table id="UserHoursTable" class="table table-hover table-striped" cellspacing="0" width="100%" style="display: none">
+                                            <thead>
+                                                <tr>
+                                                    <th>Day</th>
+                                                    <th>Time In</th>
+                                                    <th>Time Out</th>
+                                                    <th>Number of hours</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="UserHoursTableBody">
+                                            </tbody>
+                                            <tfoot>
+                                            </tfoot>
+                                        </table>
                                     </div>
                                 </div>
+                                <div class="modal-footer">
+
+                                    <div class="form-group">
+                                        <span>Total Hours : </span> <input class="form-control" id="totalHours"  name="txt_totalHours" readonly="readonly">
+                                    </div>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
 
                     </div>
                 </div>
@@ -462,7 +356,6 @@ include("AdminLoginVerification.php");
                                 <h4 id="MonthModalName" class="modal-title"></h4>
                                 </div>
                                 <div id="MonthContentContainer" class="modal-body">
-                                  <!--
                                     <div class="dropdown" style="float:right;">
                                         <button class="dropbtn">Sort By</button>
                                         <div class="dropdown-content">
@@ -471,7 +364,6 @@ include("AdminLoginVerification.php");
                                             <a class="sortByAllTime" href="#">of All time</a>
                                         </div>
                                     </div>
-                                  -->
                                     <div id="ContaineruserHoursTableByMonth" class="table-responsive" style="display: none">
 
                                         <table id="UserHoursTableByMonth" class="table table-hover table-striped" cellspacing="0" width="100%" style="display: none">
@@ -495,7 +387,6 @@ include("AdminLoginVerification.php");
                                     <div class="form-group">
                                         <span>Total Hours : </span> <input class="form-control" id="totalHoursByMonth"  name="txt_totalHours" readonly="readonly">
                                     </div>
-                                    <button type="button" class="btn btn-primary">Edit user schedule</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -556,7 +447,6 @@ include("AdminLoginVerification.php");
 
       <!-- jQuery -->
       <script src="HomePageBootStrap/vendor/jquery/jquery.min.js"></script>
-      <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <!--<script src="//code.jquery.com/jquery-1.12.4.js"></script>-->
 
     <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
@@ -567,23 +457,16 @@ include("AdminLoginVerification.php");
 
 
 
-
-
     <script>
         jQuery(document).ready(function(){
-            $(".modal-dialog").draggable();
-            $(".modal-content").resizable();
 
-            $("#myModal").on("show.bs.modal", function(){
-              $(this).find('.modal-body').css({
-                'max-height': '100%'
-              });
-            });
             var userHours;
             var txt = "";
             var userIDfocus;
-            $("#UsersHoursTable").DataTable();
+            $("#UsersHoursTable").DataTable({
+                "bLengthChange":false,
 
+            });
 
 
             function getUserhours(data){
@@ -671,9 +554,6 @@ include("AdminLoginVerification.php");
                 for(var x = 0;x < lengthMonths; x++){
                   generateMonths(dateMonths[x].substring(0,4), dateMonths[x].substring(5,7));
                 }
-
-                $("#closedefaultUserHours").trigger("click");
-                $("#MonthButton").trigger("click");
                   //list is already in ascending order, what if I just group
                 //stringify json before passing to this function
 
@@ -690,7 +570,6 @@ include("AdminLoginVerification.php");
 
                   success: function(data){
                       alert(data);
-
                       // generate table by month here
                       //userHoursByDay(data,firstname,lastname);
                   },
@@ -714,31 +593,22 @@ include("AdminLoginVerification.php");
 
                 txt = "";
             }
+            /*
+            var userTable = $("#UsersTable").DataTable({
+            //  "processing": true,
+            //  "serverSide": true,
+              "ajax": {"url":"userTableBackground.php", "dataSrc":""},
+              "columnDefs": [{
+                "targets": -1,
+                "data": null,
+                "defaultContent":"<button>Delete</button>"
+              }]
 
-            var userTable = $("#ActiveEmployeeTable").DataTable({
+            });
+*/
+            var userTable = $("#UsersTable").DataTable({
               "autoWidth":false
             });
-            var nonActiveTable = $("#NonActiveEmployeeTable").DataTable({
-                "autoWidth": false
-            })
-
-            $("#NonActiveEmployeeTable").on('click','#resurrectButton', function(){
-              var data = nonActiveTable.row($(this).parents('tr')).data();
-
-              $.ajax({
-                type: 'POST',
-                url: 'resurrectEmployee.php',
-                data: {userID : data[0]},
-
-                success: function(data){
-                  alert(data);
-                },
-                error: function(){
-                  console.log("failed to ressurect employee");
-                }
-              });
-            });
-
             function userEditsuccess(){
               $("#userEditSuccess").html("<strong>User successfully edited!</strong>");
               $("#editCloseButton").trigger("click");
@@ -748,7 +618,7 @@ include("AdminLoginVerification.php");
           //  var userIDedit;
 
 
-            $("#ActiveEmployeeTable").on("click",'#editbutton' ,function(){
+            $("#UsersTable").on("click",'#editbutton' ,function(){
                   var data = userTable.row($(this).parents('tr')).data();
                 $("#edituserID").val(data[0]);
                 $("#editFirstname").val(data[1]);
@@ -777,7 +647,7 @@ include("AdminLoginVerification.php");
                 });
             });
 
-            $("#ActiveEmployeeTable").on('click','#delbutton', function(){
+            $("#UsersTable").on('click','#delbutton', function(){
               var data = userTable.row($(this).parents('tr')).data();
               //alert(data[0]);
             //  alert(data[1]+" "+data[2]);
@@ -803,39 +673,37 @@ include("AdminLoginVerification.php");
               });
             });
 
-            $("#RButton").on("click", function(){
+            $("#refreshButton").on("click", function(){
               //$("#nonActiveTable").load("deletedEmployees.php #nonActiveTable");
               window.location.reload();
             });
 
 
 
-            $("#ActiveEmployeeTable tbody").on('click', 'td', function(){
+            $("#UsersTable tbody").on('click', 'td', function(){
                 if($(this).index() == 4){
                     return;
                 }else{
-                //  $("#myModal").data('bs.modal').handleUpdate();
+
+                  var data = userTable.row(this).data();
+
+                  if(data[0]){
+                    window.location = 'EmployeeHoursPage.php/?employeeID=' + data[0];
+                  }
+                  /*
                     var data = userTable.row(this).data();
                     var firstname = data[1];
                     var lastname = data[2];
                     userIDfocus = data[0];
-                    alert(data[0]);
-                    
-                    $.post("UserHoursPageLoader.php", {"userID": data[0], "firstname": data[1], "lastname": data[2]},function(){
-                        window.location.replace("AdminUserPage.php");
-                    });
-                    
-                    /*                    
                     $.ajax({
                         type: 'POST',
-                        url: 'UserHoursPageLoader.php',
+                        url: 'GetUserHours.php',
                         data: {userID: data[0]},
 
                         success: function(data){
-                          //  userHours = data;
-                          alert("hi");
-                          window.location.replace("AdminUserPage.php");
-                            //userHoursByDay(data,firstname,lastname);
+                            userHours = data;
+
+                            userHoursByDay(data,firstname,lastname);
                         },
                         error: function(){
                             console.log("failed in retrieving user hours");
