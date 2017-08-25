@@ -198,12 +198,11 @@ include("AdminLoginVerification.php");
                     <li >
                         <a href="AdminDashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>
+                    <li  class="active">
                         <a href="AdminHomePage.php"><i class="fa fa-fw fa-edit"></i> Employees</a>
-                    </li>
-    
-                    <li>
-                        <a href="AdminPageBootStrap/charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                    </li> 
+                     <li >
+                        <a href="#"><i class="fa fa-fw fa-edit"></i>Admins</a>
                     </li>
                     <li>
                         <a href="AdminPageBootStrap/tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
@@ -247,16 +246,9 @@ include("AdminLoginVerification.php");
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Welcome, <?php
-                                                $name = $_SESSION['Adminfirstname'];
-                                                echo "$name";
-                                            ?>
+                            Employees
                         </h1>
-                        <ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
-                            </li>
-                        </ol>
+                       
                     </div>
                 </div>
                 <!-- /.row -->
