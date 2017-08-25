@@ -12,7 +12,7 @@
 
 
     <!-- Bootstrap Core CSS -->
-    <link href="HomePageBootStrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="HomePageBootStrap/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="HomePageBootStrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -40,101 +40,97 @@
             <div class="header-content-inner">
                 <h1 id="homeHeading">Welcome to Slamcom!</h1>
                 <hr>
-
-                <div class="form-div">
-                    <div class="signIn-div" id="DivLogin">
-                        <h2 class="section-heading">Login</h2>
-                        <hr class="light">
-                        <form action="LoginBackground.php" method="post" id="login_Form">
-                            <div class="form-group">
-                                <input class="form-control" id="LoginEmail" placeholder="email address" name="txt_loginEmail" type="email" autofocus required>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" id="LoginPassword" placeholder="password" name="txt_loginPassword" type="password" required>
-
-                            </div>
-                            <div class="form-group">
-                                <input id="btnLogin" type="submit" class="btn btn-primary btn-xl page-scroll" value="Login">
-                                <!--<button id="btnLogout" class="btn btn-primary btn-cl page-scroll hide">
-                                    Log out
-                                </button>-->
-                            </div>
-                        </form>
-                        <div class="form-group" id="divLoginError" style="display: none;">
-                            <p id="LoginErrorAlert" aria-atomic="true" role="alert">
-                                The email or password you entered does not belong to an account
-                                please check your input.
-                            </p>
-                        </div>
-                        <div class="form-group" id="divFillFields" style="display: none;">
-                            <p id="FillFields" aria-atomic="true" role="alert">
-                                Please fill out required fields.
-                            </p>
+            </div>
+            <div class="form-div">
+                <div class="signIn-div" id="DivLogin">
+                    <h2 class="section-heading">Login</h2>
+                    <hr class="light">
+                    <form action="LoginBackground.php" method="post" id="login_Form">
+                        <div class="form-group">
+                            <input class="form-control" id="LoginEmail" placeholder="email address" name="txt_loginEmail" type="email" autofocus required>
                         </div>
                         <div class="form-group">
-                            <a  id="LoginNoAccount" href="#" >Don't have an account? </a>
-                            <a href="#">||</a>
-                            <a id="forgotPassword" href="forgotpassword.html"> Forgot?</a>
+                            <input class="form-control" id="LoginPassword" placeholder="password" name="txt_loginPassword" type="password" required>
+
                         </div>
+                        <div class="form-group">
+                            <input id="btnLogin" type="submit" class="btn btn-primary btn-xl page-scroll" value="Login">
+                        </div>
+                    </form>
+                    <div class="form-group" id="divLoginError" style="display: none;">
+                        <p id="LoginErrorAlert" aria-atomic="true" role="alert">
+                            The email or password you entered does not belong to an account
+                            please check your input.
+                        </p>
+                    </div>
+                    <div class="form-group" id="divFillFields" style="display: none;">
+                        <p id="FillFields" aria-atomic="true" role="alert">
+                            Please fill out required fields.
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <a  id="LoginNoAccount" href="#" >Don't have an account? </a>
+                        <a href="#">||</a>
+                        <a id="forgotPassword" href="forgotpassword.html"> Forgot?</a>
                     </div>
                 </div>
 
                 <div class="signIn-div" id="DivSignUp" style="display:none;">
                     <h2 class="section-heading">Don't have an account? Sign up</h2>
                     <hr class="light">
-                    <div class="form-div">
-                        <div class="signUp-div">
-                            <form action="signUpBackground.php" method="post" id="signUp_Form">
-                                <div class="form-group">
-                                    <input class="form-control" id="signUpFirstName" placeholder="first name" name="txt_firstname" type="text" autofocus required>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="signUpLastName" placeholder="last name" name="txt_lastname" type="text" required>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="signUpEmail" placeholder="email address" name="txt_signUpEmail" type="email" required>
-                                </div>
-                                <div class="form-group" id="signUpPasswordPadding">
-
-                                    <input class="form-control" id="signUpPassword" placeholder="password" name="txt_signUpPassword" type="password" required>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="signUpConfPassword" placeholder="confirm password" name="txt_userconfpassword" type="password" required>
-                                </div>
-                                <div class="form-group">
-                                    <!--<a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Sign Up!</a>
-                                    <button id="btnSignup" class="btn btn-primary btn-xl page-scroll">
-                                        Sign Up!
-                                    </button>
-                                    -->
-                                    <input id="btnSignup" type="submit" class="btn btn-primary btn-xl page-scroll" value="Sign Up">
-                                </div>
-                            </form>
-                            <div class="divErrorSignUp" id="divFillFieldsSignUp" style="display: none;">
-                                <p id="FillFieldsSignUp" aria-atomic="true" role="alert">
-                                    Please fill out required fields.
-                                </p>
-                            </div>
-                            <div class="divErrorSignUp" id="divErrorConfPassword" style="display:none;">
-                                <p id="PasswordConfErrorSignUp" aria-atomic="true" role="alert">
-                                    Please make sure password confirmation is true.
-                                </p>
-                            </div>
-                            <div class="divErrorSignUp" id="divPasswordLength" style="display:none;">
-                                <p id="PasswordLength" aria-atomic="true" role="alert">
-
-                                    Please make sure password is inbetween 6-20 characters with atleast 1 number.
-
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <a id="signUpHasAcc" href="#">Already have an account?</a>
-                            </div>
+            
+                    <form action="signUpBackground.php" method="post" id="signUp_Form">
+                        <div class="form-group">
+                            <input class="form-control" id="signUpFirstName" placeholder="first name" name="txt_firstname" type="text" autofocus required>
                         </div>
+                        <div class="form-group">
+                            <input class="form-control" id="signUpLastName" placeholder="last name" name="txt_lastname" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="signUpEmail" placeholder="email address" name="txt_signUpEmail" type="email" required>
+                        </div>
+                        <div class="form-group" id="signUpPasswordPadding">
+
+                            <input class="form-control" id="signUpPassword" placeholder="password" name="txt_signUpPassword" type="password" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="signUpConfPassword" placeholder="confirm password" name="txt_userconfpassword" type="password" required>
+                        </div>
+                        <div class="form-group">
+                            <input id="btnSignup" type="submit" class="btn btn-primary btn-xl page-scroll" value="Sign Up">
+                        </div>
+                    </form>
+                    <div class="divErrorSignUp" id="divFillFieldsSignUp" style="display: none;">
+                        <p id="FillFieldsSignUp" aria-atomic="true" role="alert">
+                            Please fill out required fields.
+                        </p>
                     </div>
+                    <div class="divErrorSignUp" id="divErrorConfPassword" style="display:none;">
+                        <p id="PasswordConfErrorSignUp" aria-atomic="true" role="alert">
+                            Please make sure password confirmation is true.
+                        </p>
+                    </div>
+                    <div class="divErrorSignUp" id="divPasswordLength" style="display:none;">
+                        <p id="PasswordLength" aria-atomic="true" role="alert">
+
+                            Please make sure password is inbetween 6-20 characters with atleast 1 number.
+
+                        </p>
+                    </div>
+                    <div class="divErrorSignUp" id="divEmailalreadyexist" style="display:none;">
+                        <p id="PasswordLength" aria-atomic="true" role="alert">
+
+                            The email you entered already exists.
+
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <a id="signUpHasAcc" href="#">Already have an account?</a>
+                    </div>            
                 </div>
             </div>
         </div>
+       
     </header>
 
 
@@ -147,14 +143,26 @@
 
     <script>
         $(document).ready(function(){
-
-
-
             var txtLoginEmail = $('#LoginEmail');
             var txtLoginPassword = $('#LoginPassword');
             var btnLogin = $('#btnLogin');
             var btnLogout = $('#btnLogout');
             var btnLoginNoAccount = $('#LoginNoAccount');
+
+            <?php
+                if(isset($_GET['err'])){
+                    echo '$("#divLoginError").css("display","block")
+                            setTimeout(function() {
+                                $("#divLoginError").fadeOut("slow");
+                            }, 10000); ';
+                }
+                if(isset($_GET['EmailalreadyExist'])){
+                    echo '$("#divEmailalreadyexist").css("display","block")
+                            setTimeout(function() {
+                                $("#divEmailalreadyexist").fadeOut("slow");
+                            }, 10000); ';
+                }
+            ?>
 
             //toggle between login and signup
             $("#LoginNoAccount").click(function(){
@@ -185,7 +193,7 @@
 
                 return ($email.length > 0 && emailReg.test($email));
             }
-            $("#signUpEmail").keyup(function(){
+            $("#signUpEmail").on("input",function(){
                 if(!validateEmail($("#signUpEmail").val())){
                     $("#signUpEmail").css('border-color', 'red');
                     $("#signUpEmail").css('border-width', '2px');
@@ -201,7 +209,7 @@
 
                 return ($password.length > 0 && passwordReg.test($password));
             }
-            $("#signUpPassword").keyup(function(){
+            $("#signUpPassword").on("input",function(){
                 if(!validatePassword($("#signUpPassword").val())){
 
                     $("#signUpPassword").css('border-color', 'red');
@@ -212,7 +220,7 @@
             });
 
             //password confirmation
-            $("#signUpConfPassword").keyup(function(){
+            $("#signUpConfPassword").on("input",function(){
                 if($("#signUpConfPassword").val() == $("#signUpPassword").val()){
                     $("#signUpConfPassword").css('border-color','green');
                     $("#signUpConfPassword").css('border-width', '2px');
@@ -233,7 +241,7 @@
                         $(this).attr('action'),
                         {
                             data: $(this).serialize(),
-                            method: $(this).attr('method'),
+                            method: $(this).attr('POST'),
                             success: function(){
                                 console.log("user logged in");
                             },
@@ -255,7 +263,7 @@
                 }
             });
 
-            $("#signUp_Formp").submit(function(){
+            $("#signUp_Form").submit(function(){
                 var self = this;
 
                 var txtSignUpEmail = $("#signUpEmail").val();
@@ -293,7 +301,7 @@
                                         console.log("user logged in");
                                     },
                                     error: function(){
-                                        alert("something went wrong");
+                                        //alert("something went wrong");
                                     }
                                 }
                             );
