@@ -28,7 +28,7 @@
 
         if(mysqli_num_rows($result) > 0){
             $data_array = array();
-
+           
             while($row = mysqli_fetch_array($result)){
                 $x++;
 

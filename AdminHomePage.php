@@ -25,15 +25,14 @@ include("AdminLoginVerification.php");
     <link href="AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="AdminPageBootStrap/css/plugins/morris.css" rel="stylesheet">
+  
 
     <!-- Custom Fonts -->
     <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 
     <link href="munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
-    <link href="mrjsontable/css/mrjsontable.css" rel="stylesheet" >
+
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 
           <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -198,12 +197,11 @@ include("AdminLoginVerification.php");
                     <li >
                         <a href="AdminDashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>
+                    <li  class="active">
                         <a href="AdminHomePage.php"><i class="fa fa-fw fa-edit"></i> Employees</a>
-                    </li>
-    
-                    <li>
-                        <a href="AdminPageBootStrap/charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                    </li> 
+                     <li >
+                        <a href="#"><i class="fa fa-fw fa-edit"></i>Admins</a>
                     </li>
                     <li>
                         <a href="AdminPageBootStrap/tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
@@ -247,16 +245,9 @@ include("AdminLoginVerification.php");
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Welcome, <?php
-                                                $name = $_SESSION['Adminfirstname'];
-                                                echo "$name";
-                                            ?>
+                            Employees
                         </h1>
-                        <ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
-                            </li>
-                        </ol>
+                       
                     </div>
                 </div>
                 <!-- /.row -->

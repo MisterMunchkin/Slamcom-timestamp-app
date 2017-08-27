@@ -39,3 +39,14 @@
 .dropdown:hover .dropbtn {
     background-color: gray;
 }
+
+.datepickerdemo md-content {
+    display: flex;
+}
+
+.datepickerdemo .validation-messages {
+    font-size: 11px;
+    color: darkred;
+    margin: 10px 0 0 25px;
+}
+

@@ -15,8 +15,9 @@ include("AdminLoginVerification.php");
 
     <title>SB Admin - Bootstrap Admin Template</title>
 
-
-
+   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">-->
+    <link rel = "stylesheet" href= "https://fonts.googleapis.com/icon?family=Material+Icons" >
+    <link rel = "stylesheet" href= "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" >
     <!-- Bootstrap Core CSS -->
     <link href="AdminPageBootStrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -24,57 +25,76 @@ include("AdminLoginVerification.php");
     <link href="AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="AdminPageBootStrap/css/plugins/morris.css" rel="stylesheet">
-
-    
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+   
     <!-- Custom Fonts -->
     <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 
     <link href="munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
-    <link href="mrjsontable/css/mrjsontable.css" rel="stylesheet" />
 
-    <link href="bootstrapmonthPicker/css/style.css" rel="stylesheet">
+ 
+    <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="Dynamic-Weekly-Scheduler-jQuery-Schedule/dist/jquery.schedule.css">
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
-    <link href= "https://fonts.googleapis.com/icon?family=Material+Icons" rel = "stylesheet">
-    <link href= "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" rel = "stylesheet">
-    <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    
 
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-
-
-
-    <script language="javascript">
-      angular
-        .module("tableApplication", ['ngMaterial'])
-        .controller('tabController', tabController);
-
-      function tabController($scope){
-        $scope.data = {
-          selectedIndex: 0,
-          bottom: false,
-          firstLabel: "of All Time",
-          secondLabel: "Monthly",
-          thirdLabel: "Weekly"
-
-        };
-        $scope.next = function(){
-          $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
+    <style>
+        .datepickerdemo md-content{
+            display: flex;
+        
+        }
+        .datepickerdemo .validation-messages{
+            font-size: 11px;
+            color: darkred;
+            margin: 10px 0 0 25px;
+        }
+        .buttondemoBasicUsage section {
+            background: #f7f7f7;
+            border-radius: 3px;
+            text-align: center;
+            margin: 1em;
+            position: relative !important;
+            padding-bottom: 10px; 
+        }
+        .buttondemoBasicUsage md-content {
+            margin-right: 7px; 
+        }
+        .buttondemoBasicUsage section .md-button {
+            margin-top: 16px;
+            margin-bottom: 16px; 
+        }
+        .buttondemoBasicUsage .label {
+            position: absolute;
+            bottom: 5px;
+            left: 7px;
+            font-size: 14px;
+            opacity: 0.54; 
+        }
+        .buttonSize{
+            width:20%;
+     
+        }
+        #startDATE {
+            width: 48%;
+        
+        }
+        #endDATE{
+            width: 38%;
+      
+        }
+        .Row{
+            display: table;
 
         }
-        $scope.previous = function(){
-          $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
+        .Column{
+            display: table-cell;
         }
-      }
-
-    </script>
+    </style>
+    
 </head>
 
 <body>
@@ -201,49 +221,16 @@ include("AdminLoginVerification.php");
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li>
                         <a href="AdminDashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="AdminHomePage.php"><i class="fa fa-fw fa-edit"></i>Employees</a>
                     </li>
-                    <!--
                     <li>
-                      <a href="deletedEmployees.php"><i class="fa fa-fw fa-dashboard"></i> Deleted Employees</a>
+                        <a href="#"><i class="fa fa-fw fa-edit"></i>Admins</a>
                     </li>
-                  -->
-                    <li>
-                        <a href="AdminPageBootStrap/charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
-                    </li>
-                    <li>
-                        <a href="AdminPageBootStrap/tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="AdminPageBootStrap/forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-                    <li>
-                        <a href="AdminPageBootStrap/bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                    </li>
-                    <li>
-                        <a href="AdminPageBootStrap/bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li>
+                   
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -263,111 +250,94 @@ include("AdminLoginVerification.php");
                                                 echo "$firstname";
                                             ?>
                         </h1>
-                        <ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
-                            </li>
-                        </ol>
+                       
                     </div>
                 </div>
                 <!-- /.row -->
-            <div class="container-fluid">
-
-                <div>
-                    <div id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak >
-                        <!--<div id="ContentContainer">-->
-                            <md-content layout = "column" layout-fill>
-                                <md-tabs layout-fill class = "md-accent" md-selected = "data.selectedIndex" 
-                                    md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
-                                    <md-tab id = "tab1">
-                                        <md-tab-label>{{data.firstLabel}}</md-tab-label>
-                                        <md-tab-body>
-                                            <div id="HoursContainer">
-                                                <table id="UserHoursTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Day</th>
-                                                            <th>Time In</th>
-                                                            <th>Time Out</th>
-                                                            <th>Number of hours</th>
-                                                            <th>user ID</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="UserHoursTableBody">
-                                                    <?php
-
-                                                        include("DBconnect.php");
-
-                                                        $userID = $_SESSION["employeeID"];
-
-                                                        $query = "SELECT * FROM `timetable` WHERE `userID` = '$userID'";
-
-                                                        $result = mysqli_query($conn,$query);
-                                                        // echo "$userID";
-
-                                                        $x = 0;
-                                                        while($row = mysqli_fetch_array($result)){
-                                                        // $interval = date_diff($row[0],$row[1]);
-                                                            $x++;
-                                                            echo '<tr id='.$row[0].'>
-                                                                    <td>'.$x.'</td>
-                                                                    <td>'.$row[0].'</td>
-                                                                    <td>'.$row[1].'</td>
-                                                                    <td>'.$row[2].'</td>
-                                                                    <td>'.$row[3].'</td>
-                                                                    </tr>';
-                                                        }
-                                                    ?>
-                                                    </tbody>
-                                                    <tfoot>
-                                                    </tfoot>
-                                                </table>
-                                                <div class="form-group">
-                                                    <span>Total Hours : </span> <input class="form-control" id="totalHours"  name="txt_totalHours" readonly="readonly">
-                                                </div>
-                                            </div>
-                                        </md-tab-body>
-                                    </md-tab>
-                                    <md-tab id = "tab2">
-                                        <md-tab-label>{{data.secondLabel}}</md-tab-label>
-                                        <md-tab-body>
-                                            <div id="MonthContainer">
-                                                                                              
-                                                <p id="DatePicker">
-                                                    <input id = "startDate" type="text" class="date start" placeholder="start date" />                                                 
-                                                    <input id = "endDate" type="text" class="date end" placeholder="end date"/>
-                                                    <button id="submitDateInterval" class="btn  btn-primary">submit</button>
-                                                </p>
-
-                                                <table id="UserMonthTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Day</th>
-                                                            <th>Time In</th>
-                                                            <th>Time Out</th>
-                                                            <th>Number of hours</th>
-                                                            <th>user ID</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="UserMonthTableBody">
-                                                    <?php // add table shit here?>
-                                                    </tbody>
-                                                    <tfoot>
-                                                    </tfoot>
-                                                </table>
-                                                <div class="form-group">
-                                                    <span>Total Hours : </span> <input class="form-control" id="totalHours"  name="txt_totalHours" readonly="readonly">
-                                                </div>
-                                            </div>
-                                        </md-tab-body>
-                                    </md-tab>
-                                </md-tabs>
-                            </md-content>
-                        <!--</div>-->
-                    </div>
-                            
-                </div>
             </div>
+
+          
+                <div id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak style="position: relative;">
+                   
+                    <md-content layout = "column" layout-fill>
+                        <md-tabs layout-fill class = "md-accent" md-selected = "data.selectedIndex" 
+                            md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
+                            <md-tab id = "tab1">
+                                <md-tab-label>{{data.firstLabel}}</md-tab-label>
+                                <md-tab-body>
+                                    <div id="schedule-demo" class="jqs-demo">
+                                        
+                                    </div>
+                                </md-tab-body>
+                            </md-tab>
+                            <md-tab id = "tab2">
+                                <md-tab-label>{{data.secondLabel}}</md-tab-label>
+                                <md-tab-body>
+                                    <div id="MonthContainer">
+                                        <div class="Row">
+                                            <!--<div id="startDATE" class="Column datepickerdemo" ng-controller = "StartdateController as ctrl"
+                                            layout = "column" ng-cloak >
+                                                <md-content>
+                                                    <h4>start date</h4>
+                                                    <md-datepicker id= "STARTDate"
+                                                    ng-model="ctrl.startDate"                                                
+                                                    ng-placeholder="start date"
+                                                    required
+                                                    md-open-on-focus></md-datepicker>
+                                                </md-content>                                
+                                            </div>-->
+                                            <div class = "Column">
+                                                <input type="text" id="startDate" placeholder="start date">
+                                            </div>
+                                           <!-- <div id="endDATE" class=" Column datepickerdemo" ng-controller = "EnddateController as ctrl"
+                                            layout = "column" ng-cloak >
+                                                <md-content>
+                                                    <h4>end date  </h4>
+                                                    <md-datepicker id = "ENDDate" 
+                                                    ng-model="ctrl.endDate"
+                                                    ng-placeholder="end date"
+                                                    required
+                                                    ng-change="onclick()"
+                                                    md-open-on-focus></md-datepicker>                                                 
+                                                </md-content>
+                                                
+                                            </div>-->
+                                            <div class = "Column">
+                                                <input type="text" id="endDate" placeholder="end date">
+                                            </div>
+                                            <div class = "Column buttonSize">
+                                                    <md-button id="submitDateInterval" flex="15" class="md-raised md-primary">submit</md-button>
+                                            </div>
+                                        </div>
+                                        <table id="UserMonthTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
+                                            <thead>
+                                                <tr>
+                                                    
+                                                    <th>Time In</th>
+                                                    <th>Time Out</th>
+                                                    <th>Number of hours</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody id="UserMonthTableBody">
+                                            <?php // add table shit here?>
+                                            </tbody>
+                                            <tfoot>
+                                            </tfoot>
+                                        </table>
+                                        <div class="form-group">
+                                            <span>Total Hours : </span> <input class="form-control" id="totalHours"  name="txt_totalHours" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </md-tab-body>
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
+                   
+                </div>
+                            
+               
+        
             <!-- /.container-fluid -->
 
 
@@ -382,23 +352,33 @@ include("AdminLoginVerification.php");
                                          
 
       <!-- jQuery -->
-      <script src="HomePageBootStrap/vendor/jquery/jquery.min.js"></script>
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <!--  <script src="HomePageBootStrap/vendor/jquery/jquery.min.js"></script> -->
+     <!-- <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script> -->
+        
+        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+          <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+        
+
       <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
-
+    
+                                    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+  
     
     
     
-    <script type="text/javascript" src="DatePair/dist/datepair.js"></script>
-    <script type="text/javascript" src="DatePair/dist/jquery.datepair.js"></script>
-
-    <script type="text/javascript" src="jquery.timepicker.js"></script>
+   
+  
 
     
-    
+    <script> src="Dynamic-Weekly-Scheduler-jQuery-Schedule/dist/jquery.schedule.js"</script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="AdminPageBootStrap/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
@@ -407,56 +387,86 @@ include("AdminLoginVerification.php");
 
 
     <script>
+        
+         var app = angular.module("tableApplication", ['ngMaterial', 'ngMessages']);
+       var STARTDate;
+       var ENDDate;
+        app.controller('tabController', function($scope){
+            $scope.data = {
+            selectedIndex: 0,
+            bottom: false,
+            firstLabel: "Edit Employee schedule",
+            secondLabel: "Employee log",
+          
+
+            };
+            $scope.next = function(){
+                $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
+
+            }
+            $scope.previous = function(){
+                $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
+            }
+
+            
+        });
+        app.controller('StartdateController', function($scope){
+
+          
+         //  STARTDate = moment(this.startDate).format('YYYY-MM-DD');
+          
+        });
+        
+        app.controller('EnddateController', function($scope){
+
+        
+          //  ENDDate = moment(this.endDate).format('YYYY-MM-DD');
+        });
+        
+        app.directive('mdDatepicker', function(){
+            return{
+                link: function(scope, element){
+                    var controller = element.controller('mdDatepicker');
+                    
+                    var event = {
+                        target: document.body
+                    };
+                    var input = element.find('input');
+
+                    input.on('focus', function(e){
+                        scope.$apply(function(){
+                            controller.openCalendarPane(event);
+                        });
+                    });
+                    input.on('click', function(e){
+                        e.stopPropagation();
+                    });
+                }
+            };
+        });
+
         jQuery(document).ready(function(){
 
             var hoursTable = $("#UserHoursTable").DataTable();
-            var monthsTable = $("#UserMonthTable").DataTable();
+        
+           // $("#schedule-demo").jqs();
 
-            /*$("#jan").on("click",function(){
-                
-                var month = 1;
-                MonthAjax(month);
-            });
-            $("#aug").on("click",function(){
-                var month = 8;
-                MonthAjax(month);
-            });
-            */
-            $("#DatePicker .date").datepicker({
-                'format': 'yyyy-mm-dd',
-                'autoclose': true
-            });
-            var datePicker = document.getElementById('DatePicker');
-            var datePair = new Datepair(datePicker);
+            $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
+            $("#endDate").datepicker({dateFormat: 'yy-mm-dd'});
 
-            $('.date-own').datepicker({
-                minViewMode: 2,
-                format: 'yyyy'
-            });
-            
             $("#submitDateInterval").on("click",function(){
                 var startDate = $("#startDate").val();
                 var endDate = $("#endDate").val();
+                
+               
+                alert(startDate);
+                alert(endDate);
+                
 
-                /*
-                var startYear = startDate.substring(0,4);
-                var startMonth = startDate.substring(5,7);
-                var startDay = startDate.substring(8,10);
-                alert(startYear);
-                alert(startMonth);
-                alert(startDay);
-                var endYear = endDate.substring(0,4);
-                var endMonth = endDate.substring(5,7);
-                var endDay = endDate.substring(8,10);
-
-                var start = [startYear,startMonth,startDay];
-                var end = [endYear,endMonth,endDay];
-                //alert(start[0]+""+start[1]+""+start[2]);
-                //alert(end[0]+""+end[1]+""+end[2]);
-                */
                 MonthAjax(startDate,endDate);
             });
 
+            //ajax on history log
             function MonthAjax(startDate, endDate){
                
                 $.ajax({
@@ -471,8 +481,14 @@ include("AdminLoginVerification.php");
                     data: {startDate : startDate,
                             endDate : endDate},
                     success: function(data){
-                        alert("i like kittens");
                         alert(data);
+                      
+                        var response = $.parseJSON(data);
+                        populateUserTable(response);
+
+                        $("#UserMonthTable").DataTable();
+
+                        $("#totalHours").val(getTotalHours(response));
                     },
                     error: function(data){
                         alert(data);
@@ -481,14 +497,63 @@ include("AdminLoginVerification.php");
             }
         });
 
+        //
+        function getTotalHours(response){
+            var len = response.length;
+            var time_In;
+            var time_Out;
+
+            var SS;
+            var MM;
+            var HH;
+            var diff;
+
+            var totalHH = 0;
+            var totalMM = 0;
+
+            var totalformatted
+            if(len > 0){
+                for(var i = 0; i < len && (response[i].timeIn && response[i].timeOut); i++){
+                    time_In = new Date(Date.parse(response[i].timeIn));
+                    time_Out = new Date(Date.parse(response[i].timeOut));
+
+                    diff = time_Out - time_In;
+
+                    SS = diff/1000;
+                    MM = Math.floor((SS % 3600)/60);
+                    HH = Math.floor(SS / 3600);
+
+                    totalHH += HH;
+                    totalMM += MM;
+
+                    alert(totalHH);
+                    alert(totalMM);
+                }
+                totalformatted = ((totalHH < 10) ? ("0" + totalHH) : totalHH) + ":" + ((totalMM < 10) ? ("0" + totalMM)  : totalMM);
+            }else{
+                totalformatted = "00:00";
+            }
+            return totalformatted;
+        }
+
+        //populates after start date and end date php pass
+        function populateUserTable(response){
+            var totalHours = 0;
+            $.each(response, function(i, item){
+                var $tr = $('<tr>').append(
+                    $('<td>').text(item.timeIn),
+                    $('<td>').text(item.timeOut),
+                    $('<td>').text(item.numberOfHours)
+                );
+                //totalHours += new Date(Date.parse(item.numberOfHours));
+                //console.log(totalHours);
+                $('#UserMonthTable tbody').append($tr);
+            });
+            //$("#totalHours").val(totalHours);
+           // console.log(totalHours);
+        }
     </script>
 
-
-
-    <!-- Morris Charts JavaScript -->
-    <script src="AdminPageBootStrap/js/plugins/morris/raphael.min.js"></script>
-    <script src="AdminPageBootStrap/js/plugins/morris/morris.min.js"></script>
-    <script src="AdminPageBootStrap/js/plugins/morris/morris-data.js"></script>
 
 
 
