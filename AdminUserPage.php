@@ -33,13 +33,18 @@ include("AdminLoginVerification.php");
     <link href="munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
 
  
-    <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="Dynamic-Weekly-Scheduler-jQuery-Schedule/dist/jquery.schedule.css">
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
+ 
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="WeeklySchedulerv2/dist/jquery.schedule.css">
+    
+     
+
+    
     
 
     <style>
@@ -265,6 +270,9 @@ include("AdminLoginVerification.php");
                             <md-tab id = "tab1">
                                 <md-tab-label>{{data.firstLabel}}</md-tab-label>
                                 <md-tab-body>
+                                    <div class = "Column buttonSize">
+                                                    <md-button id="submitEmployeeSchedule" flex="15" class="md-raised md-primary">submit</md-button>
+                                            </div>
                                     <div id="schedule-demo" class="jqs-demo">
                                         
                                     </div>
@@ -354,7 +362,12 @@ include("AdminLoginVerification.php");
       <!-- jQuery -->
     <!--  <script src="HomePageBootStrap/vendor/jquery/jquery.min.js"></script> -->
      <!-- <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="WeeklySchedulerv2/dist/jquery.schedule.js"></script>
+
         
+
         <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
           <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
           <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
@@ -368,7 +381,7 @@ include("AdminLoginVerification.php");
       <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
     
                                     
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->
   
     
     
@@ -377,7 +390,7 @@ include("AdminLoginVerification.php");
   
 
     
-    <script> src="Dynamic-Weekly-Scheduler-jQuery-Schedule/dist/jquery.schedule.js"</script>
+    
 
     <!-- Bootstrap Core JavaScript -->
     <script src="AdminPageBootStrap/js/bootstrap.min.js"></script>
@@ -449,7 +462,28 @@ include("AdminLoginVerification.php");
 
             var hoursTable = $("#UserHoursTable").DataTable();
         
-           // $("#schedule-demo").jqs();
+           
+            $("#schedule-demo").jqs({
+               // hour: 12
+            });
+
+            $("#submitEmployeeSchedule").on("click",function(){
+                alert($("#schedule-demo").jqs("export"));
+                var schedule = $("#schedule-demo").jqs("export");
+
+                 $.ajax({
+                    url: "",
+                    method: "POST",
+          
+                    data: {schedule: schedule},
+                    success: function(data){
+                      
+                    },
+                    error: function(data){
+             
+                    }
+                });
+            })
 
             $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
             $("#endDate").datepicker({dateFormat: 'yy-mm-dd'});
@@ -472,12 +506,7 @@ include("AdminLoginVerification.php");
                 $.ajax({
                     url: "exactMonthTableLoader.php",
                     method: "POST",
-                    /*data: {startYear : start[0],
-                            startMonth : start[1],
-                            startDay : start[2],
-                            endYear : end[0],
-                            endMonth : end[1],
-                            endDay : end[2]},*/
+          
                     data: {startDate : startDate,
                             endDate : endDate},
                     success: function(data){
@@ -497,7 +526,7 @@ include("AdminLoginVerification.php");
             }
         });
 
-        //
+        
         function getTotalHours(response){
             var len = response.length;
             var time_In;
@@ -511,23 +540,13 @@ include("AdminLoginVerification.php");
             var totalHH = 0;
             var totalMM = 0;
 
-            var totalformatted
+            var totalformatted = 0;
+
+            var ms;
             if(len > 0){
                 for(var i = 0; i < len && (response[i].timeIn && response[i].timeOut); i++){
-                    time_In = new Date(Date.parse(response[i].timeIn));
-                    time_Out = new Date(Date.parse(response[i].timeOut));
-
-                    diff = time_Out - time_In;
-
-                    SS = diff/1000;
-                    MM = Math.floor((SS % 3600)/60);
-                    HH = Math.floor(SS / 3600);
-
-                    totalHH += HH;
-                    totalMM += MM;
-
-                    alert(totalHH);
-                    alert(totalMM);
+                    ms = moment(response[i].timeOut, "YYYY-MM-DD HH:mm:ss").diff(moment(response[i].timeIn, "YYYY-MM-DD HH:mm:ss"));
+                    var d = moment.duration(ms);
                 }
                 totalformatted = ((totalHH < 10) ? ("0" + totalHH) : totalHH) + ":" + ((totalMM < 10) ? ("0" + totalMM)  : totalMM);
             }else{
@@ -547,6 +566,8 @@ include("AdminLoginVerification.php");
                 );
                 //totalHours += new Date(Date.parse(item.numberOfHours));
                 //console.log(totalHours);
+               // $("#totalHours").val(item.totaHours);
+               // alert(item.totalHours);
                 $('#UserMonthTable tbody').append($tr);
             });
             //$("#totalHours").val(totalHours);
