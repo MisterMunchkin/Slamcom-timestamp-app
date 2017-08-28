@@ -9,12 +9,18 @@ include("loginVerification.php");
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+  <link href="CountDownTimer/inc/TimeCircles.css" rel="stylesheet">
+
+  
+
+  
+
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 </head>
-<body>
+<body ng-app="timer-demo" ng-controller="TimerDemoController">
 
 <div class="container">
   <div class="jumbotron">
@@ -27,29 +33,24 @@ include("loginVerification.php");
 
         echo "<h1> Welcome, $firstname</h1>";
     ?>
-
-    <div class="demo" data-bg-img-url="clock-face20.png">
-
+    <div id="timeCircle">
     </div>
-
-    <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
-    <a class="btn btn-primary btn-lg" href="LogoutBackground.php" role="button">Log Out</a>
+    
+    <a id = "logoutButton"class="btn btn-primary btn-lg" href="LogoutBackground.php" role="button">Log Out</a>
   </div>
-  <p>This is some text.</p>
-  <p>This is another text.</p>
-</div>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-  <script src="jquery.canvasClock.js"></script>
+</div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/javascript" src="CountDownTimer/inc/TimeCircles.js"></script>
+
 
   <script type="text/javascript">
     jQuery(document).ready(function(){
-      jQuery('.canvas-clock').canvasClock({
-        brandName: 'jQueryScript',
-        showSecondHand: true,
-        showMinuteHand: true,
-        showHourHand: true
-      });
+      $("#timeCircle").TimeCircles();
+    });
+
+    $("#logoutButton").on("click",function(){
+      $("#timeCircle.stopwatch").TimeCircles().stop();
     });
   </script>
 
