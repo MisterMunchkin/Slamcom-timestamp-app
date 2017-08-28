@@ -30,11 +30,6 @@ include("AdminLoginVerification.php");
     <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 
-    <link href="munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
-
- 
-    
-
     <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
  
     <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
@@ -43,8 +38,8 @@ include("AdminLoginVerification.php");
     <link rel="stylesheet" href="WeeklySchedulerv2/dist/jquery.schedule.css">
     
      
-
-    
+    <link rel="stylesheet" href="munchkinBootStrap/CSS/userCSS.css">
+    <!--this link won't work and I don't know why -->
     
 
     <style>
@@ -99,16 +94,16 @@ include("AdminLoginVerification.php");
             display: table-cell;
         }
     </style>
-    
+   
 </head>
 
 <body>
 
     <div id="wrapper">
 
-        <!-- Navigation -->
+        <!-- Navigation 
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
+           
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -118,7 +113,7 @@ include("AdminLoginVerification.php");
                 </button>
                 <a class="navbar-brand" href="AdminDashboard.php">SB Admin</a>
             </div>
-            <!-- Top Menu Items -->
+            
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
@@ -201,10 +196,11 @@ include("AdminLoginVerification.php");
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php/*
                                                                                                                 $firstname = $_SESSION['Adminfirstname'];
                                                                                                                 $lastname = $_SESSION['Adminlastname'];
                                                                                                                 echo "$firstname $lastname";
+                                                                                                                */
                                                                                                             ?></small> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
@@ -223,7 +219,7 @@ include("AdminLoginVerification.php");
                     </ul>
                 </li>
             </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
@@ -238,8 +234,10 @@ include("AdminLoginVerification.php");
                    
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
+        
         </nav>
+    -->
+        <?php include("sideBar.php"); ?>
 
         <div  ng-app = "tableApplication" id="page-wrapper">
 

@@ -39,9 +39,9 @@ include("AdminLoginVerification.php");
 
     <div id="wrapper">
 
-        <!-- Navigation -->
+        <!-- Navigation
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
+           
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -51,7 +51,7 @@ include("AdminLoginVerification.php");
                 </button>
                 <a class="navbar-brand" href="AdminDashboard.php">SB Admin</a>
             </div>
-            <!-- Top Menu Items -->
+    
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
@@ -135,9 +135,10 @@ include("AdminLoginVerification.php");
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php
-                                                                                                                $firstname = $_SESSION['Adminfirstname'];
+                                                                                                              /*  $firstname = $_SESSION['Adminfirstname'];
                                                                                                                 $lastname = $_SESSION['Adminlastname'];
                                                                                                                 echo "$firstname $lastname";
+                                                                                                                */
                                                                                                             ?></small> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
@@ -156,7 +157,7 @@ include("AdminLoginVerification.php");
                     </ul>
                 </li>
             </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+           
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
@@ -165,22 +166,9 @@ include("AdminLoginVerification.php");
                     <li>
                         <a href="AdminHomePage.php"><i class="fa fa-fw fa-table"></i> Employees</a>
                     </li>
-                    <!--
+               
                     <li>
-                      <a href="deletedEmployees.php"><i class="fa fa-fw fa-dashboard"></i> Deleted Employees</a>
-                    </li>
-                  -->
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Admin <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="AdminHomePage.php">Active Admin</a>
-                            </li>
-                            <li>
-                                <a href="deletedEmployees.php">InActive Admin</a>
-                            </li>
-              
-                        </ul>
+                        <a href="#"><i class="fa fa-fw fa-edit"></i>Admins</a>
                     </li>
                     <li>
                         <a href="AdminPageBootStrap/tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
@@ -213,8 +201,10 @@ include("AdminLoginVerification.php");
                     </li>
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
+      
         </nav>
+ -->
+        <?php include("sideBar.php"); ?>
 
         <div id="page-wrapper">
 

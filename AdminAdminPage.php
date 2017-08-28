@@ -26,48 +26,70 @@ include("AdminLoginVerification.php");
     <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 
   
-
+    <link href="munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
     <!-- Custom Fonts -->
     <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 
+    <!--this link won't work and I don't know why -->
     <link href="munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
 
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-          <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-
-
-
-    <script language="javascript">
-      angular
-        .module("EmployeeTabApp", ['ngMaterial'])
-        .controller('tabController', tabController);
-
-      function tabController($scope){
-        $scope.data = {
-          selectedIndex: 0,
-          bottom: false,
-          firstLabel: "Active Employees",
-          secondLabel: "Non-Active Employees",
-          thirdLabel: "Weekly"
-
-        };
-        $scope.next = function(){
-          $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
+     <style>
+        .datepickerdemo md-content{
+            display: flex;
+        
+        }
+        .datepickerdemo .validation-messages{
+            font-size: 11px;
+            color: darkred;
+            margin: 10px 0 0 25px;
+        }
+        .buttondemoBasicUsage section {
+            background: #f7f7f7;
+            border-radius: 3px;
+            text-align: center;
+            margin: 1em;
+            position: relative !important;
+            padding-bottom: 10px; 
+        }
+        .buttondemoBasicUsage md-content {
+            margin-right: 7px; 
+        }
+        .buttondemoBasicUsage section .md-button {
+            margin-top: 16px;
+            margin-bottom: 16px; 
+        }
+        .buttondemoBasicUsage .label {
+            position: absolute;
+            bottom: 5px;
+            left: 7px;
+            font-size: 14px;
+            opacity: 0.54; 
+        }
+        .buttonSize{
+           /* width:20%;*/
+            display: inline-block;
+        }
+        #startDATE {
+            width: 48%;
+        
+        }
+        #endDATE{
+            width: 38%;
+      
+        }
+        .Row{
+            display: table;
 
         }
-        $scope.previous = function(){
-          $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
+        .Column{
+            display: table-cell;
         }
-      }
+    </style>
+ 
 
-    </script>
 </head>
 
 <body>
@@ -239,7 +261,7 @@ include("AdminLoginVerification.php");
         </nav>
 -->
         <?php include("sideBar.php"); ?>
-
+        
         <div id="page-wrapper">
 
             <div id="mainContent">
@@ -248,17 +270,27 @@ include("AdminLoginVerification.php");
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Employees
+                            Admins
                         </h1>
                        
                     </div>
                 </div>
                 <!-- /.row -->
-                <button id="RButton" class="btn  btn-primary">Refresh</button>
+                
                 <div  id="tableContent" ng-app = "EmployeeTabApp" >
                   <div id="userEditSuccess" class="alert alert-success" style="display: none;">
 
                   </div>
+                    <div class="Row">
+                        <div class="Column">
+                            <button id="RButton" class="btn  btn-primary" style="display:inline;">Refresh</button>
+                        </div>
+                        <div class="Column">
+                           <!-- <md-button id="addNewAdmin" class="md-raised md-primary">add new admin</md-button>-->
+                        </div>
+                    </div>
+                    
+                   
                   <div flex layout = "column" id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak >
                         <!--<div id="ContentContainer">-->
                             <md-content layout = "column" layout-fill >
@@ -269,6 +301,16 @@ include("AdminLoginVerification.php");
                                         <md-tab-body>
                                             
                                             <div class="table-responsive">
+                                                make form for new admins
+                                            </div>
+                                        </md-tab-body>
+                                    </md-tab>
+                                    <md-tab id = "tab2">
+                                        <md-tab-label>{{data.secondLabel}}</md-tab-label>
+                                        <md-tab-body>
+                                            
+                                            <div class="table-responsive">
+                                                tab for active admin
                                                 <table id="ActiveEmployeeTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
                                                     <thead>
                                                         <tr>
@@ -303,10 +345,11 @@ include("AdminLoginVerification.php");
                                             </div>
                                         </md-tab-body>
                                     </md-tab>
-                                    <md-tab id = "tab2">
-                                        <md-tab-label>{{data.secondLabel}}</md-tab-label>
+                                    <md-tab id = "tab3">
+                                        <md-tab-label>{{data.thirdLabel}}</md-tab-label>
                                         <md-tab-body>
                                             <div class="table-responsive">
+                                                tab for inactive admin
                                                 <table id="NonActiveEmployeeTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
                                                     <thead>
                                                         <tr>
@@ -351,9 +394,82 @@ include("AdminLoginVerification.php");
                     
                 </div>
             </div>
+            <!-- /.container-fluid 
+             <button type="button" id="userbuttonRow" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display: none">Open Modal</button>
 
-                
-                <!--delete Modal -->
+                <div ng-app = "UsersModalApp" class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog" role="document">
+                           
+                            <div class="modal-content">
+
+
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 id="UserModalName" class="modal-title"></h4>
+                                </div>
+
+
+                                    <div id = "tabContainer" ng-controller = "tabController as ctrl" ng-cloak>
+                                      <md-content class = "md-padding">
+                                        <md-tabs class = "md-accent" md-selected = "data.selectedIndex"
+                                        md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
+                                          <md-tab id = "tab1">
+                                            <md-tab-label>{{data.firstLabel}}</md-tab-label>
+                                            <md-tab-body>
+                                        <!--
+                                        <div class="dropdown" style="float:right;">
+                                            <button class="dropbtn">Sort By</button>
+                                            <div class="dropdown-content">
+                                                <a class="sortByMonth" href="#">Month</a>
+                                                <a class="sortByYear" href="#">Year</a>
+                                                <a class="sortByAllTime" href="#">of All time</a>
+                                            </div>
+                                        </div>
+                                 
+                                              <div id="ContentContainer" class="modal-body">
+                                              <div id="userHoursTableContainer" class="table-responsive" style="display: none">
+
+                                                  <table id="UserHoursTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%" style="display: none">
+                                                      <thead>
+                                                          <tr>
+                                                              <th>Day</th>
+                                                              <th>Time In</th>
+                                                              <th>Time Out</th>
+                                                              <th>Number of hours</th>
+                                                          </tr>
+                                                      </thead>
+                                                      <tbody id="UserHoursTableBody">
+                                                      </tbody>
+                                                      <tfoot>
+                                                      </tfoot>
+                                                  </table>
+                                              </div>
+                                              <div class="form-group">
+                                                  <span>Total Hours : </span> <input class="form-control" id="totalHours"  name="txt_totalHours" readonly="readonly">
+                                              </div>
+                                              </div>
+                                          </md-tab-body>
+                                          </md-tab>
+
+                                          <md-tab id = "tab2">
+                                            <md-tab-label>{{data.secondLabel}}</md-tab-label>
+                                            <md-tab-body>
+
+                                            </md-tab-body>
+                                          </md-tab>
+
+                                        </md-tabs>
+                                      </md-content>
+
+                                      <div class="modal-footer">
+                                          <button type="button" id="closedefaultUserHours" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                </div>
+
+                    </div>
+                </div>
+-->
                 <button type="button" id="DeleteUsertrapButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#DeleteUserModal" style="display: none">Open Modal</button>
                 <div class="modal fade" id="DeleteUserModal" role="dialog">
                     <div class="modal-dialog">
@@ -370,13 +486,12 @@ include("AdminLoginVerification.php");
 
                     </div>
                 </div>
-<!-- dont need this anymore
+<!--
                 <button type="button" id="MonthButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#MonthModal" style="display: none">Open Modal</button>
-                
+
                 <div class="modal fade" id="MonthModal" role="dialog">
                     <div class="modal-dialog">
 
-                            
                             <div class="modal-content">
                                 <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -392,7 +507,7 @@ include("AdminLoginVerification.php");
                                             <a class="sortByAllTime" href="#">of All time</a>
                                         </div>
                                     </div>
-                            
+                          
                                     <div id="ContaineruserHoursTableByMonth" class="table-responsive" style="display: none">
 
                                         <table id="UserHoursTableByMonth" class="table table-hover table-striped" cellspacing="0" width="100%" style="display: none">
@@ -423,7 +538,7 @@ include("AdminLoginVerification.php");
 
                     </div>
                 </div>
-                    -->
+-->
                 <button type="button" id="employeeEditButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#employeeEditModal" style="display: none">Open Modal</button>
                 <div class="modal fade" id="employeeEditModal" role="dialog">
                     <div class="modal-dialog">
@@ -476,8 +591,16 @@ include("AdminLoginVerification.php");
     <!-- /#wrapper -->
 
       <!-- jQuery -->
-      <script src="HomePageBootStrap/vendor/jquery/jquery.min.js"></script>
-      <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
     <!--<script src="//code.jquery.com/jquery-1.12.4.js"></script>-->
 
     <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
@@ -491,6 +614,37 @@ include("AdminLoginVerification.php");
 
 
     <script>
+
+        var app = angular.module("EmployeeTabApp", ['ngMaterial'])
+     
+
+        app.controller('tabController', function($scope){
+            $scope.data = {
+            selectedIndex: 0,
+            bottom: false,
+            firstLabel: "Add new admin",
+            secondLabel: "Active admin",
+            thirdLabel: "Inactive admin"
+
+            };
+            $scope.next = function(){
+                $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
+
+            }
+            $scope.previous = function(){
+                $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
+            }    
+        });
+
+        app.controller('fabController', function(){
+            this.topDirections = 'up';
+            this.isOpen - false;
+
+            this.availableModes = 'md-fling';
+            this.selectedMode = 'md-fling';
+            this.sele
+        });
+
         jQuery(document).ready(function(){
             $(".modal-dialog").draggable();
             $(".modal-content").resizable();
