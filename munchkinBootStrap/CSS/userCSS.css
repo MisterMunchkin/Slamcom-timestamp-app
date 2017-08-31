@@ -75,7 +75,11 @@
      font-size: 14px;
      opacity: 0.54;
  }
-
+.FAB{
+  position: absolute;
+  bottom:0;
+  right:0;
+}
  .buttonSize {
      width: 20%;
  }

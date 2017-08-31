@@ -25,27 +25,27 @@ include("AdminLoginVerification.php");
     <link href="AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 
-   
+
     <!-- Custom Fonts -->
     <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 
     <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
- 
+
     <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="WeeklySchedulerv2/dist/jquery.schedule.css">
-    
-     
+
+
     <link rel="stylesheet" href="munchkinBootStrap/CSS/userCSS.css">
     <!--this link won't work and I don't know why -->
-    
+
 
     <style>
         .datepickerdemo md-content{
             display: flex;
-        
+
         }
         .datepickerdemo .validation-messages{
             font-size: 11px;
@@ -58,33 +58,33 @@ include("AdminLoginVerification.php");
             text-align: center;
             margin: 1em;
             position: relative !important;
-            padding-bottom: 10px; 
+            padding-bottom: 10px;
         }
         .buttondemoBasicUsage md-content {
-            margin-right: 7px; 
+            margin-right: 7px;
         }
         .buttondemoBasicUsage section .md-button {
             margin-top: 16px;
-            margin-bottom: 16px; 
+            margin-bottom: 16px;
         }
         .buttondemoBasicUsage .label {
             position: absolute;
             bottom: 5px;
             left: 7px;
             font-size: 14px;
-            opacity: 0.54; 
+            opacity: 0.54;
         }
         .buttonSize{
             width:20%;
-     
+
         }
         #startDATE {
             width: 48%;
-        
+
         }
         #endDATE{
             width: 38%;
-      
+
         }
         .Row{
             display: table;
@@ -94,16 +94,16 @@ include("AdminLoginVerification.php");
             display: table-cell;
         }
     </style>
-   
+
 </head>
 
 <body>
 
     <div id="wrapper">
 
-        <!-- Navigation 
+        <!-- Navigation
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-           
+
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -113,7 +113,7 @@ include("AdminLoginVerification.php");
                 </button>
                 <a class="navbar-brand" href="AdminDashboard.php">SB Admin</a>
             </div>
-            
+
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
@@ -219,7 +219,7 @@ include("AdminLoginVerification.php");
                     </ul>
                 </li>
             </ul>
-            
+
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
@@ -231,10 +231,10 @@ include("AdminLoginVerification.php");
                     <li>
                         <a href="#"><i class="fa fa-fw fa-edit"></i>Admins</a>
                     </li>
-                   
+
                 </ul>
             </div>
-        
+
         </nav>
     -->
         <?php include("sideBar.php"); ?>
@@ -253,26 +253,26 @@ include("AdminLoginVerification.php");
                                                 echo "$firstname";
                                             ?>
                         </h1>
-                       
+
                     </div>
                 </div>
                 <!-- /.row -->
             </div>
 
-          
+
                 <div id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak style="position: relative;">
-                   
+
                     <md-content layout = "column" layout-fill>
-                        <md-tabs layout-fill class = "md-accent" md-selected = "data.selectedIndex" 
+                        <md-tabs layout-fill class = "md-accent" md-selected = "data.selectedIndex"
                             md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
                             <md-tab id = "tab1">
                                 <md-tab-label>{{data.firstLabel}}</md-tab-label>
                                 <md-tab-body>
                                     <div class = "Column buttonSize">
                                                     <md-button id="submitEmployeeSchedule" flex="15" class="md-raised md-primary">submit</md-button>
-                                            </div>
+                                    </div>
                                     <div id="schedule-demo" class="jqs-demo">
-                                        
+
                                     </div>
                                 </md-tab-body>
                             </md-tab>
@@ -286,11 +286,11 @@ include("AdminLoginVerification.php");
                                                 <md-content>
                                                     <h4>start date</h4>
                                                     <md-datepicker id= "STARTDate"
-                                                    ng-model="ctrl.startDate"                                                
+                                                    ng-model="ctrl.startDate"
                                                     ng-placeholder="start date"
                                                     required
                                                     md-open-on-focus></md-datepicker>
-                                                </md-content>                                
+                                                </md-content>
                                             </div>-->
                                             <div class = "Column">
                                                 <input type="text" id="startDate" placeholder="start date">
@@ -299,14 +299,14 @@ include("AdminLoginVerification.php");
                                             layout = "column" ng-cloak >
                                                 <md-content>
                                                     <h4>end date  </h4>
-                                                    <md-datepicker id = "ENDDate" 
+                                                    <md-datepicker id = "ENDDate"
                                                     ng-model="ctrl.endDate"
                                                     ng-placeholder="end date"
                                                     required
                                                     ng-change="onclick()"
-                                                    md-open-on-focus></md-datepicker>                                                 
+                                                    md-open-on-focus></md-datepicker>
                                                 </md-content>
-                                                
+
                                             </div>-->
                                             <div class = "Column">
                                                 <input type="text" id="endDate" placeholder="end date">
@@ -318,11 +318,11 @@ include("AdminLoginVerification.php");
                                         <table id="UserMonthTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
                                             <thead>
                                                 <tr>
-                                                    
+
                                                     <th>Time In</th>
                                                     <th>Time Out</th>
                                                     <th>Number of hours</th>
-                                                    
+
                                                 </tr>
                                             </thead>
                                             <tbody id="UserMonthTableBody">
@@ -339,11 +339,11 @@ include("AdminLoginVerification.php");
                             </md-tab>
                         </md-tabs>
                     </md-content>
-                   
+
                 </div>
-                            
-               
-        
+
+
+
             <!-- /.container-fluid -->
 
 
@@ -355,7 +355,7 @@ include("AdminLoginVerification.php");
 
     </div>
     <!-- /#wrapper -->
-                                         
+
 
       <!-- jQuery -->
     <!--  <script src="HomePageBootStrap/vendor/jquery/jquery.min.js"></script> -->
@@ -364,7 +364,7 @@ include("AdminLoginVerification.php");
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script src="WeeklySchedulerv2/dist/jquery.schedule.js"></script>
 
-        
+
 
         <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
           <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
@@ -374,21 +374,21 @@ include("AdminLoginVerification.php");
           <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
           <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 
-        
+
 
       <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
-    
-                                    
-   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->
-  
-    
-    
-    
-   
-  
 
-    
-    
+
+   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->
+
+
+
+
+
+
+
+
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="AdminPageBootStrap/js/bootstrap.min.js"></script>
@@ -398,7 +398,7 @@ include("AdminLoginVerification.php");
 
 
     <script>
-        
+
          var app = angular.module("tableApplication", ['ngMaterial', 'ngMessages']);
        var STARTDate;
        var ENDDate;
@@ -408,7 +408,7 @@ include("AdminLoginVerification.php");
             bottom: false,
             firstLabel: "Edit Employee schedule",
             secondLabel: "Employee log",
-          
+
 
             };
             $scope.next = function(){
@@ -419,26 +419,26 @@ include("AdminLoginVerification.php");
                 $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
             }
 
-            
+
         });
         app.controller('StartdateController', function($scope){
 
-          
+
          //  STARTDate = moment(this.startDate).format('YYYY-MM-DD');
-          
+
         });
-        
+
         app.controller('EnddateController', function($scope){
 
-        
+
           //  ENDDate = moment(this.endDate).format('YYYY-MM-DD');
         });
-        
+
         app.directive('mdDatepicker', function(){
             return{
                 link: function(scope, element){
                     var controller = element.controller('mdDatepicker');
-                    
+
                     var event = {
                         target: document.body
                     };
@@ -459,8 +459,8 @@ include("AdminLoginVerification.php");
         jQuery(document).ready(function(){
 
             var hoursTable = $("#UserHoursTable").DataTable();
-        
-           
+
+
             $("#schedule-demo").jqs({
                // hour: 12
             });
@@ -470,52 +470,47 @@ include("AdminLoginVerification.php");
                 var schedule = $("#schedule-demo").jqs("export");
 
                  $.ajax({
-                    url: "",
+                    url: "insertScheduleBackground.php",
                     method: "POST",
-          
+
                     data: {schedule: schedule},
                     success: function(data){
-                      
+
                     },
                     error: function(data){
-             
+
                     }
                 });
             })
-
+            //initialization of datepickers
             $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
             $("#endDate").datepicker({dateFormat: 'yy-mm-dd'});
 
             $("#submitDateInterval").on("click",function(){
                 var startDate = $("#startDate").val();
                 var endDate = $("#endDate").val();
-                
-               
-                alert(startDate);
-                alert(endDate);
-                
+
 
                 MonthAjax(startDate,endDate);
             });
 
             //ajax on history log
             function MonthAjax(startDate, endDate){
-               
+
                 $.ajax({
                     url: "exactMonthTableLoader.php",
                     method: "POST",
-          
+
                     data: {startDate : startDate,
                             endDate : endDate},
                     success: function(data){
-                        alert(data);
-                      
+                      //  alert(data);
                         var response = $.parseJSON(data);
                         populateUserTable(response);
 
                         $("#UserMonthTable").DataTable();
-
-                        $("#totalHours").val(getTotalHours(response));
+                      //  getTotalHours(response);
+                        //$("#totalHours").val(getTotalHours(response));
                     },
                     error: function(data){
                         alert(data);
@@ -524,35 +519,6 @@ include("AdminLoginVerification.php");
             }
         });
 
-        
-        function getTotalHours(response){
-            var len = response.length;
-            var time_In;
-            var time_Out;
-
-            var SS;
-            var MM;
-            var HH;
-            var diff;
-
-            var totalHH = 0;
-            var totalMM = 0;
-
-            var totalformatted = 0;
-
-            var ms;
-            if(len > 0){
-                for(var i = 0; i < len && (response[i].timeIn && response[i].timeOut); i++){
-                    ms = moment(response[i].timeOut, "YYYY-MM-DD HH:mm:ss").diff(moment(response[i].timeIn, "YYYY-MM-DD HH:mm:ss"));
-                    var d = moment.duration(ms);
-                }
-                totalformatted = ((totalHH < 10) ? ("0" + totalHH) : totalHH) + ":" + ((totalMM < 10) ? ("0" + totalMM)  : totalMM);
-            }else{
-                totalformatted = "00:00";
-            }
-            return totalformatted;
-        }
-
         //populates after start date and end date php pass
         function populateUserTable(response){
             var totalHours = 0;
@@ -560,16 +526,34 @@ include("AdminLoginVerification.php");
                 var $tr = $('<tr>').append(
                     $('<td>').text(item.timeIn),
                     $('<td>').text(item.timeOut),
-                    $('<td>').text(item.numberOfHours)
+                    $('<td>').html("<p class='totalHour'>"+item.numberOfHours+"</p>")
                 );
-                //totalHours += new Date(Date.parse(item.numberOfHours));
-                //console.log(totalHours);
-               // $("#totalHours").val(item.totaHours);
-               // alert(item.totalHours);
+
                 $('#UserMonthTable tbody').append($tr);
             });
-            //$("#totalHours").val(totalHours);
-           // console.log(totalHours);
+            var t1 = "00:00";
+            var mins = 0;
+            var hours = 0;
+            var numrow = 0;
+            $(".totalHour").each(function(){
+
+                numrow++;
+                t1 = t1.split(':');
+                var t2 = $(this).text().split(':');
+                mins = parseInt(t1[1]) + parseInt(t2[1]);
+                alert(t1[1]);
+                var minhrs = Math.floor(parseInt(mins/60));
+                hours = Number(t1[0]) + Number(t2[0]) + minhrs;
+                mins = mins % 60;
+                t1 = padTime(hours) + ':' + padTime(mins);
+                console.log(t1);
+
+            });
+            alert(t1);
+            $("#totalHours").val(t1);
+        }
+        function padTime(time){
+            return (time < 10)? '0' + time : time;
         }
     </script>
 

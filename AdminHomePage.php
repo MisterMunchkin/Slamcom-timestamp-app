@@ -25,7 +25,7 @@ include("AdminLoginVerification.php");
     <link href="AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 
-  
+
 
     <!-- Custom Fonts -->
     <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -45,17 +45,15 @@ include("AdminLoginVerification.php");
 
 
     <script language="javascript">
-      angular
-        .module("EmployeeTabApp", ['ngMaterial'])
-        .controller('tabController', tabController);
+      var app  = angular.module("EmployeeTabApp", ['ngMaterial'])
 
-      function tabController($scope){
+      app.controller('tabController', function($scope){
         $scope.data = {
           selectedIndex: 0,
           bottom: false,
           firstLabel: "Active Employees",
           secondLabel: "Non-Active Employees",
-          thirdLabel: "Weekly"
+          thirdLabel: "Teams"
 
         };
         $scope.next = function(){
@@ -65,18 +63,52 @@ include("AdminLoginVerification.php");
         $scope.previous = function(){
           $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
         }
-      }
+      });
+      app.controller('FABCtrl', function(){
+        this.topDirections = 'up';
+        this.bottomDirections = 'down';
 
+        this.isOpen = false;
+        this.availableModes = 'md-fling';
+        this.selectedMode = 'md-fling';
+        this.availableDirections = 'up';
+        this.selectedDirection = 'up';
+      });
+/*
+      app.controller('gridListCtrl', function(){
+        this.tiles = buildGridModel({
+          title: "Team-",
+          background: ""
+        });
+        function buildGridModel(tileTmpl){
+          var it, results = [];
+          $http.get('getAllTeams.php').success(function(data){
+            $scope.teams = $.parseJSON(data);
+          });
+          var len = $scope.teams;
+          for(var j = 0; j < len; j++){
+
+          }
+        }
+      });
+      */
     </script>
+    <style>
+      .FAB{
+        position: fixed;
+        bottom:0;
+        right:0;
+      }
+    </style>
 </head>
 
 <body>
 
-    <div id="wrapper">
+    <div id="wrapper" ng-app = "EmployeeTabApp">
 
-        <!-- Navigation 
+        <!-- Navigation
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-         
+
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -86,7 +118,7 @@ include("AdminLoginVerification.php");
                 </button>
                 <a class="navbar-brand" href="AdminDashboard.php">SB Admin</a>
             </div>
-           
+
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
@@ -192,7 +224,7 @@ include("AdminLoginVerification.php");
                     </ul>
                 </li>
             </ul>
-     
+
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li >
@@ -200,7 +232,7 @@ include("AdminLoginVerification.php");
                     </li>
                     <li  class="active">
                         <a href="AdminHomePage.php"><i class="fa fa-fw fa-edit"></i> Employees</a>
-                    </li> 
+                    </li>
                      <li >
                         <a href="#"><i class="fa fa-fw fa-edit"></i>Admins</a>
                     </li>
@@ -235,14 +267,14 @@ include("AdminLoginVerification.php");
                     </li>
                 </ul>
             </div>
-           
+
         </nav>
 -->
         <?php include("sideBar.php"); ?>
 
         <div id="page-wrapper">
 
-            <div id="mainContent">
+            <div id="mainContent" >
 
                 <!-- Page Heading -->
                 <div class="row">
@@ -250,24 +282,24 @@ include("AdminLoginVerification.php");
                         <h1 class="page-header">
                             Employees
                         </h1>
-                       
+
                     </div>
                 </div>
                 <!-- /.row -->
                 <button id="RButton" class="btn  btn-primary">Refresh</button>
-                <div  id="tableContent" ng-app = "EmployeeTabApp" >
+                <div  id="tableContent"  >
                   <div id="userEditSuccess" class="alert alert-success" style="display: none;">
 
                   </div>
                   <div flex layout = "column" id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak >
                         <!--<div id="ContentContainer">-->
                             <md-content layout = "column" layout-fill >
-                                <md-tabs  layout-fill class = "md-accent" md-selected = "data.selectedIndex" 
+                                <md-tabs  layout-fill class = "md-accent" md-selected = "data.selectedIndex"
                                     md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
                                     <md-tab id = "tab1">
                                         <md-tab-label>{{data.firstLabel}}</md-tab-label>
                                         <md-tab-body>
-                                            
+
                                             <div class="table-responsive">
                                                 <table id="ActiveEmployeeTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
                                                     <thead>
@@ -325,7 +357,7 @@ include("AdminLoginVerification.php");
 
                                                             $result = mysqli_query($conn,$query);
 
-                                                            
+
                                                             while($row = mysqli_fetch_array($result)){
 
                                                                 echo '<tr id='.$row[0].'>
@@ -344,15 +376,96 @@ include("AdminLoginVerification.php");
                                             </div>
                                         </md-tab-body>
                                     </md-tab>
+                                    <md-tab id = "tab3">
+                                        <md-tab-label>{{data.thirdLabel}}</md-tab-label>
+                                        <md-tab-body>
+                                            <div class="table-responsive">
+                                                <table id="TeamTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Team ID</th>
+                                                            <th>Team Name</th>
+                                                            <th>Team Description</th>
+
+                                                            <th>Delete/edit</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <!-- turn this into a form so we can serialize and pass to ajax POST-->
+                                                        <?php
+                                                          include("DBconnect.php");
+                                                          $sql = "SELECT * FROM `Team` WHERE 1";
+
+                                                          $result = mysqli_query($conn, $sql);
+
+                                                          if(mysqli_num_rows($result) > 0){
+                                                              $data_array = array();
+
+                                                              while($row = mysqli_fetch_array($result)){
+                                                                  /*
+                                                                  $data_array[] = array(
+                                                                      'TeamID' => $row['TeamID'],
+                                                                      'TeamName' => $row['TeamName'],
+                                                                      'TeamDesc' => $row['TeamDesc']
+                                                                  );
+                                                                  */
+                                                                  echo '<tr id='.$row['TeamID'].'>
+                                                                          <td>'.$row['TeamID'].'</td>
+                                                                          <td>'.$row['TeamName'].'</td>
+                                                                          <td>'.$row['TeamDesc'].'</td>
+
+                                                                          <td><button id="delTeambutton" type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                                              <button id="editTeambutton" type="button" class="btn btn-sm btn-warning">Edit</button></td>
+
+                                                                          </tr>';
+                                                              }
+                                                              /*
+                                                              $json = json_encode($data_array);
+                                                              echo $json;
+                                                              */
+                                                          }else{
+                                                            echo "no data";
+                                                          }
+
+                                                        ?>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </md-tab-body>
+                                    </md-tab>
                                 </md-tabs>
                             </md-content>
                         <!--</div>-->
                     </div>
-                    
+
+                </div>
+                <div ng-controller="FABCtrl as demo" class="FAB" ng-cloak>
+                    <md-content>
+                        <md-fab-speed-dial md-open="demo.isOpen"
+                            md-direction="{{demo.selectedDirection}}"
+                              ng-class="demo.selectedMode">
+                              <md-fab-trigger>
+                                <md-button aria-label="menu" class="md-fab md-primary">
+                                  <md-icon md-svg-src="img/icons/addIcon.svg"></md-icon>
+                                </md-button>
+                              </md-fab-trigger>
+
+                              <md-fab-actions>
+                                <md-button id="AddEmployee" aria-label="employee" class="md-fab md-raised">
+                                  <md-icon md-svg-src="img/icons/employeeIcon.svg"></md-icon>
+                                </md-button>
+                                <md-button id="AddTeam" aria-label="team" class="md-fab md-raised">
+                                  <md-icon md-svg-src="img/icons/teamIcon.svg"></md-icon>
+                                </md-button>
+                              </md-fab-actions>
+                        </md-fab-speed-dial>
+                    </md-content>
                 </div>
             </div>
 
-                
+
                 <!--delete Modal -->
                 <button type="button" id="DeleteUsertrapButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#DeleteUserModal" style="display: none">Open Modal</button>
                 <div class="modal fade" id="DeleteUserModal" role="dialog">
@@ -372,11 +485,11 @@ include("AdminLoginVerification.php");
                 </div>
 <!-- dont need this anymore
                 <button type="button" id="MonthButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#MonthModal" style="display: none">Open Modal</button>
-                
+
                 <div class="modal fade" id="MonthModal" role="dialog">
                     <div class="modal-dialog">
 
-                            
+
                             <div class="modal-content">
                                 <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -392,7 +505,7 @@ include("AdminLoginVerification.php");
                                             <a class="sortByAllTime" href="#">of All time</a>
                                         </div>
                                     </div>
-                            
+
                                     <div id="ContaineruserHoursTableByMonth" class="table-responsive" style="display: none">
 
                                         <table id="UserHoursTableByMonth" class="table table-hover table-striped" cellspacing="0" width="100%" style="display: none">
@@ -469,6 +582,42 @@ include("AdminLoginVerification.php");
                     </div>
                 </div>
 
+                <button type="button" id="AddTeamModalButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddTeamModal" style="display: none">Open Modal</button>
+                <div class="modal fade" id="AddTeamModal" role="dialog">
+                    <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                </div>
+                                <div class="modal-body">
+
+                                      <div class="form-group">
+                                        <h4>Team Name</h4>
+                                          <input class="form-control" id="TeamName" placeholder="team name" name="txt_teamName" type="text" autofocus required>
+                                      </div>
+                                      <div class="form-group">
+                                        <h4>Team Description</h4>
+                                          <input class="form-control" id="TeamDesc" placeholder="team description" name="txt_teamDesc" type="text" required>
+                                      </div>
+
+                                      <div class = "Column buttonSize">
+                                            <md-button id="submiNewTeam" flex="15" class="md-raised md-primary">submit</md-button>
+                                      </div>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <div class="form-group">
+
+                                    </div>
+                                    <button id="addTeamcloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
         </div>
         <!-- /#page-wrapper -->
 
@@ -493,8 +642,34 @@ include("AdminLoginVerification.php");
     <script>
         jQuery(document).ready(function(){
             $(".modal-dialog").draggable();
-            $(".modal-content").resizable();
+            //$(".modal-content").resizable();
 
+
+            $("#AddTeam").on("click", function(){
+                $("#AddTeamModalButton").trigger("click");
+            });
+
+            $("#submiNewTeam").on("click", function(){
+                $.ajax({
+                    method: 'POST',
+                    data: {txt_teamName : $("#TeamName").val(),
+                           txt_teamDesc : $("#TeamDesc").val()
+                    },
+                    url: 'addTeamBackground.php',
+                    success: function(data){
+                        alert(data);
+                    },
+                    error: function(data){
+                        alert(data);
+                    }
+                })
+                $("#addTeamcloseButton").trigger("click");
+            });
+
+
+            $("#AddEmployee").on("click", function(){
+                alert("modal employee popup");
+            });
             $("#myModal").on("show.bs.modal", function(){
               $(this).find('.modal-body').css({
                 'max-height': '100%'
@@ -741,28 +916,11 @@ include("AdminLoginVerification.php");
                     var lastname = data[2];
                     userIDfocus = data[0];
                     alert(data[0]);
-                    
+
                     $.post("UserHoursPageLoader.php", {"userID": data[0], "firstname": data[1], "lastname": data[2]},function(){
                         window.location.replace("AdminUserPage.php");
                     });
-                    
-                    /*                    
-                    $.ajax({
-                        type: 'POST',
-                        url: 'UserHoursPageLoader.php',
-                        data: {userID: data[0]},
 
-                        success: function(data){
-                          //  userHours = data;
-                          alert("hi");
-                          window.location.replace("AdminUserPage.php");
-                            //userHoursByDay(data,firstname,lastname);
-                        },
-                        error: function(){
-                            console.log("failed in retrieving user hours");
-                        }
-                    })
-                    */
                 }
             });
 
