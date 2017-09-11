@@ -1,5 +1,26 @@
 <?php
 
+    function addTimes(Array $times)
+    {
+      $total = 0;
+      foreach($times as $time){
+          list($hours, $minutes, $seconds) = explode(':', $time);
+          $hour = (int)$hours + ((int)$minutes/60) + ((int)$seconds/3600);
+          $total += $hour;
+      }
+      $h = floor($total);
+      $total -= $h;
+      $m = floor($total * 60);
+      $total -= $m/60;
+      $s = floor($total * 3600);
+
+      $s = ($s < 10)? '0'.$s: $s;
+      $h = ($h < 10)? '0'.$h: $h;
+      $m = ($m < 10)? '0'.$m: $m;
+      
+      return "$h:$m:$s";
+    }
+
     ini_set('session.gc_maxlifetime', 36000);
     session_set_cookie_params(36000);
     session_start();

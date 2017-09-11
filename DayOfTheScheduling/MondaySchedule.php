@@ -17,14 +17,16 @@
 
   $intervalLate = new DateInterval('PT0H0M');
   $intervalOvertime = new DateInterval('PT0H0M');
-
+  $lateFlag = 0;
+  $overtimeFlag = 0;
   if($employeeTimeIn > $mondayTimeIn){//check if late
     //late
   //  echo "entered late if";
     $intervalLate = $mondayTimeIn->diff($employeeTimeIn);
+    $lateFlag = 1;
 
     $timeLate = sprintf(
-      '%d:%02d:%02d',
+      '%02d:%02d:%02d',
       ($intervalLate->d *24) + $intervalLate->h,
       $intervalLate->i,
       $intervalLate->s
@@ -37,9 +39,9 @@
   if($employeeTimeOut > $mondayTimeOut){
   //  echo "entered overtime if";
     $intervalOvertime = $employeeTimeOut->diff($mondayTimeOut);
-
+    $overtimeFlag = 1;
     $timeOvertime = sprintf(
-      '%d:%02d:%02d',
+      '%02d:%02d:%02d',
         ($intervalOvertime->d * 24) + $intervalOvertime->h,
         $intervalOvertime->i,
         $intervalOvertime->s
@@ -52,83 +54,29 @@
 
   // if negative then late
   if(mysqli_num_rows($monthlyResult) > 0){
-    //user table exist just update existing
-  /*  $monthlyRows = mysqli_fetch_array($monthlyResult);
-    $updatedTotalLate = new DateInterval('PT0H0M');// = strtotime("0:00:00");
-    $updatedTotalOvertime = new DateInterval('PT0H0M'); //= strtotime("0:00:00");
-    $updatedTotalHours = new DateInterval('PT0H0M'); //= strtotime("0:00:00");
+  //late works, but somethings wrong with overtime and total hours
+  //https://stackoverflow.com/questions/20519925/calculate-time-elapsed-in-php-spans-over-24-hours
 
-    if($timeLate != "0:00:00"){
-        $updatedTotalLate = $intervalLate
-    }
-    if($timeOvertime != "0:00:00"){
-        $updatedTotalOvertime = $intervalOvertime;
-    }
-    $updatedTotalHours = $interval;
-
-    $OvertimeArray = array(
-      "hours" => substr($monthlyRows["TotalOvertime"],0,1),
-      "minutes" => substr($monthlyRows["TotalOvertime"],2,2)
-    );
-    $LateArray = array(
-      "hours" => substr($monthlyRows["TotalLate"],0,1),
-      "minutes" => substr($monthlyRows["TotalLate"],2,2)
-    );
-    $TotalHoursArray = array(
-      "hours" => substr($monthlyRows["TotalHours"],0,1),
-      "minutes" =>substr($monthlyRows["TotalHours"],2,2)
-    );
-
-    $oldOvertime = new DateInterval('PT'.$OvertimeArray["hours"].'H'.
-                                    $OvertimeArray["minutes"].'M');
-    $oldLate = new DateInterval('PT'.$LateArray["hours"].'H'.
-                                        $LateArray["minutes"].'M');
-    $oldTotalHours = new DateInterval('PT'.$TotalHoursArray["hours"].'H'.
-                                          $TotalHoursArray["minutes"].'M');
-
-    $FinalOvertime = new DateTime("0:00:00");
-    $FinalTotalHours = new DateTime("0:00:00");
-    $FinalLate = new DateTime("0:00:00");
-
-    $FinalOvertime->add($oldOvertime);
-    $FinalOvertimeInterval = $FinalOvertime->add($updatedTotalOvertime);
-
-    $FinalTotalHours->add($oldTotalHours);
-    $FinalTotalHoursInterval = $FinalTotalHours->add($updatedTotalHours);
-
-    $FinalLate->add($oldLate);
-    $FinalLateInterval = $FinalLate->add($updatedTotalLate);
-
-
-    $stringformatLate = $FinalLateInterval->format("h:i:s");
-    $stringformatTotalHours = $FinalTotalHoursInterval->format("h:i:s");
-    $stringformatOvertime = $FinalOvertimeInterval->format("h:i:s");
-
-    $updateMonthlysql = "UPDATE `totalhourspermonth`
-    SET `TotalLate`='$stringformatLate',`TotalHours`='$stringformatTotalHours',
-    `TotalOvertime`='$stringformatOvertime'
-     WHERE `userID` = '$userID'";
-
-     if(mysqli_query($conn,$updateMonthlysql)){
-       echo "monday update success";
-     }else{
-       echo "monday update fail";
-     }
-*/
     $row = mysqli_fetch_array($monthlyResult);
 
-    $monthlyLate = new DateTime($row["TotalLate"]);
-    $monthlyOvertime = new DateTime($row["TotalOvertime"]);
-    $monthlyTotalHours = new DateTime($row["TotalHours"]);
+    //$monthlyLate = new DateTime($row["TotalLate"]);
+    //$monthlyOvertime = new DateTime($row["TotalOvertime"]);
+    //$monthlyTotalHours = new DateTime($row["TotalHours"]);
 
-    $interval = $monthlyTotalHours->add($interval);
-    $TotalHoursString = $interval->format("H:i:s");
+    //$interval = $monthlyTotalHours->add($interval);
+    //$TotalHoursString = $interval->format("H:i:s");
+    $times = array($time, $row["TotalHours"]);
+    $TotalHoursString = addTimes($times);
 
-    $intervalLate = $monthlyLate->add($intervalLate);
-    $TotalLateString = $intervalLate->format("H:i:s");
+    if($lateFlag == 1){
+      $times = array($timeLate,$row["TotalLate"]);
+      $TotalLateString = addTimes($times);
+    }
 
-    $intervalOvertime = $monthlyOvertime->add($intervalOvertime);
-    $TotalOvertimeString = $intervalOvertime->format("H:i:s");
+    if($overtimeFlag == 1){
+      $times = array($timeOvertime, $row["TotalOvertime"]);
+      $TotalOvertimeString = addTimes($times);
+    }
 
     $updateMonthlysql = "UPDATE `totalhourspermonth`
     SET `TotalLate`='$TotalLateString',`TotalHours`='$TotalHoursString',
