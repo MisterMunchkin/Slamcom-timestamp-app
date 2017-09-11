@@ -15,6 +15,9 @@
   $timeLate = "0:00:00";//to initialize if no
   $timeOvertime = "0:00:00";
 
+  $intervalLate = new DateInterval('PT0H0M');
+  $intervalOvertime = new DateInterval('PT0H0M');
+
   if($employeeTimeIn > $mondayTimeIn){//check if late
     //late
   //  echo "entered late if";
@@ -119,36 +122,24 @@
     $monthlyTotalHours = new DateTime($row["TotalHours"]);
 
     $interval = $monthlyTotalHours->add($interval);
-
-    $TotalHoursString = sprintf(
-      '%d:%02d:%02d',
-      ($interval->d * 24) + $interval->h,
-      $interval->i,
-      $interval->s
-    );
+    $TotalHoursString = $interval->format("H:i:s");
 
     $intervalLate = $monthlyLate->add($intervalLate);
-
-    $TotalLateString = sprintf(
-      '%d:%02d:%02d',
-      ($intervalLate->d * 24) + $intervalLate->h,
-      $intervalLate->i,
-      $intervalLate->s
-    );
+    $TotalLateString = $intervalLate->format("H:i:s");
 
     $intervalOvertime = $monthlyOvertime->add($intervalOvertime);
-
-    $TotalOvertimeString = sprintf(
-      '%d:%02d:%02d',
-      ($intervalOvertime->d * 24) + $intervalOvertime->h,
-      $intervalOvertime->i,
-      $intervalOvertime->s
-    );
+    $TotalOvertimeString = $intervalOvertime->format("H:i:s");
 
     $updateMonthlysql = "UPDATE `totalhourspermonth`
     SET `TotalLate`='$TotalLateString',`TotalHours`='$TotalHoursString',
     `TotalOvertime`='$TotalOvertimeString'
      WHERE `userID` = '$userID'";
+
+     if(mysqli_query($conn, $updateMonthlysql)){
+       echo "monday update success";
+     }else{
+       echo "monday update failed";
+     }
   }else{
 
     $insertMonthlysql = "INSERT INTO `totalhourspermonth`(`TotalLate`,
