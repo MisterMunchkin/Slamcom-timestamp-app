@@ -101,142 +101,7 @@ include("AdminLoginVerification.php");
 
     <div id="wrapper">
 
-        <!-- Navigation
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="AdminDashboard.php">SB Admin</a>
-            </div>
-
-            <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php/*
-                                                                                                                $firstname = $_SESSION['Adminfirstname'];
-                                                                                                                $lastname = $_SESSION['Adminlastname'];
-                                                                                                                echo "$firstname $lastname";
-                                                                                                                */
-                                                                                                            ?></small> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="AdminLogout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li>
-                        <a href="AdminDashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="AdminHomePage.php"><i class="fa fa-fw fa-edit"></i>Employees</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-edit"></i>Admins</a>
-                    </li>
-
-                </ul>
-            </div>
-
-        </nav>
-    -->
         <?php include("sideBar.php"); ?>
 
         <div  ng-app = "tableApplication" id="page-wrapper">
@@ -459,10 +324,31 @@ include("AdminLoginVerification.php");
         jQuery(document).ready(function(){
 
             var hoursTable = $("#UserHoursTable").DataTable();
+            var schedule;
+
+            $(function(){
+                $.ajax({
+                    url: "loadScheduleBackgrounduserPage.php",
+                    success: function(data){
+                        var choppedData = data.substring(1);
 
 
+                        schedule = JSON.parse(JSON.stringify(choppedData));
+                        alert(schedule);
+                        alert(schedule.MondayClock.day);
+                    },
+                    error: function(data){
+                        console.log(data);
+                    }
+                });
+
+            });
             $("#schedule-demo").jqs({
-               // hour: 12
+                mode: "read",
+                hour: 12
+              //  data:
+                //ok get the variables from the JSON data you finally got
+                      //and put it in the template, make a template for the data getter
             });
 
             $("#submitEmployeeSchedule").on("click",function(){
@@ -504,8 +390,9 @@ include("AdminLoginVerification.php");
                     data: {startDate : startDate,
                             endDate : endDate},
                     success: function(data){
-                      //  alert(data);
+                        alert(data);
                         var response = $.parseJSON(data);
+
                         populateUserTable(response);
 
                         $("#UserMonthTable").DataTable();
@@ -541,7 +428,7 @@ include("AdminLoginVerification.php");
                 t1 = t1.split(':');
                 var t2 = $(this).text().split(':');
                 mins = parseInt(t1[1]) + parseInt(t2[1]);
-                alert(t1[1]);
+                //alert(t1[1]);
                 var minhrs = Math.floor(parseInt(mins/60));
                 hours = Number(t1[0]) + Number(t2[0]) + minhrs;
                 mins = mins % 60;
@@ -549,7 +436,7 @@ include("AdminLoginVerification.php");
                 console.log(t1);
 
             });
-            alert(t1);
+          //  alert(t1);
             $("#totalHours").val(t1);
         }
         function padTime(time){

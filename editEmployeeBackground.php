@@ -5,9 +5,10 @@
     $firstname = mysqli_real_escape_string($conn, $_POST['txt_firstname']);
     $lastname = mysqli_real_escape_string($conn, $_POST['txt_lastname']);
     $emailaddress = mysqli_real_escape_string($conn, $_POST['txt_signUpEmail']);
+    $Team = mysqli_real_escape_string($conn, $_POST['txt_Team']);
 
     $sql = "UPDATE `user`
-    SET `firstname` = '$firstname', `lastname` = '$lastname', `emailadd` = '$emailaddress'
+    SET `firstname` = '$firstname', `lastname` = '$lastname', `emailadd` = '$emailaddress', `TeamID` = '$Team'
     WHERE `userID` = '$userID'";
 
     if(mysqli_query($conn, $sql)){

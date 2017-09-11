@@ -74,6 +74,7 @@ include("AdminLoginVerification.php");
         this.availableDirections = 'up';
         this.selectedDirection = 'up';
       });
+
 /*
       app.controller('gridListCtrl', function(){
         this.tiles = buildGridModel({
@@ -99,6 +100,9 @@ include("AdminLoginVerification.php");
         bottom:0;
         right:0;
       }
+      #page-wrapper{
+          width: 89%;
+      }
     </style>
 </head>
 
@@ -106,170 +110,7 @@ include("AdminLoginVerification.php");
 
     <div id="wrapper" ng-app = "EmployeeTabApp">
 
-        <!-- Navigation
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="AdminDashboard.php">SB Admin</a>
-            </div>
-
-            <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php/*
-                                                                                                                $firstname = $_SESSION['Adminfirstname'];
-                                                                                                                $lastname = $_SESSION['Adminlastname'];
-                                                                                                                echo "$firstname $lastname";
-                                                                                                                */
-                                                                                                            ?></small> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="AdminLogout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li >
-                        <a href="AdminDashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li  class="active">
-                        <a href="AdminHomePage.php"><i class="fa fa-fw fa-edit"></i> Employees</a>
-                    </li>
-                     <li >
-                        <a href="#"><i class="fa fa-fw fa-edit"></i>Admins</a>
-                    </li>
-                    <li>
-                        <a href="AdminPageBootStrap/tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="AdminPageBootStrap/forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-                    <li>
-                        <a href="AdminPageBootStrap/bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                    </li>
-                    <li>
-                        <a href="AdminPageBootStrap/bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li>
-                </ul>
-            </div>
-
-        </nav>
--->
         <?php include("sideBar.php"); ?>
 
         <div id="page-wrapper">
@@ -308,6 +149,8 @@ include("AdminLoginVerification.php");
                                                             <th>First name</th>
                                                             <th>Last name</th>
                                                             <th>Email add</th>
+                                                            <th>Team ID</th>
+                                                            <th>Team</th>
                                                             <th>Delete/edit</th>
                                                         </tr>
                                                     </thead>
@@ -315,19 +158,25 @@ include("AdminLoginVerification.php");
                                                     <!-- turn this into a form so we can serialize and pass to ajax POST  -->
                                                         <?php
                                                             include("DBconnect.php");
-                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailadd` FROM `user` WHERE `active` = 1';
+                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailadd`, `TeamID` FROM `user` WHERE `active` = 1';
 
                                                             $result = mysqli_query($conn,$query);
 
                                                             while($row = mysqli_fetch_array($result)){
-                                                                echo '<tr id='.$row[0].'>
-                                                                        <td>'.$row[0].'</td>
-                                                                        <td>'.$row[1].'</td>
-                                                                        <td>'.$row[2].'</td>
-                                                                        <td>'.$row[3].'</td>
-                                                                        <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                                            <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
-                                                                        </tr>';
+                                                                $sql = 'SELECT `TeamName` FROM `team` WHERE `TeamID` = '.$row[4].'';
+                                                                $teamresult = mysqli_query($conn, $sql);
+                                                                while($teamrow = mysqli_fetch_array($teamresult)){
+                                                                    echo '<tr id='.$row[0].'>
+                                                                            <td>'.$row[0].'</td>
+                                                                            <td>'.$row[1].'</td>
+                                                                            <td>'.$row[2].'</td>
+                                                                            <td>'.$row[3].'</td>
+                                                                            <td>'.$row[4].'</td>
+                                                                            <td>'.$teamrow[0].'</td>
+                                                                            <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                                                <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
+                                                                            </tr>';
+                                                                }
                                                             }
                                                         ?>
                                                     </tbody>
@@ -376,65 +225,7 @@ include("AdminLoginVerification.php");
                                             </div>
                                         </md-tab-body>
                                     </md-tab>
-                                    <md-tab id = "tab3">
-                                        <md-tab-label>{{data.thirdLabel}}</md-tab-label>
-                                        <md-tab-body>
-                                            <div class="table-responsive">
-                                                <table id="TeamTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Team ID</th>
-                                                            <th>Team Name</th>
-                                                            <th>Team Description</th>
 
-                                                            <th>Delete/edit</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <!-- turn this into a form so we can serialize and pass to ajax POST-->
-                                                        <?php
-                                                          include("DBconnect.php");
-                                                          $sql = "SELECT * FROM `Team` WHERE 1";
-
-                                                          $result = mysqli_query($conn, $sql);
-
-                                                          if(mysqli_num_rows($result) > 0){
-                                                              $data_array = array();
-
-                                                              while($row = mysqli_fetch_array($result)){
-                                                                  /*
-                                                                  $data_array[] = array(
-                                                                      'TeamID' => $row['TeamID'],
-                                                                      'TeamName' => $row['TeamName'],
-                                                                      'TeamDesc' => $row['TeamDesc']
-                                                                  );
-                                                                  */
-                                                                  echo '<tr id='.$row['TeamID'].'>
-                                                                          <td>'.$row['TeamID'].'</td>
-                                                                          <td>'.$row['TeamName'].'</td>
-                                                                          <td>'.$row['TeamDesc'].'</td>
-
-                                                                          <td><button id="delTeambutton" type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                                              <button id="editTeambutton" type="button" class="btn btn-sm btn-warning">Edit</button></td>
-
-                                                                          </tr>';
-                                                              }
-                                                              /*
-                                                              $json = json_encode($data_array);
-                                                              echo $json;
-                                                              */
-                                                          }else{
-                                                            echo "no data";
-                                                          }
-
-                                                        ?>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </md-tab-body>
-                                    </md-tab>
                                 </md-tabs>
                             </md-content>
                         <!--</div>-->
@@ -447,11 +238,11 @@ include("AdminLoginVerification.php");
                             md-direction="{{demo.selectedDirection}}"
                               ng-class="demo.selectedMode">
                               <md-fab-trigger>
-                                <md-button aria-label="menu" class="md-fab md-primary">
+                                <md-button id="AddEmployeeTrigger" aria-label="menu" class="md-fab md-primary">
                                   <md-icon md-svg-src="img/icons/addIcon.svg"></md-icon>
                                 </md-button>
                               </md-fab-trigger>
-
+                            <!--
                               <md-fab-actions>
                                 <md-button id="AddEmployee" aria-label="employee" class="md-fab md-raised">
                                   <md-icon md-svg-src="img/icons/employeeIcon.svg"></md-icon>
@@ -460,6 +251,7 @@ include("AdminLoginVerification.php");
                                   <md-icon md-svg-src="img/icons/teamIcon.svg"></md-icon>
                                 </md-button>
                               </md-fab-actions>
+                          -->
                         </md-fab-speed-dial>
                     </md-content>
                 </div>
@@ -483,60 +275,7 @@ include("AdminLoginVerification.php");
 
                     </div>
                 </div>
-<!-- dont need this anymore
-                <button type="button" id="MonthButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#MonthModal" style="display: none">Open Modal</button>
 
-                <div class="modal fade" id="MonthModal" role="dialog">
-                    <div class="modal-dialog">
-
-
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 id="MonthModalName" class="modal-title"></h4>
-                                </div>
-                                <div id="MonthContentContainer" class="modal-body">
-                                  <!--
-                                    <div class="dropdown" style="float:right;">
-                                        <button class="dropbtn">Sort By</button>
-                                        <div class="dropdown-content">
-                                            <a class="sortByMonth" href="#">Month</a>
-                                            <a class="sortByYear" href="#">Year</a>
-                                            <a class="sortByAllTime" href="#">of All time</a>
-                                        </div>
-                                    </div>
-
-                                    <div id="ContaineruserHoursTableByMonth" class="table-responsive" style="display: none">
-
-                                        <table id="UserHoursTableByMonth" class="table table-hover table-striped" cellspacing="0" width="100%" style="display: none">
-                                            <thead>
-                                                <tr>
-                                                    <th>Day</th>
-                                                    <th>Time In</th>
-                                                    <th>Time Out</th>
-                                                    <th>Number of hours</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="UserHoursTableBody">
-                                            </tbody>
-                                            <tfoot>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-
-                                    <div class="form-group">
-                                        <span>Total Hours : </span> <input class="form-control" id="totalHoursByMonth"  name="txt_totalHours" readonly="readonly">
-                                    </div>
-                                    <button type="button" class="btn btn-primary">Edit user schedule</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-
-                    </div>
-                </div>
-                    -->
                 <button type="button" id="employeeEditButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#employeeEditModal" style="display: none">Open Modal</button>
                 <div class="modal fade" id="employeeEditModal" role="dialog">
                     <div class="modal-dialog">
@@ -553,21 +292,41 @@ include("AdminLoginVerification.php");
                                       <h4>user ID</h4>
                                         <input class="form-control" id="edituserID" name="txt_userID" type="text" readonly="readonly" autofocus required>
                                     </div>
-                                      <div class="form-group">
+                                    <div class="form-group">
                                         <h4>first name</h4>
                                           <input class="form-control" id="editFirstname" placeholder="first name" name="txt_firstname" type="text" autofocus required>
-                                      </div>
-                                      <div class="form-group">
+                                    </div>
+                                    <div class="form-group">
                                         <h4>last name</h4>
                                           <input class="form-control" id="editLastname" placeholder="last name" name="txt_lastname" type="text" required>
-                                      </div>
-                                      <div class="form-group">
+                                    </div>
+                                    <div class="form-group">
                                         <h4>email address</h4>
                                           <input class="form-control" id="editEmailadd" placeholder="email address" name="txt_signUpEmail" type="email" required>
-                                      </div>
-                                      <div class="form-group">
-                                          <button style="float: middle;" id="btnEditEmp" class="btn btn-lg btn-primary">Edit</button>
-                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="teamSelect">
+                                            <?php
+                                              include("DBconnect.php");
+                                              $sql = "SELECT * FROM `Team` WHERE 1";
+
+                                              $result = mysqli_query($conn, $sql);
+
+                                              if(mysqli_num_rows($result) > 0){
+                                                  $data_array = array();
+                                                  while($row = mysqli_fetch_array($result)){
+
+                                                        echo '<option value='.$row['TeamID'].'>'.$row['TeamName'].'</option>';
+                                                  }
+                                              }else{
+                                                echo "no data";
+                                              }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button style="float: middle;" id="btnEditEmp" class="btn btn-lg btn-primary">Edit</button>
+                                    </div>
 
                                 </div>
                                 <div class="modal-footer">
@@ -582,42 +341,7 @@ include("AdminLoginVerification.php");
                     </div>
                 </div>
 
-                <button type="button" id="AddTeamModalButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddTeamModal" style="display: none">Open Modal</button>
-                <div class="modal fade" id="AddTeamModal" role="dialog">
-                    <div class="modal-dialog">
 
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                                </div>
-                                <div class="modal-body">
-
-                                      <div class="form-group">
-                                        <h4>Team Name</h4>
-                                          <input class="form-control" id="TeamName" placeholder="team name" name="txt_teamName" type="text" autofocus required>
-                                      </div>
-                                      <div class="form-group">
-                                        <h4>Team Description</h4>
-                                          <input class="form-control" id="TeamDesc" placeholder="team description" name="txt_teamDesc" type="text" required>
-                                      </div>
-
-                                      <div class = "Column buttonSize">
-                                            <md-button id="submiNewTeam" flex="15" class="md-raised md-primary">submit</md-button>
-                                      </div>
-                                </div>
-                                <div class="modal-footer">
-
-                                    <div class="form-group">
-
-                                    </div>
-                                    <button id="addTeamcloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-
-                    </div>
-                </div>
         </div>
         <!-- /#page-wrapper -->
 
@@ -643,6 +367,15 @@ include("AdminLoginVerification.php");
         jQuery(document).ready(function(){
             $(".modal-dialog").draggable();
             //$(".modal-content").resizable();
+            var userTable = $("#ActiveEmployeeTable").DataTable({
+              "autoWidth":false
+            });
+            var nonActiveTable = $("#NonActiveEmployeeTable").DataTable({
+                "autoWidth": false
+            })
+            var TeamTable = $("#TeamTable").DataTable({
+                autoWidth: false
+            })
 
 
             $("#AddTeam").on("click", function(){
@@ -811,12 +544,6 @@ include("AdminLoginVerification.php");
                 txt = "";
             }
 
-            var userTable = $("#ActiveEmployeeTable").DataTable({
-              "autoWidth":false
-            });
-            var nonActiveTable = $("#NonActiveEmployeeTable").DataTable({
-                "autoWidth": false
-            })
 
             $("#NonActiveEmployeeTable").on('click','#resurrectButton', function(){
               var data = nonActiveTable.row($(this).parents('tr')).data();
@@ -853,16 +580,19 @@ include("AdminLoginVerification.php");
                 $("#employeeEditButton").trigger("click");
 
                 $("#btnEditEmp").on("click", function(){
+
                   $.ajax({
                       method: 'POST',
                       data: {txt_userID : $("#edituserID").val(),
                             txt_firstname : $("#editFirstname").val(),
                             txt_lastname : $("#editLastname").val(),
-                            txt_signUpEmail : $("#editEmailadd").val()},
+                            txt_signUpEmail : $("#editEmailadd").val(),
+                            txt_Team : $("#teamSelect option:selected").val()},
                       url: 'editEmployeeBackground.php',
                       success: function(data){
                         //login popup
-                        alert(data);
+                        //alert($("#teamSelect option:selected").val());
+                    //    alert(data);
                         console.log("user edited");
                         userEditsuccess();
                       },
@@ -907,7 +637,7 @@ include("AdminLoginVerification.php");
 
 
             $("#ActiveEmployeeTable tbody").on('click', 'td', function(){
-                if($(this).index() == 4){
+                if($(this).index() == 6){
                     return;
                 }else{
                 //  $("#myModal").data('bs.modal').handleUpdate();
@@ -917,7 +647,7 @@ include("AdminLoginVerification.php");
                     userIDfocus = data[0];
                     alert(data[0]);
 
-                    $.post("UserHoursPageLoader.php", {"userID": data[0], "firstname": data[1], "lastname": data[2]},function(){
+                    $.post("UserHoursPageLoader.php", {"userID": data[0], "firstname": data[1], "lastname": data[2], "TeamID": data[4]},function(){
                         window.location.replace("AdminUserPage.php");
                     });
 

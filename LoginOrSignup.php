@@ -14,10 +14,10 @@
     <!-- Bootstrap Core CSS -->
     <link href="HomePageBootStrap/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
+    <link rel = "stylesheet" href= "https://fonts.googleapis.com/icon?family=Material+Icons" >
+    <link rel = "stylesheet" href= "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" >
     <!-- Custom Fonts -->
     <link href="HomePageBootStrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
     <!-- Plugin CSS -->
     <link href="HomePageBootStrap/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
@@ -28,113 +28,198 @@
     <!-- CSS -->
     <link href="HomePageBootStrap/css/manipulate.css" rel="stylesheet">
 
+    <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
 
+      <style>
+        #tabContainer{
+          height: 100%;
+          padding-left: 50px;
+          padding-right: 50px;
+        }
+      </style>
 </head>
 
-<body id="page-top">
+<body id="page-top" ng-app="Application">
 
 
-
+<!--
     <header>
         <div class="header-content">
             <div class="header-content-inner">
                 <h1 id="homeHeading">Welcome to Slamcom!</h1>
                 <hr>
             </div>
-            <div class="form-div">
-                <div class="signIn-div" id="DivLogin">
-                    <h2 class="section-heading">Login</h2>
-                    <hr class="light">
-                    <form action="LoginBackground.php" method="post" id="login_Form">
-                        <div class="form-group">
-                            <input class="form-control" id="LoginEmail" placeholder="email address" name="txt_loginEmail" type="email" autofocus required>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" id="LoginPassword" placeholder="password" name="txt_loginPassword" type="password" required>
 
-                        </div>
-                        <div class="form-group">
-                            <input id="btnLogin" type="submit" class="btn btn-primary btn-xl page-scroll" value="Login">
-                        </div>
-                    </form>
-                    <div class="form-group" id="divLoginError" style="display: none;">
-                        <p id="LoginErrorAlert" aria-atomic="true" role="alert">
-                            The email or password you entered does not belong to an account
-                            please check your input.
-                        </p>
-                    </div>
-                    <div class="form-group" id="divFillFields" style="display: none;">
-                        <p id="FillFields" aria-atomic="true" role="alert">
-                            Please fill out required fields.
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <a  id="LoginNoAccount" href="#" >Don't have an account? </a>
-                        <a href="#">||</a>
-                        <a id="forgotPassword" href="forgotpassword.html"> Forgot?</a>
-                    </div>
-                </div>
 
-                <div class="signIn-div" id="DivSignUp" style="display:none;">
-                    <h2 class="section-heading">Don't have an account? Sign up</h2>
-                    <hr class="light">
-            
-                    <form action="signUpBackground.php" method="post" id="signUp_Form">
-                        <div class="form-group">
-                            <input class="form-control" id="signUpFirstName" placeholder="first name" name="txt_firstname" type="text" autofocus required>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" id="signUpLastName" placeholder="last name" name="txt_lastname" type="text" required>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" id="signUpEmail" placeholder="email address" name="txt_signUpEmail" type="email" required>
-                        </div>
-                        <div class="form-group" id="signUpPasswordPadding">
+            <?php/* include("loginAndSignUpSnippet.php");*/ ?>
 
-                            <input class="form-control" id="signUpPassword" placeholder="password" name="txt_signUpPassword" type="password" required>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" id="signUpConfPassword" placeholder="confirm password" name="txt_userconfpassword" type="password" required>
-                        </div>
-                        <div class="form-group">
-                            <input id="btnSignup" type="submit" class="btn btn-primary btn-xl page-scroll" value="Sign Up">
-                        </div>
-                    </form>
-                    <div class="divErrorSignUp" id="divFillFieldsSignUp" style="display: none;">
-                        <p id="FillFieldsSignUp" aria-atomic="true" role="alert">
-                            Please fill out required fields.
-                        </p>
-                    </div>
-                    <div class="divErrorSignUp" id="divErrorConfPassword" style="display:none;">
-                        <p id="PasswordConfErrorSignUp" aria-atomic="true" role="alert">
-                            Please make sure password confirmation is true.
-                        </p>
-                    </div>
-                    <div class="divErrorSignUp" id="divPasswordLength" style="display:none;">
-                        <p id="PasswordLength" aria-atomic="true" role="alert">
-
-                            Please make sure password is inbetween 6-20 characters with atleast 1 number.
-
-                        </p>
-                    </div>
-                    <div class="divErrorSignUp" id="divEmailalreadyexist" style="display:none;">
-                        <p id="PasswordLength" aria-atomic="true" role="alert">
-
-                            The email you entered already exists.
-
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <a id="signUpHasAcc" href="#">Already have an account?</a>
-                    </div>            
-                </div>
-            </div>
         </div>
-       
-    </header>
+
+    </header> -->
+    <div id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak >
+
+        <md-content layout = "column" layout-fill>
+            <md-tabs layout-fill  md-selected = "data.selectedIndex"
+                md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
+                <md-tab id = "tab1">
+                    <md-tab-label>{{data.firstLabel}}</md-tab-label>
+                    <md-tab-body>
+                      <select id="DayofTheWeekSelector">
+                        <option value="Sunday">Sunday</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                      </select>
+                      <div class="table-responsive">
+                          <table id="ActiveEmployeeTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
+                              <thead>
+                                  <tr>
+                                      <th>User ID</th>
+                                      <th>First name</th>
+                                      <th>Last name</th>
+                                      <th>Email add</th>
+                                      <th>Team ID</th>
+                                      <th>Team</th>
+                                      <th>Login</th>
+                                      <th>Time In</th>
+                                      <th>Logout</th>
+                                      <th>Time Out</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              <!-- turn this into a form so we can serialize and pass to ajax POST  -->
+                                  <?php
+                                      include("DBconnect.php");
+                                      $query = 'SELECT `userID`, `firstname`, `lastname`, `emailadd`, `TeamID` FROM `user` WHERE `active` = 1';
+
+                                      $result = mysqli_query($conn,$query);
+
+                                      while($row = mysqli_fetch_array($result)){
+                                          $sql = 'SELECT `TeamName` FROM `team` WHERE `TeamID` = '.$row[4].'';
+                                          $teamresult = mysqli_query($conn, $sql);
+                                          while($teamrow = mysqli_fetch_array($teamresult)){
+                                            $LogInbtnID = $row[0].$row[4];
+                                            $LogOutbtnID = $row[0].$teamrow[0];
+                                              echo '<tr id='.$row[0].'>
+                                                      <td>'.$row[0].'</td>
+                                                      <td>'.$row[1].'</td>
+                                                      <td>'.$row[2].'</td>
+                                                      <td>'.$row[3].'</td>
+                                                      <td>'.$row[4].'</td>
+                                                      <td>'.$teamrow[0].'</td>
+                                                      <td><button id="'.$LogInbtnID.'" type="button"
+                                                      class="btn btn-sm btn-primary" value="LogIn">Login</button></td>
+                                                      <td></td>
+                                                      <td><button id="'.$LogOutbtnID.'" type="button" class="btn btn-sm btn-primary"
+                                                      value="LogOut" disabled>Logout</button></td>
+                                                      <td></td>
+                                                      </tr>';
+                                          }
+                                      }
+                                  ?>
+                              </tbody>
+                          </table>
+                      </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id = "tab2">
+                    <md-tab-label>{{data.secondLabel}}</md-tab-label>
+                    <md-tab-body>
+                      <table id="AdminTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
+                          <thead>
+                              <tr>
+                                  <th>User ID</th>
+                                  <th>First name</th>
+                                  <th>Last name</th>
+                                  <th>Email add</th>
+                                  <th>Log in</th>
+
+                              </tr>
+                          </thead>
+                          <tbody>
+                          <!-- turn this into a form so we can serialize and pass to ajax POST  -->
+                              <?php
+                                  include("DBconnect.php");
+                                  $query = "SELECT * FROM `adminusers` WHERE 1";
+
+                                  $result = mysqli_query($conn,$query);
+
+                                  while($row = mysqli_fetch_array($result)){
+
+                                          $LogInbtnID = $row[0].$row[1];
+
+                                          echo '<tr id='.$row[0].'>
+                                                  <td>'.$row[0].'</td>
+                                                  <td>'.$row[1].'</td>
+                                                  <td>'.$row[2].'</td>
+                                                  <td>'.$row[3].'</td>
+
+                                                  <td><button id="'.$LogInbtnID.'" type="button"
+                                                  class="btn btn-sm btn-primary" value="LogIn">Login</button></td>
+
+
+                                                  </tr>';
+
+                                  }
+                              ?>
+                          </tbody>
+                      </table>
+                    </md-tab-body>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+
+    </div>
+
+    <button type="button" id="AdminLoginValidationModalButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AdminLoginValidationModal" style="display: none">Open Modal</button>
+    <div class="modal fade" id="AdminLoginValidationModal" role="dialog">
+        <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <div  class="modal-body">
+                        <div class="form-group">
+                          <div class="form-group">
+                              <input class="form-control" id="AdminID" name="txt_AdminID" type="text" readonly="readonly">
+                          </div>
+                          <div class="form-group">
+                              <input class="form-control" id="AdminFirstName" name="txt_Adminfirstname" type="text" readonly="readonly">
+                          </div>
+                          <div class="form-group">
+                              <input class="form-control" id="AdminLastName"  name="txt_Adminlastname" readonly="readonly">
+                          </div>
+                          <div class="form-group">
+
+                              <input class="form-control" id="AdminPassword" placeholder="password" name="txt_Adminpassword" type="password" required>
+                          </div>
+
+                        </div>
+                    </div>
+                    <button id="AdminLoginProceedBtn" type="button" class="btn btn-primary" >Log in</button>
+                    <button id="AdminLoginCancelBtn" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+
+        </div>
+    </div>
 
 
     <script src="HomePageBootStrap/vendor/jquery/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="http://www.datejs.com/build/date.js"></script>
+            <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+              <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+              <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+              <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+              <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+              <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
     <!-- FIRE BASE -->
 
 
@@ -142,13 +227,174 @@
     <script src="HomePageBootStrap/js/app.js"></script>
 
     <script>
+        var app = angular.module("Application", ['ngMaterial', 'ngMessages']);
+        app.controller('tabController', function($scope){
+          $scope.data = {
+            selectedIndex: 0,
+            bottom: false,
+            firstLabel: "Employees",
+            secondLabel: "Admins"
+          };
+          $scope.next = function(){
+            $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
+          }
+          $scope.previous = function(){
+            $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
+          }
+        });
+
         $(document).ready(function(){
             var txtLoginEmail = $('#LoginEmail');
             var txtLoginPassword = $('#LoginPassword');
             var btnLogin = $('#btnLogin');
             var btnLogout = $('#btnLogout');
             var btnLoginNoAccount = $('#LoginNoAccount');
+            var ActiveEmployeeTable = $("#ActiveEmployeeTable").DataTable();
+            var AdminTable = $("#AdminTable").DataTable();
 
+            $("#AdminTable").on("click", "td", function(){
+              var data = AdminTable.row($(this).parents('tr')).data();
+
+              var LoginBtn = data[0] + data[1];
+              var LogoutBtn = data[0] + data[2];
+
+              if($(this).index() == 4){
+
+//AdminPassword
+                $("#AdminID").val(data[0]);
+                $("#AdminFirstName").val(data[1]);
+                $("#AdminLastName").val(data[2]);
+
+                $("#AdminLoginValidationModalButton").trigger("click");
+                $("#AdminLoginProceedBtn").on("click", function(){
+                  var Adminpass = $("#AdminPassword").val();
+
+                  $.ajax({
+                    url: "AdminLoginBackground.php",
+                    method: "POST",
+                    data: {AdminID: data[0],AdminPassword: Adminpass},
+                    success: function(data){
+
+                      if(data == "success"){
+                        location.replace("AdminDashboard.php");
+                      }else{
+                        alert(data);
+                      }
+                    },
+                    error: function(data){
+                      alert(data);
+                    }
+                  });
+                });
+
+
+              }else{
+                alert("shit");
+              }
+            });
+            $("#ActiveEmployeeTable").on("click", "td", function(){
+              var data = ActiveEmployeeTable.row($(this).parents('tr')).data();
+              var LoginBtn = data[0] + data[4];
+              var LogoutBtn = data[0] + data[5];
+
+              if($(this).index() == 6){
+
+                $("#"+LoginBtn).prop('disabled',true);
+                $("#"+LogoutBtn).prop('disabled',false);
+/*
+                var datetime = new Date();
+
+                var month = datetime.getMonth() + 1;
+                var day = datetime.getDate();
+                var hour = datetime.getHours();
+                var minute = datetime.getMinutes();
+                var second = datetime.getSeconds();
+
+                var paddedMonth = (('' + month).length < 2 ? '0' :'') + month;
+                var paddedDay = (('' + day).length < 2 ? '0' :'') + day;
+                var paddedHour = (('' + hour).length < 2 ? '0' :'') + hour;
+                var paddedMinute = (('' + minute).length < 2 ? '0' :'') + minute;
+                var paddedSecond = (('' + second).length < 2 ? '0':'') + second;
+
+                var date = datetime.getFullYear() + "/" +
+                            paddedMonth + "/" + paddedDay;
+
+                var Time = paddedHour + ":" + paddedMinute + ":" + paddedSecond;
+
+                var DateTime = date + " " + Time;
+*/             // alert($(this));
+                var cell = ActiveEmployeeTable.cell($(this).parents('tr'), 7);
+                cell.data(getDateTime());
+
+
+              }else if($(this).index() == 8){
+
+                $("#"+LoginBtn).prop('disabled',false);
+                $("#"+LogoutBtn).prop('disabled',true);
+
+                var TimeOutcell = ActiveEmployeeTable.cell($(this).parents('tr'), 9);
+                TimeOutcell.data(getDateTime());
+                var selectedDay = $("#DayofTheWeekSelector").find(":selected").text();
+                $.ajax({
+                  url: "EmployeeClockTimeSave.php",
+                  method: "POST",
+                  data: {"userID" : data[0],
+                  "timeIn" : data[7],
+                  "timeOut" : data[9],
+                  "teamID" : data[4],
+                  "selectedDay": selectedDay},
+                  success: function(data){
+                    alert(data);
+
+                    //var TimeIncell = ActiveEmployeeTable.cell($(this).parents('tr'), 7);
+                    //TimeIncell.data(" ");
+                    //TimeOutcell.data(" ");
+                  },
+                  error: function(data){
+                    alert(data);
+                  }
+                });
+
+              }else{
+                alert("shit");
+              }
+
+            });
+            function getDateTime(){
+              var datetime = new Date();
+
+              var month = datetime.getMonth() + 1;
+              var day = datetime.getDate();
+              //var hour = datetime.getHours();
+              //var minute = datetime.getMinutes();
+              //var second = datetime.getSeconds();
+
+              var paddedMonth = (('' + month).length < 2 ? '0' :'') + month;
+              var paddedDay = (('' + day).length < 2 ? '0' :'') + day;
+              //var paddedHour = (('' + hour).length < 2 ? '0' :'') + hour;
+              //var paddedMinute = (('' + minute).length < 2 ? '0' :'') + minute;
+              //var paddedSecond = (('' + second).length < 2 ? '0':'') + second;
+
+              var date = datetime.getFullYear() + "/" +
+                          paddedMonth + "/" + paddedDay;
+
+              var time = new Date().toString("hh:mm tt");
+              var dateTime = date + " " + time;
+              return dateTime;
+              //var Time = paddedHour + ":" + paddedMinute + ":" + paddedSecond;
+
+              //var DateTime = date + " " + Time;
+            }
+/*
+            function formatAMPM(datetime){
+              var hour = datetime.getHours();
+              var minute = datetime.getMinutes();
+              var ampm = (hours >= 12) ? 'pm' : 'am';
+
+              hour = hour % 12;
+              hour = hour ? hour : 12;
+
+            }*/
             <?php
                 if(isset($_GET['err'])){
                     echo '$("#divLoginError").css("display","block")

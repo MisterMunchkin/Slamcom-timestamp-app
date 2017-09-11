@@ -5,5 +5,6 @@
         $_SESSION["employeeID"] = $_POST["userID"];
         $_SESSION["firstname"] = $_POST["firstname"];
         $_SESSION["lastname"] = $_POST["lastname"];
+        $_SESSION["TeamID"] = $_POST["TeamID"];
     }
 ?>
