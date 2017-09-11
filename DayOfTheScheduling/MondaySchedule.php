@@ -52,30 +52,27 @@
 
   $monthlyResult = mysqli_query($conn, $monthlySql);
 
-  // if negative then late
+
   if(mysqli_num_rows($monthlyResult) > 0){
-  //late works, but somethings wrong with overtime and total hours
-  //https://stackoverflow.com/questions/20519925/calculate-time-elapsed-in-php-spans-over-24-hours
+
 
     $row = mysqli_fetch_array($monthlyResult);
 
-    //$monthlyLate = new DateTime($row["TotalLate"]);
-    //$monthlyOvertime = new DateTime($row["TotalOvertime"]);
-    //$monthlyTotalHours = new DateTime($row["TotalHours"]);
-
-    //$interval = $monthlyTotalHours->add($interval);
-    //$TotalHoursString = $interval->format("H:i:s");
     $times = array($time, $row["TotalHours"]);
     $TotalHoursString = addTimes($times);
 
     if($lateFlag == 1){
       $times = array($timeLate,$row["TotalLate"]);
       $TotalLateString = addTimes($times);
+    }else{
+      $TotalLateString = $row["TotalLate"];
     }
 
     if($overtimeFlag == 1){
       $times = array($timeOvertime, $row["TotalOvertime"]);
       $TotalOvertimeString = addTimes($times);
+    }else{
+      $TotalOvertimeString = $row["TotalOvertime"];
     }
 
     $updateMonthlysql = "UPDATE `totalhourspermonth`
