@@ -378,23 +378,27 @@
               var date = datetime.getFullYear() + "/" +
                           paddedMonth + "/" + paddedDay;
 
-              var time = new Date().toString("hh:mm tt");
+              var time = formatAMPM(datetime);//new Date().toString("hh:mm tt");
               var dateTime = date + " " + time;
+
               return dateTime;
               //var Time = paddedHour + ":" + paddedMinute + ":" + paddedSecond;
 
               //var DateTime = date + " " + Time;
             }
-/*
+
             function formatAMPM(datetime){
               var hour = datetime.getHours();
               var minute = datetime.getMinutes();
-              var ampm = (hours >= 12) ? 'pm' : 'am';
+              var ampm = (hour >= 12) ? 'pm' : 'am';
 
               hour = hour % 12;
               hour = hour ? hour : 12;
+              minute = minute < 10 ? '0'+ minute : minute;
+              var strTime = hour + ':' + minute  + ' ' + ampm;
 
-            }*/
+              return strTime;
+            }
             <?php
                 if(isset($_GET['err'])){
                     echo '$("#divLoginError").css("display","block")

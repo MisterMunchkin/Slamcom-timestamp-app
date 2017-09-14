@@ -15,6 +15,8 @@
       $teamID = mysqli_real_escape_string($conn, $_POST['teamID']);
       $selectedDay = mysqli_real_escape_string($conn, $_POST['selectedDay']);
 
+      echo "'$timeIn'";
+      echo "'$timeOut'";
       $start = new DateTime($timeIn);
       $end = new DateTime($timeOut);
 
@@ -35,7 +37,7 @@
           include("DayOfTheScheduling/MondaySchedule.php");
         }
 
-        echo "success";
+      //  echo "success";
 
 /*
           $_SESSION['userID'] = array();
