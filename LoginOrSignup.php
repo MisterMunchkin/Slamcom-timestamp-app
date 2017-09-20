@@ -301,28 +301,7 @@
 
                 $("#"+LoginBtn).prop('disabled',true);
                 $("#"+LogoutBtn).prop('disabled',false);
-/*
-                var datetime = new Date();
 
-                var month = datetime.getMonth() + 1;
-                var day = datetime.getDate();
-                var hour = datetime.getHours();
-                var minute = datetime.getMinutes();
-                var second = datetime.getSeconds();
-
-                var paddedMonth = (('' + month).length < 2 ? '0' :'') + month;
-                var paddedDay = (('' + day).length < 2 ? '0' :'') + day;
-                var paddedHour = (('' + hour).length < 2 ? '0' :'') + hour;
-                var paddedMinute = (('' + minute).length < 2 ? '0' :'') + minute;
-                var paddedSecond = (('' + second).length < 2 ? '0':'') + second;
-
-                var date = datetime.getFullYear() + "/" +
-                            paddedMonth + "/" + paddedDay;
-
-                var Time = paddedHour + ":" + paddedMinute + ":" + paddedSecond;
-
-                var DateTime = date + " " + Time;
-*/             // alert($(this));
                 var cell = ActiveEmployeeTable.cell($(this).parents('tr'), 7);
                 cell.data(getDateTime());
 
@@ -346,9 +325,6 @@
                   success: function(data){
                     alert(data);
 
-                    //var TimeIncell = ActiveEmployeeTable.cell($(this).parents('tr'), 7);
-                    //TimeIncell.data(" ");
-                    //TimeOutcell.data(" ");
                   },
                   error: function(data){
                     alert(data);
@@ -365,15 +341,11 @@
 
               var month = datetime.getMonth() + 1;
               var day = datetime.getDate();
-              //var hour = datetime.getHours();
-              //var minute = datetime.getMinutes();
-              //var second = datetime.getSeconds();
+
 
               var paddedMonth = (('' + month).length < 2 ? '0' :'') + month;
               var paddedDay = (('' + day).length < 2 ? '0' :'') + day;
-              //var paddedHour = (('' + hour).length < 2 ? '0' :'') + hour;
-              //var paddedMinute = (('' + minute).length < 2 ? '0' :'') + minute;
-              //var paddedSecond = (('' + second).length < 2 ? '0':'') + second;
+
 
               var date = datetime.getFullYear() + "/" +
                           paddedMonth + "/" + paddedDay;
@@ -382,9 +354,7 @@
               var dateTime = date + " " + time;
 
               return dateTime;
-              //var Time = paddedHour + ":" + paddedMinute + ":" + paddedSecond;
 
-              //var DateTime = date + " " + Time;
             }
 
             function formatAMPM(datetime){

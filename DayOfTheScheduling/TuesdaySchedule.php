@@ -1,14 +1,14 @@
 <?php
 
-  $mondaySql = "SELECT `MondayShift`, `mondayTimeIn`, `mondayTimeOut`
+  $tuesdaySql = "SELECT `TuesdayShift`, `tuesdayTimeIn`, `tuesdayTimeOut`
                 FROM `userschedule`
                 WHERE `TeamID` = '$teamID'";
 
-  $result = mysqli_query($conn, $mondaySql);
+  $result = mysqli_query($conn, $tuesdaySql);
   $row = mysqli_fetch_array($result);
 
-  $mondayTimeIn = new DateTime($row["mondayTimeIn"]);
-//  echo "'.$mondayTimeIn.'";
+  $tuesdayTimeIn = new DateTime($row["tuesdayTimeIn"]);
+
   $employeeTimeIn = new DateTime($timeIn);
   //echo " '.$employeeTimeIn.'";
 
@@ -19,9 +19,9 @@
   $intervalOvertime = new DateInterval('PT0H0M');
   $lateFlag = 0;
   $overtimeFlag = 0;
-  if($employeeTimeIn > $mondayTimeIn){//check if late
+  if($employeeTimeIn > $tuesdayTimeIn){//check if late
 
-    $intervalLate = $mondayTimeIn->diff($employeeTimeIn);
+    $intervalLate = $tuesdayTimeIn->diff($employeeTimeIn);
     $lateFlag = 1;
 
     $timeLate = sprintf(
@@ -32,12 +32,12 @@
     );
 
   }
-  $mondayTimeOut = new DateTime($row["mondayTimeOut"]);
+  $tuesdayTimeOut = new DateTime($row["tuesdayTimeOut"]);
   $employeeTimeOut = new DateTime($timeOut);
 
-  if($employeeTimeOut > $mondayTimeOut){
+  if($employeeTimeOut > $tuesdayTimeOut){
   //  echo "entered overtime if";
-    $intervalOvertime = $employeeTimeOut->diff($mondayTimeOut);
+    $intervalOvertime = $employeeTimeOut->diff($tuesdayTimeOut);
     $overtimeFlag = 1;
     $timeOvertime = sprintf(
       '%02d:%02d:%02d',
@@ -80,9 +80,9 @@
      WHERE `userID` = '$userID'";
 
      if(mysqli_query($conn, $updateMonthlysql)){
-       echo "monday update success";
+       echo "tuesday update success";
      }else{
-       echo "monday update failed";
+       echo "tuesday update failed";
      }
   }else{
 
@@ -91,9 +91,9 @@
        VALUES ('$timeLate','$time','$timeOvertime','$userID')";
 
      if(mysqli_query($conn,$insertMonthlysql)){
-       echo "monday insert success";
+       echo "tuesday insert success";
      }else{
-       echo "monday insert fail";
+       echo "tuesday insert fail";
      }
   }
 

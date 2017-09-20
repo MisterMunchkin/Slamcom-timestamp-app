@@ -104,6 +104,26 @@ include("AdminLoginVerification.php");
         .modal-dialog{
             width: 90%;
         }
+        .weekDays-selector input {
+          display: none!important;
+        }
+
+        .weekDays-selector input[type=checkbox] + label {
+          display: inline-block;
+          border-radius: 6px;
+          background: #dddddd;
+          height: 40px;
+          width: 30px;
+          margin-right: 3px;
+          line-height: 40px;
+          text-align: center;
+          cursor: pointer;
+        }
+
+        .weekDays-selector input[type=checkbox]:checked + label {
+          background: #2AD705;
+          color: #ffffff;
+        }
     </style>
 
 </head>
@@ -128,7 +148,7 @@ include("AdminLoginVerification.php");
                 <div id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak style="position: relative;">
 
                     <md-content layout = "column" layout-fill>
-                        <md-tabs layout-fill class = "md-accent" md-selected = "data.selectedIndex"
+                        <md-tabs layout-fill  md-selected = "data.selectedIndex"
                             md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
                             <md-tab id = "tab1">
                                 <md-tab-label>{{data.firstLabel}}</md-tab-label>
@@ -269,12 +289,34 @@ include("AdminLoginVerification.php");
                             </div>
                             <div class="modal-body">
 
-                                
+
                                 <div class = "Column buttonSize">
                                     <md-button id="submitEmployeeSchedule" flex="15" class="md-raised md-primary">submit</md-button>
                                 </div>
-                                <div id="schedule-demo" class="jqs-demo">
+                                <!--<div id="schedule-demo" class="jqs-demo">
 
+                                </div>-->
+                                <div class="weekDays-selector">
+                                  <input type="checkbox" id="weekday-mon" class="weekday" />
+                                  <label for="weekday-mon">M</label>
+
+                                  <input type="checkbox" id="weekday-tue" class="weekday" />
+                                  <label for="weekday-tue">T</label>
+
+                                  <input type="checkbox" id="weekday-wed" class="weekday" />
+                                  <label for="weekday-wed">W</label>
+
+                                  <input type="checkbox" id="weekday-thu" class="weekday" />
+                                  <label for="weekday-thu">T</label>
+
+                                  <input type="checkbox" id="weekday-fri" class="weekday" />
+                                  <label for="weekday-fri">F</label>
+
+                                  <input type="checkbox" id="weekday-sat" class="weekday" />
+                                  <label for="weekday-sat">S</label>
+
+                                  <input type="checkbox" id="weekday-sun" class="weekday" />
+                                  <label for="weekday-sun">S</label>
                                 </div>
 
                             </div>
@@ -322,15 +364,6 @@ include("AdminLoginVerification.php");
 
 
    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->
-
-
-
-
-
-
-
-
-
 
     <!-- Bootstrap Core JavaScript -->
     <script src="AdminPageBootStrap/js/bootstrap.min.js"></script>

@@ -17,7 +17,7 @@
       $s = ($s < 10)? '0'.$s: $s;
       $h = ($h < 10)? '0'.$h: $h;
       $m = ($m < 10)? '0'.$m: $m;
-      
+
       return "$h:$m:$s";
     }
 
@@ -36,11 +36,12 @@
       $teamID = mysqli_real_escape_string($conn, $_POST['teamID']);
       $selectedDay = mysqli_real_escape_string($conn, $_POST['selectedDay']);
 
-      echo "'$timeIn'";
-      echo "'$timeOut'";
+    //  echo "'$timeIn'";
+      //echo "'$timeOut'";
       $start = new DateTime($timeIn);
       $end = new DateTime($timeOut);
 
+      echo $start->format("h:i:s");
       $interval = $end->diff($start);
 
       $time = sprintf(
@@ -56,6 +57,18 @@
       if(mysqli_query($conn,$sql)){
         if($selectedDay == "Monday"){
           include("DayOfTheScheduling/MondaySchedule.php");
+        }else if($selectedDay == "Tuesday"){
+          include("DayOfTheScheduling/TuesdaySchedule.php");
+        }else if($selectedDay == "Wednesday"){
+          include("DayOfTheScheduling/WednesdaySchedule.php");
+        }else if($selectedDay == "Thursday"){
+          include("DayOfTheScheduling/ThursdaySchedule.php");
+        }else if($selectedDay == "Friday"){
+          include("DayOfTheScheduling/FridaySchedule.php");
+        }else if($selectedDay == "Saturday"){
+          include("DayOfTheScheduling/SaturdaySchedule.php");
+        }else{
+          include("DayOfTheScheduling/SundaySchedule.php");
         }
 
       //  echo "success";
