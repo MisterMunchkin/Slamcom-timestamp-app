@@ -196,12 +196,12 @@
                           </div>
                           <div class="form-group">
 
-                              <input class="form-control" id="AdminPassword" placeholder="password" name="txt_Adminpassword" type="password" required>
+                              <input class="form-control" id="AdminPassword" placeholder="password" name="txt_Adminpassword" type="password" required autofocus>
                           </div>
 
                         </div>
                     </div>
-                    <button id="AdminLoginProceedBtn" type="button" class="btn btn-primary" >Log in</button>
+                    <button id="AdminLoginProceedBtn" type="submit" class="btn btn-primary" >Log in</button>
                     <button id="AdminLoginCancelBtn" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
 
