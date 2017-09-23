@@ -458,7 +458,16 @@ include("../AdminServer/AdminLoginVerification.php");
               var Teamselected = $("#addteamSelect option:selected").val();
 
               $.ajax({
-                //adding new employee
+                url:,
+                method: "POST",
+                data: {firstname: addFirstName, lastname: addLastName, emailadd: addEmailAdd,
+                      password: addPassword, teamselected: Teamselected},
+                success: function(data){
+
+                },
+                error: function(data){
+
+                }
               });
             });
             $("#submiNewTeam").on("click", function(){
