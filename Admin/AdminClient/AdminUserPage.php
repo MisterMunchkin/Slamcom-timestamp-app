@@ -19,15 +19,15 @@ include("AdminLoginVerification.php");
     <link rel = "stylesheet" href= "https://fonts.googleapis.com/icon?family=Material+Icons" >
     <link rel = "stylesheet" href= "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" >
     <!-- Bootstrap Core CSS -->
-    <link href="AdminPageBootStrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../AdminPageBootStrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
+    <link href="../../AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 
 
     <!-- Custom Fonts -->
-    <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 
     <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
@@ -35,10 +35,10 @@ include("AdminLoginVerification.php");
     <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="WeeklySchedulerv2/dist/jquery.schedule.css">
+    <link rel="stylesheet" href="../../WeeklySchedulerv2/dist/jquery.schedule.css">
 
 
-    <link rel="stylesheet" href="munchkinBootStrap/CSS/userCSS.css">
+    <link rel="stylesheet" href="../../munchkinBootStrap/CSS/userCSS.css">
     <!--this link won't work and I don't know why -->
 
 
@@ -227,7 +227,7 @@ include("AdminLoginVerification.php");
      <!-- <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <script src="WeeklySchedulerv2/dist/jquery.schedule.js"></script>
+        <script src="../../WeeklySchedulerv2/dist/jquery.schedule.js"></script>
 
 
 
@@ -256,7 +256,7 @@ include("AdminLoginVerification.php");
 
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="AdminPageBootStrap/js/bootstrap.min.js"></script>
+    <script src="../../AdminPageBootStrap/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
 

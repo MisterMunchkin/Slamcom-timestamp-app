@@ -19,19 +19,19 @@ include("../AdminServer/AdminLoginVerification.php");
       <link rel = "stylesheet" href = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
 
     <!-- Bootstrap Core CSS -->
-    <link href="../..AdminPageBootStrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../AdminPageBootStrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../..AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
+    <link href="../../AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 
 
 
     <!-- Custom Fonts -->
-    <link href="../..AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 
-    <link href="../..munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
+    <link href="../../munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
 
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 
@@ -126,8 +126,8 @@ include("../AdminServer/AdminLoginVerification.php");
 
                     </div>
                 </div>
-                <!-- /.row -->
-                <button id="RButton" class="btn  btn-primary">Refresh</button>
+                <!-- /.row
+                <button id="RButton" class="btn  btn-primary">Refresh</button>-->
                 <div  id="tableContent"  >
                   <div id="userEditSuccess" class="alert alert-success" style="display: none;">
 
@@ -239,7 +239,7 @@ include("../AdminServer/AdminLoginVerification.php");
                               ng-class="demo.selectedMode">
                               <md-fab-trigger>
                                 <md-button id="AddEmployeeTrigger" aria-label="menu" class="md-fab md-primary">
-                                  <md-icon md-svg-src="img/icons/addIcon.svg"></md-icon>
+                                  <md-icon md-svg-src="../../img/icons/addIcon.svg"></md-icon>
                                 </md-button>
                               </md-fab-trigger>
                             <!--
@@ -341,6 +341,71 @@ include("../AdminServer/AdminLoginVerification.php");
                     </div>
                 </div>
 
+                <button type="button" id="addNewEmployee" class="btn btn-info btn-lg" data-toggle="modal" data-target="#employeeAddModal" style="display: none">Open Modal</button>
+                <div class="modal fade" id="employeeAddModal" role="dialog">
+                    <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <h4>first name</h4>
+                                          <input class="form-control" id="addFirstname" placeholder="first name" name="txt_firstname" type="text" autofocus required>
+                                    </div>
+                                    <div class="form-group">
+                                        <h4>last name</h4>
+                                          <input class="form-control" id="addLastname" placeholder="last name" name="txt_lastname" type="text" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <h4>email address</h4>
+                                          <input class="form-control" id="addEmailadd" placeholder="email address" name="txt_signUpEmail" type="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <h4>password</h4>
+                                          <input class="form-control" id="addPassword" placeholder="password" name="txt_password" type="password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="addteamSelect">
+                                            <?php
+                                              include("DBconnect.php");
+                                              $sql = "SELECT * FROM `Team` WHERE 1";
+
+                                              $result = mysqli_query($conn, $sql);
+
+                                              if(mysqli_num_rows($result) > 0){
+                                                  $data_array = array();
+                                                  while($row = mysqli_fetch_array($result)){
+
+                                                        echo '<option value='.$row['TeamID'].'>'.$row['TeamName'].'</option>';
+                                                  }
+                                              }else{
+                                                echo "no data";
+                                              }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button style="float: middle;" id="btnAddEmp" class="btn btn-lg btn-primary">Add</button>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <div class="form-group">
+
+                                    </div>
+                                    <button id="AddCloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+
 
         </div>
         <!-- /#page-wrapper -->
@@ -377,18 +442,32 @@ include("../AdminServer/AdminLoginVerification.php");
                 autoWidth: false
             })
 
-
+            $("#AddEmployeeTrigger").on("click",function(){
+              $("#addNewEmployee").trigger("click");
+            });
             $("#AddTeam").on("click", function(){
                 $("#AddTeamModalButton").trigger("click");
             });
 
+
+            $("#btnAddEmp").on("click",function(){
+              var addLastName = $("#addLastname").val();
+              var addEmailAdd = $("#addEmailadd").val();
+              var addFirstName = $("#addFirstname").val();
+              var addPassword = $("#addPassword").val();
+              var Teamselected = $("#addteamSelect option:selected").val();
+
+              $.ajax({
+                //adding new employee
+              });
+            });
             $("#submiNewTeam").on("click", function(){
                 $.ajax({
                     method: 'POST',
                     data: {txt_teamName : $("#TeamName").val(),
                            txt_teamDesc : $("#TeamDesc").val()
                     },
-                    url: 'addTeamBackground.php',
+                    url: '../AdminServer/addTeamBackground.php',
                     success: function(data){
                         alert(data);
                     },
@@ -503,12 +582,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
                 $("#closedefaultUserHours").trigger("click");
                 $("#MonthButton").trigger("click");
-                  //list is already in ascending order, what if I just group
-                //stringify json before passing to this function
 
-                //use 2d array to store the month, and then the consecutive data in the month
-              //  totalhoursformatted = getUserhours(data);
-              //from this date to this date, it can get the number of absents tardiness and lates
             });
 
             function generateMonths(year,month){
@@ -550,7 +624,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
               $.ajax({
                 type: 'POST',
-                url: 'resurrectEmployee.php',
+                url: '../AdminServer/resurrectEmployee.php',
                 data: {userID : data[0]},
 
                 success: function(data){
@@ -588,13 +662,14 @@ include("../AdminServer/AdminLoginVerification.php");
                             txt_lastname : $("#editLastname").val(),
                             txt_signUpEmail : $("#editEmailadd").val(),
                             txt_Team : $("#teamSelect option:selected").val()},
-                      url: 'editEmployeeBackground.php',
+                      url: '../AdminServer/editEmployeeBackground.php',
                       success: function(data){
                         //login popup
                         //alert($("#teamSelect option:selected").val());
                     //    alert(data);
                         console.log("user edited");
                         userEditsuccess();
+                        window.location.reload();
                       },
                       error: function(){
                         alert("something went wrong");
@@ -615,11 +690,12 @@ include("../AdminServer/AdminLoginVerification.php");
 
                 $.ajax({
                     type: 'POST',
-                    url: 'deleteUserBackground.php',
+                    url: '../AdminServer/deleteUserBackground.php',
                     data: {userID : data[0]},
 
                     success: function(data){
                         alert(data);
+                        window.location.reload();
                     },
                     error: function(){
                         console.log("failed in retrieving user hours");
@@ -629,10 +705,10 @@ include("../AdminServer/AdminLoginVerification.php");
               });
             });
 
-            $("#RButton").on("click", function(){
+            /*$("#RButton").on("click", function(){
               //$("#nonActiveTable").load("deletedEmployees.php #nonActiveTable");
               window.location.reload();
-            });
+            });*/
 
 
 
@@ -647,7 +723,7 @@ include("../AdminServer/AdminLoginVerification.php");
                     userIDfocus = data[0];
                     alert(data[0]);
 
-                    $.post("UserHoursPageLoader.php", {"userID": data[0], "firstname": data[1], "lastname": data[2], "TeamID": data[4]},function(){
+                    $.post("../AdminServer/UserHoursPageLoader.php", {"userID": data[0], "firstname": data[1], "lastname": data[2], "TeamID": data[4]},function(){
                         window.location.replace("AdminUserPage.php");
                     });
 

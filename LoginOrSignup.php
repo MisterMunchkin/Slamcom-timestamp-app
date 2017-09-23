@@ -94,7 +94,7 @@
                               <tbody>
                               <!-- turn this into a form so we can serialize and pass to ajax POST  -->
                                   <?php
-                                      include("DBconnect.php");
+                                      include("Admin/AdminServer/DBconnect.php");
                                       $query = 'SELECT `userID`, `firstname`, `lastname`, `emailadd`, `TeamID` FROM `user` WHERE `active` = 1';
 
                                       $result = mysqli_query($conn,$query);
@@ -144,7 +144,7 @@
                           <tbody>
                           <!-- turn this into a form so we can serialize and pass to ajax POST  -->
                               <?php
-                                  include("DBconnect.php");
+                                  include("Admin/AdminServer/DBconnect.php");
                                   $query = "SELECT * FROM `adminusers` WHERE 1";
 
                                   $result = mysqli_query($conn,$query);

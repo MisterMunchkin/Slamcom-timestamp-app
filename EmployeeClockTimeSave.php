@@ -28,7 +28,7 @@
 
     date_default_timezone_set("Asia/Manila");
     if($_POST){
-      include("DBconnect.php");
+      include("Admin/AdminServer/DBconnect.php");
 
       $userID = mysqli_real_escape_string($conn, $_POST['userID']);
       $timeIn = mysqli_real_escape_string($conn, $_POST['timeIn']);

@@ -1,6 +1,6 @@
 
 <?php
-include("AdminLoginVerification.php");
+include("../AdminServer/AdminLoginVerification.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,15 +19,15 @@ include("AdminLoginVerification.php");
     <link rel = "stylesheet" href= "https://fonts.googleapis.com/icon?family=Material+Icons" >
     <link rel = "stylesheet" href= "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" >
     <!-- Bootstrap Core CSS -->
-    <link href="AdminPageBootStrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../AdminPageBootStrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
+    <link href="../../AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 
 
     <!-- Custom Fonts -->
-    <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
     <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
@@ -37,9 +37,9 @@ include("AdminLoginVerification.php");
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!--  <link rel="stylesheet" href="WeeklySchedulerv2/dist/jquery.schedule.css">-->
 
-    <link rel="stylesheet" href="munchkinBootStrap/CSS/userCSS.css">
+    <link rel="stylesheet" href="../../munchkinBootStrap/CSS/userCSS.css">
     <!--this link won't work and I don't know why -->
-    <link href="TimePickerPlugin/mdtimepicker.css" rel="stylesheet">
+    <link href="../../TimePickerPlugin/mdtimepicker.css" rel="stylesheet">
 
 
     <style>
@@ -148,7 +148,7 @@ include("AdminLoginVerification.php");
                                             <tbody>
                                             <!-- turn this into a form so we can serialize and pass to ajax POST-->
                                                 <?php
-                                                  include("DBconnect.php");
+                                                  include("../AdminServer/DBconnect.php");
                                                   $sql = "SELECT * FROM `Team` WHERE 1";
 
                                                   $result = mysqli_query($conn, $sql);
@@ -199,7 +199,7 @@ include("AdminLoginVerification.php");
                               ng-class="demo.selectedMode">
                               <md-fab-trigger>
                                 <md-button id="addNewTeamTrigger" aria-label="menu" class="md-fab md-primary">
-                                  <md-icon md-svg-src="img/icons/addIcon.svg"></md-icon>
+                                  <md-icon md-svg-src="../../img/icons/addIcon.svg"></md-icon>
                                 </md-button>
                               </md-fab-trigger>
 
@@ -387,7 +387,7 @@ include("AdminLoginVerification.php");
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
       <!--  <script src="WeeklySchedulerv2/dist/jquery.schedule.js"></script>-->
-        <script src="TimePickerPlugin/mdtimepicker.js"></script>
+        <script src="../../TimePickerPlugin/mdtimepicker.js"></script>
 
 
         <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
@@ -406,7 +406,7 @@ include("AdminLoginVerification.php");
    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="AdminPageBootStrap/js/bootstrap.min.js"></script>
+    <script src="../../AdminPageBootStrap/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
 
 
