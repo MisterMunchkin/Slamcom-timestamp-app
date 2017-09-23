@@ -28,15 +28,14 @@ include("AdminLoginVerification.php");
 
     <!-- Custom Fonts -->
     <link href="AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+
 
     <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
 
     <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="WeeklySchedulerv2/dist/jquery.schedule.css">
-
+  <!--  <link rel="stylesheet" href="WeeklySchedulerv2/dist/jquery.schedule.css">-->
 
     <link rel="stylesheet" href="munchkinBootStrap/CSS/userCSS.css">
     <!--this link won't work and I don't know why -->
@@ -158,13 +157,7 @@ include("AdminLoginVerification.php");
                                                       $data_array = array();
 
                                                       while($row = mysqli_fetch_array($result)){
-                                                          /*
-                                                          $data_array[] = array(
-                                                              'TeamID' => $row['TeamID'],
-                                                              'TeamName' => $row['TeamName'],
-                                                              'TeamDesc' => $row['TeamDesc']
-                                                          );
-                                                          */
+
                                                           echo '<tr id='.$row['TeamID'].'>
                                                                   <td>'.$row['TeamID'].'</td>
                                                                   <td>'.$row['TeamName'].'</td>
@@ -175,10 +168,7 @@ include("AdminLoginVerification.php");
 
                                                                   </tr>';
                                                       }
-                                                      /*
-                                                      $json = json_encode($data_array);
-                                                      echo $json;
-                                                      */
+
                                                   }else{
                                                     echo "no data";
                                                   }
@@ -275,31 +265,7 @@ include("AdminLoginVerification.php");
                                 <div class = "Column buttonSize">
                                     <md-button id="submitEmployeeSchedule" flex="15" class="md-raised md-primary">submit</md-button>
                                 </div>
-                                <!--<div id="schedule-demo" class="jqs-demo">
 
-                                </div>
-                                <div class="weekDays-selector">
-                                  <input type="checkbox" id="weekday-mon" class="weekday" />
-                                  <label for="weekday-mon">M</label>
-
-                                  <input type="checkbox" id="weekday-tue" class="weekday" />
-                                  <label for="weekday-tue">T</label>
-
-                                  <input type="checkbox" id="weekday-wed" class="weekday" />
-                                  <label for="weekday-wed">W</label>
-
-                                  <input type="checkbox" id="weekday-thu" class="weekday" />
-                                  <label for="weekday-thu">T</label>
-
-                                  <input type="checkbox" id="weekday-fri" class="weekday" />
-                                  <label for="weekday-fri">F</label>
-
-                                  <input type="checkbox" id="weekday-sat" class="weekday" />
-                                  <label for="weekday-sat">S</label>
-
-                                  <input type="checkbox" id="weekday-sun" class="weekday" />
-                                  <label for="weekday-sun">S</label>
-                                </div>-->
                                 <md-content layout-gt-sm="column" layout-padding>
                                     <div class="form-group">
                                       <input type="checkbox" id="sundayCheck"  value="Sunday">Sunday</br>
@@ -420,7 +386,7 @@ include("AdminLoginVerification.php");
      <!-- <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <script src="WeeklySchedulerv2/dist/jquery.schedule.js"></script>
+      <!--  <script src="WeeklySchedulerv2/dist/jquery.schedule.js"></script>-->
         <script src="TimePickerPlugin/mdtimepicker.js"></script>
 
 
@@ -442,7 +408,7 @@ include("AdminLoginVerification.php");
     <!-- Bootstrap Core JavaScript -->
     <script src="AdminPageBootStrap/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+
 
 
 
@@ -477,18 +443,7 @@ include("AdminLoginVerification.php");
 
 
         });
-        app.controller('StartdateController', function($scope){
 
-
-         //  STARTDate = moment(this.startDate).format('YYYY-MM-DD');
-
-        });
-
-        app.controller('EnddateController', function($scope){
-
-
-          //  ENDDate = moment(this.endDate).format('YYYY-MM-DD');
-        });
         app.controller('FABCtrl', function(){
           this.topDirections = 'up';
           this.bottomDirections = 'down';
@@ -527,6 +482,18 @@ include("AdminLoginVerification.php");
             var TeamTable = $("#TeamTable").DataTable();
             $("#timepickerSundayTimeIn").mdtimepicker();
             $("#timepickerSundayTimeOut").mdtimepicker();
+            $("#timepickerMondayTimeIn").mdtimepicker();
+            $("#timepickerMondayTimeOut").mdtimepicker();
+            $("#timepickerTuesdayTimeIn").mdtimepicker();
+            $("#timepickerTuesdayTimeOut").mdtimepicker();
+            $("#timepickerWednesdayTimeIn").mdtimepicker();
+            $("#timepickerWednesdayTimeOut").mdtimepicker();
+            $("#timepickerThursdayTimeIn").mdtimepicker();
+            $("#timepickerThursdayTimeOut").mdtimepicker();
+            $("#timepickerFridayTimeIn").mdtimepicker();
+            $("#timepickerFridayTimeOut").mdtimepicker();
+            $("#timepickerSaturdayTimeIn").mdtimepicker();
+            $("#timepickerSaturdayTimeOut").mdtimepicker();
 
             $("#sundayCheck").change(function(){
               $("#sundayGroup").toggle();
@@ -567,55 +534,72 @@ include("AdminLoginVerification.php");
                         url: "loadScheduleBackground.php",
                         data: {TeamID: data[0]},
                         success: function(data){
-
+                          alert(data);
                         },
                         error: function(data){
 
                         }
-                    })
+                    });
+
+                    $("#submitEmployeeSchedule").on("click",function(){
+
+                        var JSONData = getSchedJSONformat();
+
+                         $.ajax({
+                            url: "insertScheduleBackground.php",
+                            method: "POST",
+
+                            data: {schedule: JSONData,TeamID: data[0]},
+                            success: function(response){
+                                alert(response);
+                                $("#addTeamcloseButton").trigger("click");
+                            },
+                            error: function(response){
+                                alert(response);
+                            }
+                        });
+
+                    });
                 }
             });
             function getSchedJSONformat(){
 
               var SundayArray = new Array($("#timepickerSundayTimeIn").val(),
                     $("#timepickerSundayTimeOut").val());
+              var MondayArray = new Array($("#timepickerMondayTimeIn").val(),
+                    $("#timepickerMondayTimeOut").val());
+              var TuesdayArray = new Array($("#timepickerTuesdayTimeIn").val(),
+                    $("#timepickerTuesdayTimeOut").val());
+              var WednesdayArray = new Array($("#timepickerWednesdayTimeIn").val(),
+                    $("#timepickerWednesdayTimeOut").val());
+              var ThursdayArray = new Array($("#timepickerThursdayTimeIn").val(),
+                    $("#timepickerThursdayTimeOut").val());
+              var FridayArray = new Array($("#timepickerFridayTimeIn").val(),
+                    $("#timepickerFridayTimeOut").val());
+              var SaturdayArray = new Array($("#timepickerSaturdayTimeIn").val(),
+                    $("#timepickerSaturdayTimeOut").val())
             //  var ModayArray = new
               alert(SundayArray[0]+' '+SundayArray[1]);
 
-              var JSONstring = '{"Sunday": {"TimeIn": "'+ SundayArray[0] +'" , "TimeOut": "'+ SundayArray[1] +'"},
-                                  }';//add the other days into the string same format
-              var JSONobject = $.parseJSON(JSONstring);
+              var JSONstring = `[{"day":0, "period": ["`+ SundayArray[0] +`" ,"`+ SundayArray[1] +`"]},
+              {"day":1, "period": ["`+ MondayArray[0] +`","`+ MondayArray[1] +`"]},
+              {"day":2, "period": ["`+ TuesdayArray[0] +`","`+ TuesdayArray[1] +`"]},
+              {"day":3, "period": ["`+ WednesdayArray[0] +`","`+ WednesdayArray[1] +`"]},
+              {"day":4, "period": ["`+ ThursdayArray[0] +`","`+ ThursdayArray[1] +`"]},
+              {"day":5, "period": ["`+ FridayArray[0] +`","`+ FridayArray[1] +`"]},
+              {"day":6, "period": ["`+ SaturdayArray[0] +`","`+ SaturdayArray[1] +`"]}]`;//add the other days into the string same format
 
-              alert(JSONobject.Sunday.TimeIn);
+
+              return JSONstring;
             }
-            $("#submitEmployeeSchedule").on("click",function(){
-              //  alert($("#schedule-demo").jqs("export"));
-                //var schedule = ;
-                getSchedJSONformat();
-                /*
-                 $.ajax({
-                    url: "insertScheduleBackground.php",
-                    method: "POST",
 
-                    data: {schedule: schedule,TeamID: data[0]},
-                    success: function(response){
-                        alert(response);
-                    },
-                    error: function(response){
-                        alert(response);
-                    }
-                });*/
 
-            });
-
-            $("#schedule-demo").jqs({
-                hour: 12
-            });
 
             $("#addNewTeamTrigger").on("click", function(){
                 $("#AddTeamModalButton").trigger("click");
 
             });
+
             $("#submitNewTeam").on("click", function(){
                 $.ajax({
                     method: 'POST',
@@ -708,9 +692,6 @@ include("AdminLoginVerification.php");
             return (time < 10)? '0' + time : time;
         }
     </script>
-
-
-
 
 </body>
 

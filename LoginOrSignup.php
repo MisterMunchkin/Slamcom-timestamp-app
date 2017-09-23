@@ -270,13 +270,13 @@
                   var Adminpass = $("#AdminPassword").val();
 
                   $.ajax({
-                    url: "AdminLoginBackground.php",
+                    url: "Admin/AdminServer/AdminLoginBackground.php",
                     method: "POST",
                     data: {AdminID: data[0],AdminPassword: Adminpass},
                     success: function(data){
 
                       if(data == "success"){
-                        location.replace("AdminDashboard.php");
+                        location.replace("Admin/AdminClient/AdminDashboard.php");
                       }else{
                         alert(data);
                       }
