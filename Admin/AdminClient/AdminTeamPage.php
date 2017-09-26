@@ -99,7 +99,8 @@ include("../AdminServer/AdminLoginVerification.php");
           right:0;
         }
         #page-wrapper{
-            width: 89%;
+            width: 85%;
+            height: 900px;
         }
         .modal-dialog{
             width: 90%;
@@ -147,7 +148,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                             <!-- turn this into a form so we can serialize and pass to ajax POST-->
                                                 <?php
                                                   include("../AdminServer/DBconnect.php");
-                                                  $sql = "SELECT * FROM `Team` WHERE 1";
+                                                  $sql = "SELECT * FROM `Team` WHERE `Active` = 1";
 
                                                   $result = mysqli_query($conn, $sql);
 
@@ -183,6 +184,49 @@ include("../AdminServer/AdminLoginVerification.php");
                             <md-tab id = "tab2">
                                 <md-tab-label>{{data.secondLabel}}</md-tab-label>
                                 <md-tab-body>
+                                  <div class="table-responsive">
+                                      <table id="InactiveTeamTable" class="table table-hover table-striped" cellspacing="0" width="100%" >
+                                          <thead>
+                                              <tr>
+                                                  <th>Team ID</th>
+                                                  <th>Team Name</th>
+                                                  <th>Team Description</th>
+
+                                                  <th>Resurrect</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                          <!-- turn this into a form so we can serialize and pass to ajax POST-->
+                                              <?php
+                                                include("../AdminServer/DBconnect.php");
+                                                $sql = "SELECT * FROM `Team` WHERE `Active` = 0";
+
+                                                $result = mysqli_query($conn, $sql);
+
+                                                if(mysqli_num_rows($result) > 0){
+                                                    $data_array = array();
+
+                                                    while($row = mysqli_fetch_array($result)){
+                                                        $resurrectBtn = $row['TeamID'].$row['TeamName'];
+
+                                                        echo '<tr id='.$row['TeamID'].'>
+                                                                <td>'.$row['TeamID'].'</td>
+                                                                <td>'.$row['TeamName'].'</td>
+                                                                <td>'.$row['TeamDesc'].'</td>
+
+                                                                <td><button id='.$resurrectBtn.' type="button" data-toggle="modal" data-target="#ResurrectTeamModal" class="btn btn-sm btn-primary">Resurrect</button>
+                                                                </tr>';
+                                                    }
+
+                                                }else{
+                                                  echo "no data";
+                                                }
+
+                                              ?>
+
+                                          </tbody>
+                                      </table>
+                                  </div>
 
                                 </md-tab-body>
                             </md-tab>
@@ -260,13 +304,37 @@ include("../AdminServer/AdminLoginVerification.php");
                                 are you sure you want to delete?
 
                                 <button id="deleteyes">yes</button>
-                                <button id="deleteno">no</button>
+                                <button id="deleteno" data-dismiss="modal">no</button>
                             </div>
 
                         </div>
 
                 </div>
             </div>
+
+
+            <div class="modal fade" id="ResurrectTeamModal" role="dialog">
+                <div class="modal-dialog">
+
+                        <!-- Modal content modal to add team-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+                                are you sure you want to resurrect?
+
+                                <button id="resurrectyes">yes</button>
+                                <button id="resurrectno" data-dismiss="modal">no</button>
+                            </div>
+
+                        </div>
+
+                </div>
+            </div>
+
 
             <button type="button" id="AddScheduleModalButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddScheduleModal" style="display: none">Open Modal</button>
             <div class="modal fade" id="AddScheduleModal" role="dialog">
@@ -502,6 +570,8 @@ include("../AdminServer/AdminLoginVerification.php");
 
             //var hoursTable = $("#UserHoursTable").DataTable();
             var TeamTable = $("#TeamTable").DataTable();
+            var InactiveTeamTable = $("#InactiveTeamTable").DataTable();
+
             $("#timepickerSundayTimeIn").mdtimepicker();
             $("#timepickerSundayTimeOut").mdtimepicker();
             $("#timepickerMondayTimeIn").mdtimepicker();
@@ -556,7 +626,29 @@ include("../AdminServer/AdminLoginVerification.php");
                 alert(data);
               }
             });*/
+            $("#InactiveTeamTable tbody").on("click","td",function(){
+              var data = InactiveTeamTable.row($(this).parents('tr')).data();
 
+              if($(this).index() == 3){
+                var resurrectBtn = data[0]+data[1];
+
+                  $("#resurrectyes").on("click",function(){
+                    $.ajax({
+                      url: "../AdminServer/resurrectTeamServer.php",
+                      method: "POST",
+                      data: {TeamID: data[0]},
+                      success: function(data){
+                        alert(data);
+                        $("#resurrectno").trigger("click");
+                      },
+                      error: function(data){
+                        alert(data);
+                      }
+                    });
+                  });
+
+              }
+            });
             $("#TeamTable tbody").on("click",'td',function(){
                 var data = TeamTable.row($(this).parents('tr')).data();
                 if($(this).index() == 3){
@@ -564,19 +656,22 @@ include("../AdminServer/AdminLoginVerification.php");
                     var deleteBtn = data[0]+data[1];
                     var editBtn = data[1]+data[0];
 
-                    $("#"+deleteBtn).on("click",function(){
-                      $.ajax({
-                        url: "../AdminServer/deleteTeamServer.php",
-                        method: "POST",
-                        data: {TeamID: data[0]},
-                        success: function(data){
+                      $("$deleteyes").on("click",function(){
+                        $.ajax({
+                          url: "../AdminServer/deleteTeamServer.php",
+                          method: "POST",
+                          data: {TeamID: data[0]},
+                          success: function(data){
+                            alert(data);
+                            $("#deleteno").trigger("click");
 
-                        },
-                        error: function(data){
-                          
-                        }
+                          },
+                          error: function(data){
+                            alert(data);
+                          }
+                        });
                       });
-                    });
+
                 }else{
                     var data = TeamTable.row($(this).parents('tr')).data();
                     $("#teamNameText").html("<h4>"+data[1]+"</h4>");
@@ -610,7 +705,6 @@ include("../AdminServer/AdminLoginVerification.php");
                                 alert(response);
                             }
                         });
-
                     });
                 }
             });

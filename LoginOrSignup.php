@@ -112,7 +112,7 @@
                                                       <td>'.$row[3].'</td>
                                                       <td>'.$row[4].'</td>
                                                       <td>'.$teamrow[0].'</td>
-                                                      <td><button id="'.$LogInbtnID.'" type="button"
+                                                      <td><button id="'.$LogInbtnID.'" type="button" data-toggle="modal" data-target="#EmployeeLoginValidationModal"
                                                       class="btn btn-sm btn-primary" value="LogIn">Login</button></td>
                                                       <td></td>
                                                       <td><button id="'.$LogOutbtnID.'" type="button" class="btn btn-sm btn-primary"
@@ -196,7 +196,7 @@
                           </div>
                           <div class="form-group">
 
-                              <input class="form-control" id="AdminPassword" placeholder="password" name="txt_Adminpassword" type="password" required autofocus>
+                              <input class="form-control" id="AdminPassword" placeholder="password" name="txt_Adminpassword" type="password" autofocus required >
                           </div>
 
                         </div>
@@ -207,7 +207,7 @@
 
         </div>
     </div>
-    <button type="button" id="EmployeeLoginValidationModalButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#EmployeeLoginValidationModal" style="display: none">Open Modal</button>
+  <!--  <button type="button" id="EmployeeLoginValidationModalButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#EmployeeLoginValidationModal" style="display: none">Open Modal</button>-->
     <div class="modal fade" id="EmployeeLoginValidationModal" role="dialog">
         <div class="modal-dialog">
 
@@ -342,6 +342,7 @@
 
             $("#ActiveEmployeeTable").on("click", "td", function(){
               var data = ActiveEmployeeTable.row($(this).parents('tr')).data();
+              var cell = ActiveEmployeeTable.cell($(this).parents('tr'), 7);
               var LoginBtn = data[0] + data[4];
               var LogoutBtn = data[0] + data[5];
 
@@ -350,12 +351,7 @@
                 $("#EmployeeFirstName").val(data[1]);
                 $("#EmployeeLastName").val(data[2]);
 
-                $("#EmployeeLoginValidationModalButton").trigger("click");
-
-
-
-                $("#EmployeeFirstName").val(data[1]);
-                $("#EmployeeLastName").val(data[2]);
+                //$("#EmployeeLoginValidationModalButton").trigger("click");
 
                 $("#EmployeeLoginProceedBtn").on("click", function(){
                     var password = $("#EmployeePassword").val();
@@ -369,8 +365,11 @@
                             $("#"+LoginBtn).prop('disabled',true);
                             $("#"+LogoutBtn).prop('disabled',false);
 
-                            var cell = ActiveEmployeeTable.cell($(this).parents('tr'), 7);
+
+                            alert(data);
                             cell.data(getDateTime());
+                            $("#EmployeeLoginCancelBtn").trigger("click");
+                            $("#EmployeePassword").val("");
                           }else{
                             alert(data);
                             $("#EmployeePassword").val("");

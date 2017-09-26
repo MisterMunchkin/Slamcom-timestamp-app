@@ -18,7 +18,7 @@
                       <button id="editTeambutton" type="button" class="btn btn-sm btn-warning">Edit</button></td>
 
                   </tr>';*/
-      }//how am I gonna pass the buttons...
+      }//how am I gonna pass the buttons
 
   }else{
     echo "no data";

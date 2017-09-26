@@ -43,6 +43,12 @@ include("../AdminServer/AdminLoginVerification.php");
 
 
     <style>
+        #wrapper{
+          height: 100%;
+        }
+        .mainContent{
+          height: 100%;
+        }
         .datepickerdemo md-content{
             display: flex;
 
@@ -104,7 +110,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
         <?php include("sideBar.php"); ?>
 
-        <div  ng-app = "tableApplication" id="page-wrapper">
+        <div class="mainContent" ng-app = "tableApplication">
 
             <div class="container-fluid">
 
@@ -129,17 +135,20 @@ include("../AdminServer/AdminLoginVerification.php");
                 <div id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak style="position: relative;">
 
                     <md-content layout = "column" layout-fill>
-                        <md-tabs layout-fill class = "md-accent" md-selected = "data.selectedIndex"
+                        <md-tabs layout-fill  md-selected = "data.selectedIndex"
                             md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
                             <md-tab id = "tab1">
                                 <md-tab-label>{{data.firstLabel}}</md-tab-label>
                                 <md-tab-body>
-                                    <div class = "Column buttonSize">
+                                    <!--<div class = "Column buttonSize">
                                                     <md-button id="submitEmployeeSchedule" flex="15" class="md-raised md-primary">submit</md-button>
                                     </div>
                                     <div id="schedule-demo" class="jqs-demo">
 
-                                    </div>
+                                    </div>-->
+                                    <table id="UserscheduleTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
+
+                                    </table>
                                 </md-tab-body>
                             </md-tab>
                             <md-tab id = "tab2">
@@ -326,7 +335,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
             var hoursTable = $("#UserHoursTable").DataTable();
             var schedule;
-
+            /*
             $(function(){
                 $.ajax({
                     url: "../AdminServer/loadScheduleBackgrounduserPage.php",
@@ -343,6 +352,22 @@ include("../AdminServer/AdminLoginVerification.php");
                     }
                 });
 
+            });*/
+            $.ajax({
+              type: "POST",
+              url: "../AdminServer/EmployeeTeamSchedTableLoader.php",
+              dataType: "json",
+              cache: false,
+              success: function(data){
+                $("#UserscheduleTable").DataTable({
+                  "searching": false,
+                  "aaData": [data]
+
+                });
+              },
+              error: function(data){
+
+              }
             });
             $("#schedule-demo").jqs({
                 mode: "read",

@@ -87,6 +87,9 @@ include("../AdminServer/AdminLoginVerification.php");
         .Column{
             display: table-cell;
         }
+        #mainContent{
+          width: 84%;
+        }
     </style>
 
 
@@ -97,7 +100,7 @@ include("../AdminServer/AdminLoginVerification.php");
     <div id="wrapper">
         <?php include("sideBar.php"); ?>
 
-        <div id="page-wrapper">
+        <div>
 
             <div id="mainContent">
 
@@ -117,9 +120,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
                   </div>
                     <div class="Row">
-                        <div class="Column">
-                            <button id="RButton" class="btn  btn-primary" style="display:inline;">Refresh</button>
-                        </div>
+
                         <div class="Column">
                            <!-- <md-button id="addNewAdmin" class="md-raised md-primary">add new admin</md-button>-->
                         </div>
@@ -129,23 +130,15 @@ include("../AdminServer/AdminLoginVerification.php");
                   <div flex layout = "column" id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak >
                         <!--<div id="ContentContainer">-->
                             <md-content layout = "column" layout-fill >
-                                <md-tabs  layout-fill class = "md-accent" md-selected = "data.selectedIndex"
+                                <md-tabs  layout-fill  md-selected = "data.selectedIndex"
                                     md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
+
                                     <md-tab id = "tab1">
                                         <md-tab-label>{{data.firstLabel}}</md-tab-label>
                                         <md-tab-body>
 
                                             <div class="table-responsive">
-                                                make form for new admins
-                                            </div>
-                                        </md-tab-body>
-                                    </md-tab>
-                                    <md-tab id = "tab2">
-                                        <md-tab-label>{{data.secondLabel}}</md-tab-label>
-                                        <md-tab-body>
 
-                                            <div class="table-responsive">
-                                                tab for active admin
                                                 <table id="ActiveEmployeeTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
                                                     <thead>
                                                         <tr>
@@ -160,19 +153,22 @@ include("../AdminServer/AdminLoginVerification.php");
                                                     <!-- turn this into a form so we can serialize and pass to ajax POST  -->
                                                         <?php
                                                             include("../AdminServer/DBconnect.php");
-                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailadd` FROM `user` WHERE `active` = 1';
+                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress` FROM `adminusers` WHERE `Active` = 1';
 
                                                             $result = mysqli_query($conn,$query);
-
-                                                            while($row = mysqli_fetch_array($result)){
-                                                                echo '<tr id='.$row[0].'>
-                                                                        <td>'.$row[0].'</td>
-                                                                        <td>'.$row[1].'</td>
-                                                                        <td>'.$row[2].'</td>
-                                                                        <td>'.$row[3].'</td>
-                                                                        <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                                            <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
-                                                                        </tr>';
+                                                            if($result){
+                                                              while($row = mysqli_fetch_array($result)){
+                                                                  echo '<tr id='.$row[0].'>
+                                                                          <td>'.$row[0].'</td>
+                                                                          <td>'.$row[1].'</td>
+                                                                          <td>'.$row[2].'</td>
+                                                                          <td>'.$row[3].'</td>
+                                                                          <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                                              <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
+                                                                          </tr>';
+                                                              }
+                                                            }else{
+                                                              echo "wdfk";
                                                             }
                                                         ?>
                                                     </tbody>
@@ -180,11 +176,11 @@ include("../AdminServer/AdminLoginVerification.php");
                                             </div>
                                         </md-tab-body>
                                     </md-tab>
-                                    <md-tab id = "tab3">
-                                        <md-tab-label>{{data.thirdLabel}}</md-tab-label>
+                                    <md-tab id = "tab2">
+                                        <md-tab-label>{{data.secondLabel}}</md-tab-label>
                                         <md-tab-body>
                                             <div class="table-responsive">
-                                                tab for inactive admin
+
                                                 <table id="NonActiveEmployeeTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
                                                     <thead>
                                                         <tr>
@@ -199,21 +195,22 @@ include("../AdminServer/AdminLoginVerification.php");
                                                     <!-- turn this into a form so we can serialize and pass to ajax POST  -->
                                                         <?php
                                                             include("../AdminServer/DBconnect.php");
-                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailadd` FROM `user` WHERE `active` = 0';
+                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress` FROM `adminusers` WHERE `Active` = 0';
 
                                                             $result = mysqli_query($conn,$query);
 
+                                                            if($result){
+                                                              while($row = mysqli_fetch_array($result)){
 
-                                                            while($row = mysqli_fetch_array($result)){
+                                                                  echo '<tr id='.$row[0].'>
+                                                                          <td>'.$row[0].'</td>
+                                                                          <td>'.$row[1].'</td>
+                                                                          <td>'.$row[2].'</td>
+                                                                          <td>'.$row[3].'</td>
+                                                                          <td><button id="resurrectButton" type="button" class="btn btn-sm btn-primary">Resurrect</button></td>
 
-                                                                echo '<tr id='.$row[0].'>
-                                                                        <td>'.$row[0].'</td>
-                                                                        <td>'.$row[1].'</td>
-                                                                        <td>'.$row[2].'</td>
-                                                                        <td>'.$row[3].'</td>
-                                                                        <td><button id="resurrectButton" type="button" class="btn btn-sm btn-primary">Resurrect</button></td>
-
-                                                                        </tr>';
+                                                                          </tr>';
+                                                              }
                                                             }
                                                         ?>
 
@@ -229,82 +226,20 @@ include("../AdminServer/AdminLoginVerification.php");
 
                 </div>
             </div>
-            <!-- /.container-fluid
-             <button type="button" id="userbuttonRow" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display: none">Open Modal</button>
+            <div ng-controller="FABCtrl as demo" class="FAB" ng-cloak>
+                <md-content>
+                    <md-fab-speed-dial md-open="demo.isOpen"
+                        md-direction="{{demo.selectedDirection}}"
+                          ng-class="demo.selectedMode">
+                          <md-fab-trigger>
+                            <md-button id="AddAdminTrigger" aria-label="menu" class="md-fab md-primary">
+                              <md-icon md-svg-src="../../img/icons/addIcon.svg"></md-icon>
+                            </md-button>
+                          </md-fab-trigger>
+                    </md-fab-speed-dial>
+                </md-content>
+            </div>
 
-                <div ng-app = "UsersModalApp" class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog" role="document">
-
-                            <div class="modal-content">
-
-
-                                <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h4 id="UserModalName" class="modal-title"></h4>
-                                </div>
-
-
-                                    <div id = "tabContainer" ng-controller = "tabController as ctrl" ng-cloak>
-                                      <md-content class = "md-padding">
-                                        <md-tabs class = "md-accent" md-selected = "data.selectedIndex"
-                                        md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
-                                          <md-tab id = "tab1">
-                                            <md-tab-label>{{data.firstLabel}}</md-tab-label>
-                                            <md-tab-body>
-                                        <!--
-                                        <div class="dropdown" style="float:right;">
-                                            <button class="dropbtn">Sort By</button>
-                                            <div class="dropdown-content">
-                                                <a class="sortByMonth" href="#">Month</a>
-                                                <a class="sortByYear" href="#">Year</a>
-                                                <a class="sortByAllTime" href="#">of All time</a>
-                                            </div>
-                                        </div>
-
-                                              <div id="ContentContainer" class="modal-body">
-                                              <div id="userHoursTableContainer" class="table-responsive" style="display: none">
-
-                                                  <table id="UserHoursTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%" style="display: none">
-                                                      <thead>
-                                                          <tr>
-                                                              <th>Day</th>
-                                                              <th>Time In</th>
-                                                              <th>Time Out</th>
-                                                              <th>Number of hours</th>
-                                                          </tr>
-                                                      </thead>
-                                                      <tbody id="UserHoursTableBody">
-                                                      </tbody>
-                                                      <tfoot>
-                                                      </tfoot>
-                                                  </table>
-                                              </div>
-                                              <div class="form-group">
-                                                  <span>Total Hours : </span> <input class="form-control" id="totalHours"  name="txt_totalHours" readonly="readonly">
-                                              </div>
-                                              </div>
-                                          </md-tab-body>
-                                          </md-tab>
-
-                                          <md-tab id = "tab2">
-                                            <md-tab-label>{{data.secondLabel}}</md-tab-label>
-                                            <md-tab-body>
-
-                                            </md-tab-body>
-                                          </md-tab>
-
-                                        </md-tabs>
-                                      </md-content>
-
-                                      <div class="modal-footer">
-                                          <button type="button" id="closedefaultUserHours" class="btn btn-default" data-dismiss="modal">Close</button>
-                                      </div>
-                                    </div>
-                                </div>
-
-                    </div>
-                </div>
--->
                 <button type="button" id="DeleteUsertrapButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#DeleteUserModal" style="display: none">Open Modal</button>
                 <div class="modal fade" id="DeleteUserModal" role="dialog">
                     <div class="modal-dialog">
@@ -404,9 +339,8 @@ include("../AdminServer/AdminLoginVerification.php");
             $scope.data = {
             selectedIndex: 0,
             bottom: false,
-            firstLabel: "Add new admin",
-            secondLabel: "Active admin",
-            thirdLabel: "Inactive admin"
+            firstLabel: "Active admin",
+            secondLabel: "Inactive admin"
 
             };
             $scope.next = function(){

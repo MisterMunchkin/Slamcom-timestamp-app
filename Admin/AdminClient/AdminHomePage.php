@@ -103,6 +103,9 @@ include("../AdminServer/AdminLoginVerification.php");
       #page-wrapper{
           width: 89%;
       }
+      #mainContent{
+        width: 84%;
+      }
     </style>
 </head>
 
@@ -113,7 +116,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
         <?php include("sideBar.php"); ?>
 
-        <div id="page-wrapper">
+        <div>
 
             <div id="mainContent" >
 
@@ -135,7 +138,7 @@ include("../AdminServer/AdminLoginVerification.php");
                   <div flex layout = "column" id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak >
                         <!--<div id="ContentContainer">-->
                             <md-content layout = "column" layout-fill >
-                                <md-tabs  layout-fill class = "md-accent" md-selected = "data.selectedIndex"
+                                <md-tabs  layout-fill  md-selected = "data.selectedIndex"
                                     md-align-tabs = "{{data.bottom ? 'bottom' : 'top'}}">
                                     <md-tab id = "tab1">
                                         <md-tab-label>{{data.firstLabel}}</md-tab-label>
@@ -161,35 +164,36 @@ include("../AdminServer/AdminLoginVerification.php");
                                                             $query = 'SELECT `userID`, `firstname`, `lastname`, `emailadd`, `TeamID` FROM `user` WHERE `active` = 1';
 
                                                             $result = mysqli_query($conn,$query);
+                                                            if($result){
+                                                              while($row = mysqli_fetch_array($result)){
+                                                                  $sql = 'SELECT `TeamName` FROM `team` WHERE `TeamID` = '.$row[4].'';
+                                                                  $teamresult = mysqli_query($conn, $sql);
+                                                                  if(mysqli_num_rows($teamresult) > 0){
+                                                                    $teamrow = mysqli_fetch_array($teamresult);
+                                                                    echo '<tr id='.$row[0].'>
+                                                                            <td>'.$row[0].'</td>
+                                                                            <td>'.$row[1].'</td>
+                                                                            <td>'.$row[2].'</td>
+                                                                            <td>'.$row[3].'</td>
+                                                                            <td>'.$row[4].'</td>
+                                                                            <td>'.$teamrow[0].'</td>
+                                                                            <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                                                <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
+                                                                            </tr>';
+                                                                  }else{
 
-                                                            while($row = mysqli_fetch_array($result)){
-                                                                $sql = 'SELECT `TeamName` FROM `team` WHERE `TeamID` = '.$row[4].'';
-                                                                $teamresult = mysqli_query($conn, $sql);
-                                                                if(mysqli_num_rows($teamresult) > 0){
-                                                                  $teamrow = mysqli_fetch_array($teamresult);
-                                                                  echo '<tr id='.$row[0].'>
-                                                                          <td>'.$row[0].'</td>
-                                                                          <td>'.$row[1].'</td>
-                                                                          <td>'.$row[2].'</td>
-                                                                          <td>'.$row[3].'</td>
-                                                                          <td>'.$row[4].'</td>
-                                                                          <td>'.$teamrow[0].'</td>
-                                                                          <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                                              <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
-                                                                          </tr>';
-                                                                }else{
-
-                                                                  echo '<tr id='.$row[0].'>
-                                                                          <td>'.$row[0].'</td>
-                                                                          <td>'.$row[1].'</td>
-                                                                          <td>'.$row[2].'</td>
-                                                                          <td>'.$row[3].'</td>
-                                                                          <td>'.$row[4].'</td>
-                                                                          <td>'."N/A".'</td>
-                                                                          <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                                              <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
-                                                                          </tr>';
-                                                                }
+                                                                    echo '<tr id='.$row[0].'>
+                                                                            <td>'.$row[0].'</td>
+                                                                            <td>'.$row[1].'</td>
+                                                                            <td>'.$row[2].'</td>
+                                                                            <td>'.$row[3].'</td>
+                                                                            <td>'.$row[4].'</td>
+                                                                            <td>'."N/A".'</td>
+                                                                            <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                                                <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
+                                                                            </tr>';
+                                                                  }
+                                                              }
                                                             }
                                                         ?>
                                                     </tbody>
@@ -219,17 +223,18 @@ include("../AdminServer/AdminLoginVerification.php");
 
                                                             $result = mysqli_query($conn,$query);
 
+                                                            if($result){
+                                                              while($row = mysqli_fetch_array($result)){
 
-                                                            while($row = mysqli_fetch_array($result)){
+                                                                  echo '<tr id='.$row[0].'>
+                                                                          <td>'.$row[0].'</td>
+                                                                          <td>'.$row[1].'</td>
+                                                                          <td>'.$row[2].'</td>
+                                                                          <td>'.$row[3].'</td>
+                                                                          <td><button id="resurrectButton" type="button" class="btn btn-sm btn-primary">Resurrect</button></td>
 
-                                                                echo '<tr id='.$row[0].'>
-                                                                        <td>'.$row[0].'</td>
-                                                                        <td>'.$row[1].'</td>
-                                                                        <td>'.$row[2].'</td>
-                                                                        <td>'.$row[3].'</td>
-                                                                        <td><button id="resurrectButton" type="button" class="btn btn-sm btn-primary">Resurrect</button></td>
-
-                                                                        </tr>';
+                                                                          </tr>';
+                                                              }
                                                             }
                                                         ?>
 
@@ -255,16 +260,6 @@ include("../AdminServer/AdminLoginVerification.php");
                                   <md-icon md-svg-src="../../img/icons/addIcon.svg"></md-icon>
                                 </md-button>
                               </md-fab-trigger>
-                            <!--
-                              <md-fab-actions>
-                                <md-button id="AddEmployee" aria-label="employee" class="md-fab md-raised">
-                                  <md-icon md-svg-src="img/icons/employeeIcon.svg"></md-icon>
-                                </md-button>
-                                <md-button id="AddTeam" aria-label="team" class="md-fab md-raised">
-                                  <md-icon md-svg-src="img/icons/teamIcon.svg"></md-icon>
-                                </md-button>
-                              </md-fab-actions>
-                          -->
                         </md-fab-speed-dial>
                     </md-content>
                 </div>
@@ -483,6 +478,7 @@ include("../AdminServer/AdminLoginVerification.php");
                   $("#addFirstname").val("");
                   $("#addPassword").val("");
                   $("#AddCloseButton").trigger("click");
+                  window.location.reload();
                 },
                 error: function(data){
                   alert(data);
@@ -590,6 +586,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
                 success: function(data){
                   alert(data);
+                  window.location.reload();
                 },
                 error: function(){
                   console.log("failed to ressurect employee");
@@ -647,7 +644,6 @@ include("../AdminServer/AdminLoginVerification.php");
               $("#DeleteUsertrapButton").trigger('click');
 
               $("#deleteYes").on("click",function(){
-                alert(data[0]);
 
                 $.ajax({
                     type: 'POST',
@@ -682,7 +678,7 @@ include("../AdminServer/AdminLoginVerification.php");
                     var firstname = data[1];
                     var lastname = data[2];
                     userIDfocus = data[0];
-                    alert(data[0]);
+                    //alert(data[0]);
 
                     $.post("../AdminServer/UserHoursPageLoader.php", {"userID": data[0], "firstname": data[1], "lastname": data[2], "TeamID": data[4]},function(){
                         window.location.replace("AdminUserPage.php");
