@@ -145,7 +145,7 @@
                           <!-- turn this into a form so we can serialize and pass to ajax POST  -->
                               <?php
                                   include("Admin/AdminServer/DBconnect.php");
-                                  $query = "SELECT * FROM `adminusers` WHERE 1";
+                                  $query = "SELECT * FROM `adminusers` WHERE `Active` = 1";
 
                                   $result = mysqli_query($conn,$query);
 

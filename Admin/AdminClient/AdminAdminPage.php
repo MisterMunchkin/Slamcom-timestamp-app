@@ -68,6 +68,11 @@ include("../AdminServer/AdminLoginVerification.php");
             font-size: 14px;
             opacity: 0.54;
         }
+        .FAB{
+          position: fixed;
+          bottom:0;
+          right:0;
+        }
         .buttonSize{
            /* width:20%;*/
             display: inline-block;
@@ -115,7 +120,7 @@ include("../AdminServer/AdminLoginVerification.php");
                 </div>
                 <!-- /.row -->
 
-                <div  id="tableContent" ng-app = "EmployeeTabApp" >
+                <div  id="tableContent" ng-app = "AdminTabApp" >
                   <div id="userEditSuccess" class="alert alert-success" style="display: none;">
 
                   </div>
@@ -139,7 +144,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
                                             <div class="table-responsive">
 
-                                                <table id="ActiveEmployeeTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
+                                                <table id="ActiveAdminTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
                                                     <thead>
                                                         <tr>
                                                             <th>User ID</th>
@@ -150,27 +155,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <!-- turn this into a form so we can serialize and pass to ajax POST  -->
-                                                        <?php
-                                                            include("../AdminServer/DBconnect.php");
-                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress` FROM `adminusers` WHERE `Active` = 1';
 
-                                                            $result = mysqli_query($conn,$query);
-                                                            if($result){
-                                                              while($row = mysqli_fetch_array($result)){
-                                                                  echo '<tr id='.$row[0].'>
-                                                                          <td>'.$row[0].'</td>
-                                                                          <td>'.$row[1].'</td>
-                                                                          <td>'.$row[2].'</td>
-                                                                          <td>'.$row[3].'</td>
-                                                                          <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                                              <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
-                                                                          </tr>';
-                                                              }
-                                                            }else{
-                                                              echo "wdfk";
-                                                            }
-                                                        ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -181,7 +166,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                         <md-tab-body>
                                             <div class="table-responsive">
 
-                                                <table id="NonActiveEmployeeTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
+                                                <table id="NonActiveAdminTable" class="table table-hover table-striped" cellspacing="0" width="100%" style= "width: 80%">
                                                     <thead>
                                                         <tr>
                                                             <th>User ID</th>
@@ -194,7 +179,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                                     <tbody>
                                                     <!-- turn this into a form so we can serialize and pass to ajax POST  -->
                                                         <?php
-                                                            include("../AdminServer/DBconnect.php");
+                                                            /*include("../AdminServer/DBconnect.php");
                                                             $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress` FROM `adminusers` WHERE `Active` = 0';
 
                                                             $result = mysqli_query($conn,$query);
@@ -211,7 +196,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
                                                                           </tr>';
                                                               }
-                                                            }
+                                                            }*/
                                                         ?>
 
                                                     </tbody>
@@ -223,22 +208,23 @@ include("../AdminServer/AdminLoginVerification.php");
                             </md-content>
                         <!--</div>-->
                     </div>
-
+                    <div ng-controller="FABCtrl as demo" class="FAB" ng-cloak>
+                        <md-content>
+                            <md-fab-speed-dial md-open="demo.isOpen"
+                                md-direction="{{demo.selectedDirection}}"
+                                  ng-class="demo.selectedMode">
+                                  <md-fab-trigger>
+                                    <md-button id="AddAdminTrigger" aria-label="menu" data-toggle="modal" data-target="#adminAddModal" class="md-fab md-primary">
+                                      <md-icon md-svg-src="../../img/icons/addIcon.svg"></md-icon>
+                                    </md-button>
+                                  </md-fab-trigger>
+                            </md-fab-speed-dial>
+                        </md-content>
+                    </div>
                 </div>
+
             </div>
-            <div ng-controller="FABCtrl as demo" class="FAB" ng-cloak>
-                <md-content>
-                    <md-fab-speed-dial md-open="demo.isOpen"
-                        md-direction="{{demo.selectedDirection}}"
-                          ng-class="demo.selectedMode">
-                          <md-fab-trigger>
-                            <md-button id="AddAdminTrigger" aria-label="menu" class="md-fab md-primary">
-                              <md-icon md-svg-src="../../img/icons/addIcon.svg"></md-icon>
-                            </md-button>
-                          </md-fab-trigger>
-                    </md-fab-speed-dial>
-                </md-content>
-            </div>
+
 
                 <button type="button" id="DeleteUsertrapButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#DeleteUserModal" style="display: none">Open Modal</button>
                 <div class="modal fade" id="DeleteUserModal" role="dialog">
@@ -267,11 +253,11 @@ include("../AdminServer/AdminLoginVerification.php");
 
                                 </div>
                                 <div class="modal-body">
-
+                                  <!--
                                     <div class="form-group">
                                       <h4>user ID</h4>
                                         <input class="form-control" id="edituserID" name="txt_userID" type="text" readonly="readonly" autofocus required>
-                                    </div>
+                                    </div>-->
                                       <div class="form-group">
                                         <h4>first name</h4>
                                           <input class="form-control" id="editFirstname" placeholder="first name" name="txt_firstname" type="text" autofocus required>
@@ -295,6 +281,46 @@ include("../AdminServer/AdminLoginVerification.php");
 
                                     </div>
                                     <button id="editCloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+
+                <div class="modal fade" id="adminAddModal" role="dialog">
+                    <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                </div>
+                                <div class="modal-body">
+
+                                      <div class="form-group">
+                                        <h4>first name</h4>
+                                          <input class="form-control" id="addFirstname" placeholder="first name" name="txt_firstname" type="text" autofocus required>
+                                      </div>
+                                      <div class="form-group">
+                                        <h4>last name</h4>
+                                          <input class="form-control" id="addLastname" placeholder="last name" name="txt_lastname" type="text" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <h4>email address</h4>
+                                          <input class="form-control" id="addEmailadd" placeholder="email address" name="txt_signUpEmail" type="email" required>
+                                      </div>
+                                      <div class="form-group">
+                                          <input class="form-control" id="addPassword" placeholder="password" name="txt_password" type="password" required>
+                                      </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <!--<div class="form-group">
+
+                                    </div>-->
+                                    <button style="float: middle;" id="btnAddAdmin" class="btn btn-lg btn-primary">Add</button>
+                                    <button id="addCloseButton" type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
 
@@ -332,7 +358,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
     <script>
 
-        var app = angular.module("EmployeeTabApp", ['ngMaterial'])
+        var app = angular.module("AdminTabApp", ['ngMaterial'])
 
 
         app.controller('tabController', function($scope){
@@ -352,177 +378,105 @@ include("../AdminServer/AdminLoginVerification.php");
             }
         });
 
-        app.controller('fabController', function(){
-            this.topDirections = 'up';
-            this.isOpen - false;
+        app.controller('FABCtrl', function(){
+          this.topDirections = 'up';
+          this.bottomDirections = 'down';
 
-            this.availableModes = 'md-fling';
-            this.selectedMode = 'md-fling';
-            this.sele
+          this.isOpen = false;
+          this.availableModes = 'md-fling';
+          this.selectedMode = 'md-fling';
+          this.availableDirections = 'up';
+          this.selectedDirection = 'up';
         });
 
         jQuery(document).ready(function(){
-            $(".modal-dialog").draggable();
-            $(".modal-content").resizable();
+          //  $(".modal-dialog").draggable();
+          //  $(".modal-content").resizable();
 
             $("#myModal").on("show.bs.modal", function(){
               $(this).find('.modal-body').css({
                 'max-height': '100%'
               });
             });
+
+            /*var userTable = $("#ActiveAdminTable").DataTable({
+              "autoWidth":false
+            });*/
+            /*var nonActiveTable = $("#NonActiveAdminTable").DataTable({
+                "autoWidth": false
+            });*/
+
             var userHours;
             var txt = "";
             var userIDfocus;
-            $("#UsersHoursTable").DataTable();
+            $.ajax({
+              type: "POST",
+              url: "../AdminServer/InactiveAdminTableLoader.php",
+              dataType: "json",
+              cache: false,
+              success: function(data){
+                console.log(data);
+                NonActiveAdminTable = $("#NonActiveAdminTable").DataTable({
 
+                  "aaData": [data]
+                });
+              }
+            });
+            $.ajax({
+              type: "POST",
+              url: "../AdminServer/ActiveAdminTableLoader.php",
+              dataType: "json",
+              cache: false,
+              success: function(data){
+                console.log(data);
+                var obj = $.parseJSON(data);
+                alert(obj);
+                  /*ActiveAdminTable = $("#ActiveAdminTable").DataTable({
 
-
-            function getUserhours(data){
-                if(data){
-                    console.log("success in retrieving user hours");
-                    var obj = $.parseJSON(data);
-
-                    var len = obj.length;
-                    //var txt = "";
-
-                    if(len > 0){
-                        var cnt = 1;
-                        var diff;
-                        var SS;
-                        var HH;
-                        var MM;
-
-                        var time_In;
-                        var time_Out;
-
-                        var totalHH = 0;
-                        var totalMM = 0;
-
-                        var totalformatted = 0;
-                        var formatted;
-
-                        for(var i = 0; i < len && (obj[i].timeIn && obj[i].timeOut); i++){
-                            time_In = new Date(Date.parse(obj[i].timeIn));
-                            time_Out = new Date(Date.parse(obj[i].timeOut));
-
-                            diff = time_Out - time_In;
-                            SS = diff/1000;
-                            MM = Math.floor((SS % 3600)/60);
-                            HH = Math.floor(SS / 3600);
-
-                            formatted = ((HH < 10) ? ("0" + HH) : HH) + ":" + ((MM < 10) ? ("0" + MM) : MM);
-
-                            txt += "<tr><td>"+cnt+"</td><td>"+obj[i].timeIn+"</td><td>"+obj[i].timeOut+"</td><td>"+formatted+"</td></tr>";
-
-                            totalHH += HH;
-                            totalMM += MM;
-                            cnt++;
-                        }
-                        if(txt != ""){
-
-                            totalformatted = ((totalHH < 10) ? ("0" + totalHH) : totalHH) + ":" + ((totalMM < 10) ? ("0" + totalMM) : totalMM);
-
-
-                            return totalformatted;
-
-                        }
-                    }else{
-                        alert("something weird happened");
-                    }
-                }else{
-                        txt = "<p>user has no activity...</p>";
-                }
-
-            }
-
-            $(".sortByMonth").on('click',function(){
-                var totalhoursformatted;
-                var UserMonth = userHours;
-
-                var dateMonths = [];
-                var row = 0;
-
-               // alert(UserMonth);
-                var obj = $.parseJSON(UserMonth);
-
-              //  alert(obj[1].timeIn.substring(5,7))
-
-                dateMonths[row] = obj[0].timeIn;
-                var lengthobj = obj.length;
-
-                for(var x = 1;x < lengthobj; x++){
-                    if(dateMonths[row].substring(0,7) != obj[x].timeIn.substring(0,7)){
-                        row++;
-                        dateMonths[row] = obj[x].timeIn;
-                    }
-
-                }
-                alert(dateMonths);
-                var lengthMonths = dateMonths.length;
-                for(var x = 0;x < lengthMonths; x++){
-                  generateMonths(dateMonths[x].substring(0,4), dateMonths[x].substring(5,7));
-                }
-
-                $("#closedefaultUserHours").trigger("click");
-                $("#MonthButton").trigger("click");
-                  //list is already in ascending order, what if I just group
-                //stringify json before passing to this function
-
-                //use 2d array to store the month, and then the consecutive data in the month
-              //  totalhoursformatted = getUserhours(data);
-              //from this date to this date, it can get the number of absents tardiness and lates
+                  "aaData": [data]
+                });*/
+              }
             });
 
-            function generateMonths(year,month){
+
+            /*$("#AddAdminTrigger").on("click", function(){
+              //alert("add button");
+            });*/
+
+            $("#btnAddAdmin").on("click",function(data){
+
               $.ajax({
-                  type: 'POST',
-                  url: 'GetUserMonth.php',
-                  data: {year: year, month: month ,userID: userIDfocus},
-
-                  success: function(data){
-                      alert(data);
-
-                      // generate table by month here
-                      //userHoursByDay(data,firstname,lastname);
-                  },
-                  error: function(){
-                      console.log("failed in retrieving user hours");
-                  }
-              })
-            }
-            function userHoursByDay(data,firstname,lastname){
-                var totalhoursformatted;
-
-                userHours = data;
-
-                totalhoursformatted = getUserhours(data);
-                $("#UserHoursTableBody").html(txt);
-                $("#totalHours").attr('value', totalhoursformatted);
-                $("#userbuttonRow").trigger('click');
-                $("#UserModalName").html(firstname+" "+lastname);
-                $("#userHoursTableContainer").css("display","block");
-                $("#UserHoursTable").css("display","block");
-
-                txt = "";
-            }
-
-            var userTable = $("#ActiveEmployeeTable").DataTable({
-              "autoWidth":false
+                url: "../AdminServer/AddAdminBackground.php",
+                method: "POST",
+                data: {firstname: $("#addFirstname").val(),
+                      lastname: $("#addLastname").val(),
+                      emailaddress: $("#addEmailadd").val(),
+                      password: $("#addPassword").val()
+                },
+                success: function(data){
+                  alert(data);
+                  $("#addCloseButton").trigger("click");
+                },
+                error: function(data){
+                  alert(data);
+                  $("#addCloseButton").trigger("click");
+                }
+              });
             });
-            var nonActiveTable = $("#NonActiveEmployeeTable").DataTable({
-                "autoWidth": false
-            })
 
-            $("#NonActiveEmployeeTable").on('click','#resurrectButton', function(){
-              var data = nonActiveTable.row($(this).parents('tr')).data();
+
+
+            $("#NonActiveAdminTable").on('click','#resurrectButton', function(){
+              var data = NonActiveAdminTable.row($(this).parents('tr')).data();
 
               $.ajax({
                 type: 'POST',
-                url: 'resurrectEmployee.php',
+                url: '../AdminServer/resurrectAdmin.php',
                 data: {userID : data[0]},
 
                 success: function(data){
                   alert(data);
+                  window.location.reload();
                 },
                 error: function(){
                   console.log("failed to ressurect employee");
@@ -539,8 +493,8 @@ include("../AdminServer/AdminLoginVerification.php");
           //  var userIDedit;
 
 
-            $("#ActiveEmployeeTable").on("click",'#editbutton' ,function(){
-                  var data = userTable.row($(this).parents('tr')).data();
+            $("#ActiveAdminTable").on("click",'#editbutton' ,function(){
+                  var data = ActiveAdminTable.row($(this).parents('tr')).data();
                 $("#edituserID").val(data[0]);
                 $("#editFirstname").val(data[1]);
                 $("#editLastname").val(data[2]);
@@ -550,16 +504,20 @@ include("../AdminServer/AdminLoginVerification.php");
                 $("#btnEditEmp").on("click", function(){
                   $.ajax({
                       method: 'POST',
-                      data: {txt_userID : $("#edituserID").val(),
+                      data: {userID: data[0],
                             txt_firstname : $("#editFirstname").val(),
                             txt_lastname : $("#editLastname").val(),
                             txt_signUpEmail : $("#editEmailadd").val()},
-                      url: 'editEmployeeBackground.php',
+                      url: '../AdminServer/editAdminBackground.php',
                       success: function(data){
                         //login popup
-                        alert(data);
-                        console.log("user edited");
-                        userEditsuccess();
+                        //alert(data);
+                        if(data == "user successfully edited"){
+                          console.log("user edited");
+                          userEditsuccess();
+                        }else{
+                          alert(data);
+                        }
                       },
                       error: function(){
                         alert("something went wrong");
@@ -568,8 +526,8 @@ include("../AdminServer/AdminLoginVerification.php");
                 });
             });
 
-            $("#ActiveEmployeeTable").on('click','#delbutton', function(){
-              var data = userTable.row($(this).parents('tr')).data();
+            $("#ActiveAdminTable").on('click','#delbutton', function(){
+              var data = ActiveAdminTable.row($(this).parents('tr')).data();
               //alert(data[0]);
             //  alert(data[1]+" "+data[2]);
               $("#DeleteUserContentContainer").html("Are you sure you want to delete, "+data[1]+" "+data[2]+" ?");
@@ -580,11 +538,12 @@ include("../AdminServer/AdminLoginVerification.php");
 
                 $.ajax({
                     type: 'POST',
-                    url: 'deleteUserBackground.php',
+                    url: '../AdminServer/deleteAdminBackground.php',
                     data: {userID : data[0]},
 
                     success: function(data){
                         alert(data);
+
                     },
                     error: function(){
                         console.log("failed in retrieving user hours");
@@ -594,19 +553,15 @@ include("../AdminServer/AdminLoginVerification.php");
               });
             });
 
-            $("#RButton").on("click", function(){
-              //$("#nonActiveTable").load("deletedEmployees.php #nonActiveTable");
-              window.location.reload();
-            });
 
 
 
-            $("#ActiveEmployeeTable tbody").on('click', 'td', function(){
+            $("#ActiveAdminTable tbody").on('click', 'td', function(){
                 if($(this).index() == 4){
                     return;
                 }else{
                 //  $("#myModal").data('bs.modal').handleUpdate();
-                    var data = userTable.row(this).data();
+                    var data = ActiveAdminTable.row(this).data();
                     var firstname = data[1];
                     var lastname = data[2];
                     userIDfocus = data[0];
@@ -616,23 +571,6 @@ include("../AdminServer/AdminLoginVerification.php");
                         window.location.replace("AdminUserPage.php");
                     });
 
-                    /*
-                    $.ajax({
-                        type: 'POST',
-                        url: 'UserHoursPageLoader.php',
-                        data: {userID: data[0]},
-
-                        success: function(data){
-                          //  userHours = data;
-                          alert("hi");
-                          window.location.replace("AdminUserPage.php");
-                            //userHoursByDay(data,firstname,lastname);
-                        },
-                        error: function(){
-                            console.log("failed in retrieving user hours");
-                        }
-                    })
-                    */
                 }
             });
 
