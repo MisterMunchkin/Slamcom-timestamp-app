@@ -165,17 +165,30 @@ include("../AdminServer/AdminLoginVerification.php");
                                                             while($row = mysqli_fetch_array($result)){
                                                                 $sql = 'SELECT `TeamName` FROM `team` WHERE `TeamID` = '.$row[4].'';
                                                                 $teamresult = mysqli_query($conn, $sql);
-                                                                while($teamrow = mysqli_fetch_array($teamresult)){
-                                                                    echo '<tr id='.$row[0].'>
-                                                                            <td>'.$row[0].'</td>
-                                                                            <td>'.$row[1].'</td>
-                                                                            <td>'.$row[2].'</td>
-                                                                            <td>'.$row[3].'</td>
-                                                                            <td>'.$row[4].'</td>
-                                                                            <td>'.$teamrow[0].'</td>
-                                                                            <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                                                <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
-                                                                            </tr>';
+                                                                if(mysqli_num_rows($teamresult) > 0){
+                                                                  $teamrow = mysqli_fetch_array($teamresult);
+                                                                  echo '<tr id='.$row[0].'>
+                                                                          <td>'.$row[0].'</td>
+                                                                          <td>'.$row[1].'</td>
+                                                                          <td>'.$row[2].'</td>
+                                                                          <td>'.$row[3].'</td>
+                                                                          <td>'.$row[4].'</td>
+                                                                          <td>'.$teamrow[0].'</td>
+                                                                          <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                                              <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
+                                                                          </tr>';
+                                                                }else{
+
+                                                                  echo '<tr id='.$row[0].'>
+                                                                          <td>'.$row[0].'</td>
+                                                                          <td>'.$row[1].'</td>
+                                                                          <td>'.$row[2].'</td>
+                                                                          <td>'.$row[3].'</td>
+                                                                          <td>'.$row[4].'</td>
+                                                                          <td>'."N/A".'</td>
+                                                                          <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                                              <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button>
+                                                                          </tr>';
                                                                 }
                                                             }
                                                         ?>
@@ -379,6 +392,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
                                               if(mysqli_num_rows($result) > 0){
                                                   $data_array = array();
+                                                  echo '<option value=0>none</option>';
                                                   while($row = mysqli_fetch_array($result)){
 
                                                         echo '<option value='.$row['TeamID'].'>'.$row['TeamName'].'</option>';
@@ -437,10 +451,10 @@ include("../AdminServer/AdminLoginVerification.php");
             });
             var nonActiveTable = $("#NonActiveEmployeeTable").DataTable({
                 "autoWidth": false
-            })
+            });
             var TeamTable = $("#TeamTable").DataTable({
                 autoWidth: false
-            })
+            });
 
             $("#AddEmployeeTrigger").on("click",function(){
               $("#addNewEmployee").trigger("click");
@@ -458,39 +472,25 @@ include("../AdminServer/AdminLoginVerification.php");
               var Teamselected = $("#addteamSelect option:selected").val();
 
               $.ajax({
-                url:,
+                url:"../AdminServer/signUpBackground.php",
                 method: "POST",
                 data: {firstname: addFirstName, lastname: addLastName, emailadd: addEmailAdd,
                       password: addPassword, teamselected: Teamselected},
                 success: function(data){
-
+                  alert(data);
+                  $("#addLastname").val("");
+                  $("#addEmailadd").val("");
+                  $("#addFirstname").val("");
+                  $("#addPassword").val("");
+                  $("#AddCloseButton").trigger("click");
                 },
                 error: function(data){
-
+                  alert(data);
                 }
               });
             });
-            $("#submiNewTeam").on("click", function(){
-                $.ajax({
-                    method: 'POST',
-                    data: {txt_teamName : $("#TeamName").val(),
-                           txt_teamDesc : $("#TeamDesc").val()
-                    },
-                    url: '../AdminServer/addTeamBackground.php',
-                    success: function(data){
-                        alert(data);
-                    },
-                    error: function(data){
-                        alert(data);
-                    }
-                })
-                $("#addTeamcloseButton").trigger("click");
-            });
 
 
-            $("#AddEmployee").on("click", function(){
-                alert("modal employee popup");
-            });
             $("#myModal").on("show.bs.modal", function(){
               $(this).find('.modal-body').css({
                 'max-height': '100%'
@@ -561,56 +561,8 @@ include("../AdminServer/AdminLoginVerification.php");
 
             }
 
-            $(".sortByMonth").on('click',function(){
-                var totalhoursformatted;
-                var UserMonth = userHours;
 
-                var dateMonths = [];
-                var row = 0;
 
-               // alert(UserMonth);
-                var obj = $.parseJSON(UserMonth);
-
-              //  alert(obj[1].timeIn.substring(5,7))
-
-                dateMonths[row] = obj[0].timeIn;
-                var lengthobj = obj.length;
-
-                for(var x = 1;x < lengthobj; x++){
-                    if(dateMonths[row].substring(0,7) != obj[x].timeIn.substring(0,7)){
-                        row++;
-                        dateMonths[row] = obj[x].timeIn;
-                    }
-
-                }
-                alert(dateMonths);
-                var lengthMonths = dateMonths.length;
-                for(var x = 0;x < lengthMonths; x++){
-                  generateMonths(dateMonths[x].substring(0,4), dateMonths[x].substring(5,7));
-                }
-
-                $("#closedefaultUserHours").trigger("click");
-                $("#MonthButton").trigger("click");
-
-            });
-
-            function generateMonths(year,month){
-              $.ajax({
-                  type: 'POST',
-                  url: 'GetUserMonth.php',
-                  data: {year: year, month: month ,userID: userIDfocus},
-
-                  success: function(data){
-                      alert(data);
-
-                      // generate table by month here
-                      //userHoursByDay(data,firstname,lastname);
-                  },
-                  error: function(){
-                      console.log("failed in retrieving user hours");
-                  }
-              })
-            }
             function userHoursByDay(data,firstname,lastname){
                 var totalhoursformatted;
 

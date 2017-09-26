@@ -1,6 +1,6 @@
 
 <?php
-include("AdminLoginVerification.php");
+include("../AdminServer/AdminLoginVerification.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,6 +113,7 @@ include("AdminLoginVerification.php");
                     <div class="col-lg-12">
                         <h1 class="page-header">
                              <?php
+
                                                 $firstname = $_SESSION['firstname'];
                                                 $lastname = $_SESSION['lastname'];
                                                 echo "$firstname";
@@ -328,7 +329,7 @@ include("AdminLoginVerification.php");
 
             $(function(){
                 $.ajax({
-                    url: "loadScheduleBackgrounduserPage.php",
+                    url: "../AdminServer/loadScheduleBackgrounduserPage.php",
                     success: function(data){
                         var choppedData = data.substring(1);
 
@@ -384,7 +385,7 @@ include("AdminLoginVerification.php");
             function MonthAjax(startDate, endDate){
 
                 $.ajax({
-                    url: "exactMonthTableLoader.php",
+                    url: "../AdminServer/exactMonthTableLoader.php",
                     method: "POST",
 
                     data: {startDate : startDate,

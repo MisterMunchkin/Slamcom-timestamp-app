@@ -207,6 +207,37 @@
 
         </div>
     </div>
+    <button type="button" id="EmployeeLoginValidationModalButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#EmployeeLoginValidationModal" style="display: none">Open Modal</button>
+    <div class="modal fade" id="EmployeeLoginValidationModal" role="dialog">
+        <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <div  class="modal-body">
+                        <div class="form-group">
+                          <div class="form-group">
+                              <input class="form-control" id="EmployeeID" name="txt_EmployeeID" type="text" readonly="readonly">
+                          </div>
+                          <div class="form-group">
+                              <input class="form-control" id="EmployeeFirstName" name="txt_Employeefirstname" type="text" readonly="readonly">
+                          </div>
+                          <div class="form-group">
+                              <input class="form-control" id="EmployeeLastName"  name="txt_Employeelastname" readonly="readonly">
+                          </div>
+                          <div class="form-group">
+
+                              <input class="form-control" id="EmployeePassword" placeholder="password" name="txt_Employeepassword" type="password" required autofocus>
+                          </div>
+
+                        </div>
+                    </div>
+                    <button id="EmployeeLoginProceedBtn" type="button" class="btn btn-primary" >Log in</button>
+                    <button id="EmployeeLoginCancelBtn" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+
+        </div>
+    </div>
 
 
     <script src="HomePageBootStrap/vendor/jquery/jquery.min.js"></script>
@@ -252,6 +283,22 @@
             var ActiveEmployeeTable = $("#ActiveEmployeeTable").DataTable();
             var AdminTable = $("#AdminTable").DataTable();
 
+            $(document).on('change','#DayofTheWeekSelector',function(){
+              var selectedDay = $("#DayofTheWeekSelector").find(":selected").text();
+              //alert(selectedDay);
+
+              /*$.ajax({
+                url: "../AdminServer/checkTeamsForToday.php",
+                method: "POST",
+                data: {dayOfTheWeek: selectedDay},
+                success: function(data){
+
+                },
+                error: function(data){
+
+                }
+              })*/
+            });
             $("#AdminTable").on("click", "td", function(){
               var data = AdminTable.row($(this).parents('tr')).data();
 
@@ -292,18 +339,48 @@
                 alert("shit");
               }
             });
+
             $("#ActiveEmployeeTable").on("click", "td", function(){
               var data = ActiveEmployeeTable.row($(this).parents('tr')).data();
               var LoginBtn = data[0] + data[4];
               var LogoutBtn = data[0] + data[5];
 
               if($(this).index() == 6){
+                $("#EmployeeID").val(data[0]);
+                $("#EmployeeFirstName").val(data[1]);
+                $("#EmployeeLastName").val(data[2]);
 
-                $("#"+LoginBtn).prop('disabled',true);
-                $("#"+LogoutBtn).prop('disabled',false);
+                $("#EmployeeLoginValidationModalButton").trigger("click");
 
-                var cell = ActiveEmployeeTable.cell($(this).parents('tr'), 7);
-                cell.data(getDateTime());
+
+
+                $("#EmployeeFirstName").val(data[1]);
+                $("#EmployeeLastName").val(data[2]);
+
+                $("#EmployeeLoginProceedBtn").on("click", function(){
+                    var password = $("#EmployeePassword").val();
+
+                    $.ajax({
+                      url: "EmployeeLoginBackground.php",
+                      method: "POST",
+                      data: {employeeID: data[0], employeePassword: password},
+                      success: function(data){
+                          if(data == "user login secured"){
+                            $("#"+LoginBtn).prop('disabled',true);
+                            $("#"+LogoutBtn).prop('disabled',false);
+
+                            var cell = ActiveEmployeeTable.cell($(this).parents('tr'), 7);
+                            cell.data(getDateTime());
+                          }else{
+                            alert(data);
+                            $("#EmployeePassword").val("");
+                          }
+                      },
+                      error: function(data){
+                        alert(data);
+                      }
+                    })
+                });
 
 
               }else if($(this).index() == 8){

@@ -18,21 +18,37 @@ include("../AdminServer/AdminLoginVerification.php");
 
 
     <!-- Bootstrap Core CSS -->
-    <link href="../../AdminPageBootStrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../AdminPageBootStrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../../AdminPageBootStrap/css/sb-admin.css" rel="stylesheet">
-    <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
+
 
     <!-- Morris Charts CSS -->
     <link href="../../AdminPageBootStrap/css/plugins/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="../../AdminPageBootStrap/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+
 
     <link href="../../munchkinBootStrap/CSS/userCSS.css" rel="stylesheet" type="text/css">
 
+    <link href="../../fullCalendar/css/fullcalendar.min.css" rel="stylesheet"/>
+    <link href="../../fullCalendar/css/fullcalendar.print.min.css" rel="stylesheet" media="print"/>
+    <style>
+      body {
+    		margin: 40px 10px;
+    		padding: 0;
+    		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    		font-size: 14px;
+    	}
+
+    	#calendar {
+    		max-width: 900px;
+
+    		margin: 0 auto;
+    	}
+    </style>
 </head>
 
 <body>
@@ -45,15 +61,10 @@ include("../AdminServer/AdminLoginVerification.php");
 
             <div class="container-fluid">
 
-                <!-- Page Heading -->
+
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Welcome, <?php
-                                                $name = $_SESSION['Adminfirstname'];
-                                                echo "$name";
-                                            ?>
-                        </h1>
+
                         <ol class="breadcrumb">
                             <li class="active">
                                 <i class="fa fa-dashboard"></i> Dashboard
@@ -62,37 +73,42 @@ include("../AdminServer/AdminLoginVerification.php");
                     </div>
                 </div>
                 <!-- /.row -->
-            <div class="container-fluid">
+            <!-- /.container-fluid -->
+            <div id="calendar">
 
 
             </div>
-            <!-- /.container-fluid -->
-
-
-
-
-
         </div>
+
         <!-- /#page-wrapper -->
 
     </div>
+
     <!-- /#wrapper -->
 
       <!-- jQuery -->
-      <script src="../../HomePageBootStrap/vendor/jquery/jquery.min.js"></script>
+      <script src="../../fullCalendar/js/moment.min.js"></script>
+      <script src="../../fullCalendar/js/jquery.min.js"></script>
     <!--<script src="//code.jquery.com/jquery-1.12.4.js"></script>-->
+    <script src="../../fullCalendar/js/fullcalendar.min.js"></script>
 
-    <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="../../AdminPageBootStrap/js/bootstrap.min.js"></script>
+    <script src="../../AdminPageBootStrap/js/bootstrap.js"></script>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+
+
+
 
 
 
     <script>
         jQuery(document).ready(function(){
+          $('#calendar').fullCalendar({
+      			defaultDate: '2017-09-12',
+      			editable: true,
+      			eventLimit: true // allow "more" link when too many events
 
+      		});
         });
     </script>
 

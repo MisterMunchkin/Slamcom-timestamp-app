@@ -22,27 +22,24 @@
             //header("Location: LoginOrSignup.php?EmailalreadyExist");
             echo "user already exists";
         }else{
-            $teamsql = "SELECT `TeamID` FROM `team` WHERE `TeamName` = '$teamselected'";
 
-            $teamresult = mysqli_query($conn,$teamsql);
 
-            $teamrow = mysqli_fetch_assoc($teamresult);
-            
             $hash = password_hash($password, PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO `user`(`firstname`, `lastname`, `emailadd`, `password`)
-            VALUES ('$firstname','$lastname','$emailaddress','$hash')";
+            $sql = "INSERT INTO `user`(`firstname`, `lastname`, `emailadd`, `password`,`TeamID`)
+            VALUES ('$firstname','$lastname','$emailaddress','$hash','$teamselected')";
+
 
             if(mysqli_query($conn,$sql)){
-                echo "you have been added successfully!";
-                header("Location: LoginOrSignup.php");
+                echo "been added successfully!";
+
             }else{
                 echo "oh noes, something went wrong!";
             }
 
 
         }
-        mysqli_close($conn);
+        //mysqli_close($conn);
     }else{
         echo "POST error";
     }
