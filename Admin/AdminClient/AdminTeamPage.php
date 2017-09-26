@@ -155,14 +155,15 @@ include("../AdminServer/AdminLoginVerification.php");
                                                       $data_array = array();
 
                                                       while($row = mysqli_fetch_array($result)){
-
+                                                          $deleteID = $row['TeamID'].$row['TeamName'];
+                                                          $editID = $row['TeamName'].$row['TeamID'];
                                                           echo '<tr id='.$row['TeamID'].'>
                                                                   <td>'.$row['TeamID'].'</td>
                                                                   <td>'.$row['TeamName'].'</td>
                                                                   <td>'.$row['TeamDesc'].'</td>
 
-                                                                  <td><button id="delTeambutton" type="button" class="btn btn-sm btn-danger">Delete</button>
-                                                                      <button id="editTeambutton" type="button" class="btn btn-sm btn-warning">Edit</button></td>
+                                                                  <td><button id='.$deleteID.' type="button" data-toggle="modal" data-target="#DeleteTeamModal" class="btn btn-sm btn-danger">Delete</button>
+                                                                      <button id='.$editID.' type="button" class="btn btn-sm btn-warning">Edit</button></td>
 
                                                                   </tr>';
                                                       }
@@ -239,6 +240,29 @@ include("../AdminServer/AdminLoginVerification.php");
                                 </div>
                                 <button id="addTeamcloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
+                        </div>
+
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="DeleteTeamModal" role="dialog">
+                <div class="modal-dialog">
+
+                        <!-- Modal content modal to add team-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+                                are you sure you want to delete?
+
+                                <button id="deleteyes">yes</button>
+                                <button id="deleteno">no</button>
+                            </div>
+
                         </div>
 
                 </div>
@@ -515,7 +539,8 @@ include("../AdminServer/AdminLoginVerification.php");
               $("#saturdayGroup").toggle();
             });
 
-            $.ajax({
+
+          /*  $.ajax({
               type: "POST",
               url: "../AdminServer/LoadTeamTableServer.php",
               dataType: "json",
@@ -530,11 +555,28 @@ include("../AdminServer/AdminLoginVerification.php");
               error: function(data){
                 alert(data);
               }
-            });
+            });*/
 
             $("#TeamTable tbody").on("click",'td',function(){
+                var data = TeamTable.row($(this).parents('tr')).data();
                 if($(this).index() == 3){
-                    return;
+                    //return;
+                    var deleteBtn = data[0]+data[1];
+                    var editBtn = data[1]+data[0];
+
+                    $("#"+deleteBtn).on("click",function(){
+                      $.ajax({
+                        url: "../AdminServer/deleteTeamServer.php",
+                        method: "POST",
+                        data: {TeamID: data[0]},
+                        success: function(data){
+
+                        },
+                        error: function(data){
+                          
+                        }
+                      });
+                    });
                 }else{
                     var data = TeamTable.row($(this).parents('tr')).data();
                     $("#teamNameText").html("<h4>"+data[1]+"</h4>");
