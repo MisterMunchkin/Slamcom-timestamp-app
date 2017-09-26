@@ -44,8 +44,8 @@ include("../AdminServer/AdminLoginVerification.php");
     	}
 
     	#calendar {
-    		max-width: 900px;
-
+    		width: inherit;
+        height: inherit;
     		margin: 0 auto;
     	}
     </style>
@@ -74,7 +74,7 @@ include("../AdminServer/AdminLoginVerification.php");
                 </div>
                 <!-- /.row -->
             <!-- /.container-fluid -->
-            <div id="calendar">
+            <div id="calendar" class="calendarClass">
 
 
             </div>

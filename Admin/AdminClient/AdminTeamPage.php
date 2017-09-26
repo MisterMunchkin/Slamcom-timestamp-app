@@ -122,9 +122,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
                 <!-- /.row -->
             </div>
-            <div class = "Column buttonSize">
-                  <md-button id="RButton" flex="15" class="md-raised md-primary">refresh</md-button>
-            </div>
+
 
                 <div id="tabContainer" ng-controller = "tabController as ctrl" ng-cloak style="position: relative;">
 
@@ -478,7 +476,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
         jQuery(document).ready(function(){
 
-            var hoursTable = $("#UserHoursTable").DataTable();
+            //var hoursTable = $("#UserHoursTable").DataTable();
             var TeamTable = $("#TeamTable").DataTable();
             $("#timepickerSundayTimeIn").mdtimepicker();
             $("#timepickerSundayTimeOut").mdtimepicker();
@@ -517,9 +515,21 @@ include("../AdminServer/AdminLoginVerification.php");
               $("#saturdayGroup").toggle();
             });
 
-            $("#RButton").on("click", function(){
-              //$("#nonActiveTable").load("deletedEmployees.php #nonActiveTable");
-              window.location.reload();
+            $.ajax({
+              type: "POST",
+              url: "../AdminServer/LoadTeamTableServer.php",
+              dataType: "json",
+              cache: false,
+              success: function(data){
+                $("TeamTable").DataTable({
+                  "searching": false,
+                  "aaData": [data]
+
+                });
+              },
+              error: function(data){
+                alert(data);
+              }
             });
 
             $("#TeamTable tbody").on("click",'td',function(){
@@ -606,9 +616,10 @@ include("../AdminServer/AdminLoginVerification.php");
                     data: {txt_teamName : $("#TeamName").val(),
                            txt_teamDesc : $("#TeamDesc").val()
                     },
-                    url: 'addTeamBackground.php',
+                    url: '../AdminServer/addTeamBackground.php',
                     success: function(data){
                         alert(data);
+                        TeamTable.ajax.reload();
                     },
                     error: function(data){
                         alert(data);
