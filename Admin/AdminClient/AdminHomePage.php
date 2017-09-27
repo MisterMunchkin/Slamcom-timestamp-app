@@ -322,6 +322,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
                                               if(mysqli_num_rows($result) > 0){
                                                   $data_array = array();
+                                                  echo '<option value=0> N/A</option>';
                                                   while($row = mysqli_fetch_array($result)){
 
                                                         echo '<option value='.$row['TeamID'].'>'.$row['TeamName'].'</option>';

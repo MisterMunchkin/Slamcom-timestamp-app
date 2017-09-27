@@ -19,7 +19,7 @@
            $TeamID = $_SESSION['TeamID'];
 
            $TeamQuery = "SELECT *
-                        FROM `userschedule`
+                        FROM `teamschedule`
                         WHERE `TeamID` = '$TeamID'";
 
             $TeamResult = mysqli_query($conn,$TeamQuery);
@@ -116,7 +116,7 @@
                 //do this instead of what you're doing now
                 //make the table for user login
                 //ng-repeat on cardviews
-                
+
                   $totalHours += strtotime($row['HoursMade']);
                   $data_array[] = array(
                       'timeIn' => $row['timeIn'],

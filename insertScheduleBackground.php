@@ -32,11 +32,11 @@
             }
         }
 
-        $sql = "SELECT * FROM `userschedule` WHERE `TeamID` = '$TeamID'";
+        $sql = "SELECT * FROM `teamschedule` WHERE `TeamID` = '$TeamID'";
 
         $result = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result) > 0){ //updates users schedule if team sched already exists
-            $sql = "UPDATE `userschedule` SET
+            $sql = "UPDATE `teamschedule` SET
             `MondayShift`='$days[1]',`mondayTimeIn`='$timeIn[1]',`mondayTimeOut`='$timeOut[1]',
             `TuesdayShift`='$days[2]',`tuesdayTimeIn`='$timeIn[2]',`tuesdayTimeOut`='$timeOut[2]',
             `WednesdayShift`='$days[3]',`wednesdayTimeIn`='$timeIn[3]',`wednesdayTimeOut`='$timeOut[3]',
@@ -46,7 +46,7 @@
             `SundayShift`='$days[0]',`sundayTimeIn`='$timeIn[0]',`sundayTimeOut`='$timeOut[0]',
             `TeamID`='$TeamID' WHERE `TeamID` = '$TeamID'";
         }else{
-            $sql = "INSERT INTO `userschedule`(`MondayShift`, `mondayTimeIn`, `mondayTimeOut`,
+            $sql = "INSERT INTO `teamschedule`(`MondayShift`, `mondayTimeIn`, `mondayTimeOut`,
                 `TuesdayShift`, `tuesdayTimeIn`, `tuesdayTimeOut`,
                 `WednesdayShift`, `wednesdayTimeIn`, `wednesdayTimeOut`,
                  `ThursdayShift`, `thursdayTimeIn`, `thursdayTimeOut`,

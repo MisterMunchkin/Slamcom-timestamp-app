@@ -3,7 +3,7 @@
   session_start();
 
   $teamID = $_SESSION["TeamID"];
-  $sql = "SELECT * FROM `userschedule` WHERE `TeamID` = '$teamID'";
+  $sql = "SELECT * FROM `teamschedule` WHERE `TeamID` = '$teamID'";
 
   $result = mysqli_query($conn, $sql);
 

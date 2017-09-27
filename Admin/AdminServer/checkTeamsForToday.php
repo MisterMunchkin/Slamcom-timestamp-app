@@ -37,7 +37,7 @@
       while($teamrow = mysqli_fetch_array($teamresult)){
         $teamID = $teamrow["TeamID"];
 
-        $teamsched = "SELECT * FROM `userschedule` WHERE `TeamID` = '$teamID'";
+        $teamsched = "SELECT * FROM `teamschedule` WHERE `TeamID` = '$teamID'";
         $schedresult = mysqli($conn,$teammsched);
 
         $schedRow = mysqli_fetch_array($schedresult);
@@ -52,7 +52,7 @@
       $teamID = $teamActiveToday[$x];
       $employeeSql = "SELECT * FROM `user` WHERE `TeamID` = '$teamID'";
 
-      
+
     }
   }
 ?>

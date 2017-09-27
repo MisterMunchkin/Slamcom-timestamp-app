@@ -4,7 +4,7 @@
 
         $TeamID = $_POST["TeamID"];
 
-        $sql = "SELECT * FROM `userschedule` WHERE `TeamID` = '$TeamID'";
+        $sql = "SELECT * FROM `teamschedule` WHERE `TeamID` = '$TeamID'";
 
         $result = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result) > 0){ //updates users schedule if team sched already exists
