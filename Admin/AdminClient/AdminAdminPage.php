@@ -155,6 +155,33 @@ include("../AdminServer/AdminLoginVerification.php");
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                      <?php
+
+                                                          include("../AdminServer/DBconnect.php");
+                                                          $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress` FROM `adminusers` WHERE `Active` = 1';
+
+                                                          $result = mysqli_query($conn,$query);
+                                                          if($result){
+
+                                                            $dataArray = array();
+                                                            while($row = mysqli_fetch_array($result)){
+
+                                                              echo '<tr id='.$row[0].'>
+                                                                      <td>'.$row[0].'</td>
+                                                                      <td>'.$row[1].'</td>
+                                                                      <td>'.$row[2].'</td>
+                                                                      <td>'.$row[3].'</td>
+                                                                      <td><button id="delbutton" type="button" class="btn btn-sm btn-danger">Delete</button>
+                                                                          <button id="editbutton" type="button" class="btn btn-sm btn-warning">Edit</button></td>
+
+                                                                      </tr>';
+                                                            }
+
+                                                          }else{
+                                                            echo "no data";
+                                                          }
+                                                      ?>
+
 
                                                     </tbody>
                                                 </table>
@@ -179,7 +206,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                                     <tbody>
                                                     <!-- turn this into a form so we can serialize and pass to ajax POST  -->
                                                         <?php
-                                                            /*include("../AdminServer/DBconnect.php");
+                                                            include("../AdminServer/DBconnect.php");
                                                             $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress` FROM `adminusers` WHERE `Active` = 0';
 
                                                             $result = mysqli_query($conn,$query);
@@ -196,7 +223,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
                                                                           </tr>';
                                                               }
-                                                            }*/
+                                                            }
                                                         ?>
 
                                                     </tbody>
@@ -409,7 +436,10 @@ include("../AdminServer/AdminLoginVerification.php");
             var userHours;
             var txt = "";
             var userIDfocus;
-            $.ajax({
+
+            var NonActiveAdminTable = $("#NonActiveAdminTable").DataTable();
+            var ActiveAdminTable = $("#ActiveAdminTable").DataTable();
+          /*  $.ajax({
               type: "POST",
               url: "../AdminServer/InactiveAdminTableLoader.php",
               dataType: "json",
@@ -422,6 +452,7 @@ include("../AdminServer/AdminLoginVerification.php");
                 });
               }
             });
+
             $.ajax({
               type: "POST",
               url: "../AdminServer/ActiveAdminTableLoader.php",
@@ -429,15 +460,23 @@ include("../AdminServer/AdminLoginVerification.php");
               cache: false,
               success: function(data){
                 console.log(data);
-                var obj = $.parseJSON(data);
-                alert(obj);
-                  /*ActiveAdminTable = $("#ActiveAdminTable").DataTable({
+                //var obj = $.parseJSON(data);
+                //alert(data);
+                //console.log(obj);
+                var obj;
+                ActiveAdminTable = $("#ActiveAdminTable").DataTable({
 
-                  "aaData": [data]
-                });*/
+
+                });
+
+              },
+              error: function(data){
+                alert(data);
               }
             });
-
+            function formatData(data){
+              var formatdata = [];
+            }*/
 
             /*$("#AddAdminTrigger").on("click", function(){
               //alert("add button");
