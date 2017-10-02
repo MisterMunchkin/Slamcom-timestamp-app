@@ -156,15 +156,15 @@ include("../AdminServer/AdminLoginVerification.php");
                                                       $data_array = array();
 
                                                       while($row = mysqli_fetch_array($result)){
-                                                          $deleteID = $row['TeamID'].$row['TeamName'];
-                                                          $editID = $row['TeamName'].$row['TeamID'];
+                                                        //  $deleteID = $row['TeamID'].$row['TeamName'];
+                                                          //$editID = $row['TeamName'].$row['TeamID'];
                                                           echo '<tr id='.$row['TeamID'].'>
                                                                   <td>'.$row['TeamID'].'</td>
                                                                   <td>'.$row['TeamName'].'</td>
                                                                   <td>'.$row['TeamDesc'].'</td>
 
-                                                                  <td><button id='.$deleteID.' type="button" data-toggle="modal" data-target="#DeleteTeamModal" class="btn btn-sm btn-danger">Delete</button>
-                                                                      <button id='.$editID.' type="button" class="btn btn-sm btn-warning">Edit</button></td>
+                                                                  <td><button id="deleteBtn" type="button" data-toggle="modal" data-target="#DeleteTeamModal" class="btn btn-sm btn-danger">Delete</button>
+                                                                      <button id="editBtn" type="button" data-toggle="modal" data-target="#EditTeamModal" class="btn btn-sm btn-warning">Edit</button></td>
 
                                                                   </tr>';
                                                       }
@@ -275,6 +275,43 @@ include("../AdminServer/AdminLoginVerification.php");
 
                                   <div class = "Column buttonSize">
                                         <md-button id="submitNewTeam" flex="15" class="md-raised md-primary">submit</md-button>
+                                  </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <div class="form-group">
+
+                                </div>
+                                <button id="addTeamcloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+
+            <div class="modal fade" id="EditTeamModal" role="dialog">
+                <div class="modal-dialog">
+
+                        <!-- Modal content modal to add team-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+
+                                  <div class="form-group">
+                                    <h4>Team Name</h4>
+                                      <input class="form-control" id="EditTeamName" placeholder="team name" name="txt_teamName" type="text" autofocus required>
+                                  </div>
+                                  <div class="form-group">
+                                    <h4>Team Description</h4>
+                                      <input class="form-control" id="EditTeamDesc" placeholder="team description" name="txt_teamDesc" type="text" required>
+                                  </div>
+
+                                  <div class = "Column buttonSize">
+                                        <md-button id="submitEditTeam" flex="15" class="md-raised md-primary">submit</md-button>
                                   </div>
                             </div>
                             <div class="modal-footer">
@@ -457,7 +494,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                 <div class="form-group">
 
                                 </div>
-                                <button id="addTeamcloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  <button id="addSchedulecloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
 
@@ -656,7 +693,7 @@ include("../AdminServer/AdminLoginVerification.php");
                     var deleteBtn = data[0]+data[1];
                     var editBtn = data[1]+data[0];
 
-                      $("$deleteyes").on("click",function(){
+                      $("#deleteyes").on("click",function(){
                         $.ajax({
                           url: "../AdminServer/deleteTeamServer.php",
                           method: "POST",
@@ -672,13 +709,18 @@ include("../AdminServer/AdminLoginVerification.php");
                         });
                       });
 
+                      $("#editBtn").on("click",function(){
+
+                        $("#EditTeamName").val(data[1]);
+                        $("#EditTeamDesc").val(data[2]);
+                      });
                 }else{
                     var data = TeamTable.row($(this).parents('tr')).data();
                     $("#teamNameText").html("<h4>"+data[1]+"</h4>");
                     $("#AddScheduleModalButton").trigger("click");
 
                     $.ajax({
-                        url: "loadScheduleBackground.php",
+                        url: "../AdminServer/loadScheduleBackground.php",
                         data: {TeamID: data[0]},
                         success: function(data){
                           alert(data);
@@ -693,13 +735,13 @@ include("../AdminServer/AdminLoginVerification.php");
                         var JSONData = getSchedJSONformat();
 
                          $.ajax({
-                            url: "insertScheduleBackground.php",
+                            url: "../AdminServer/insertScheduleBackground.php",
                             method: "POST",
 
                             data: {schedule: JSONData,TeamID: data[0]},
                             success: function(response){
                                 alert(response);
-                                $("#addTeamcloseButton").trigger("click");
+                                $("#addSchedulecloseButton").trigger("click");
                             },
                             error: function(response){
                                 alert(response);
@@ -725,7 +767,7 @@ include("../AdminServer/AdminLoginVerification.php");
               var SaturdayArray = new Array($("#timepickerSaturdayTimeIn").val(),
                     $("#timepickerSaturdayTimeOut").val())
             //  var ModayArray = new
-              alert(SundayArray[0]+' '+SundayArray[1]);
+              //alert(SundayArray[0]+' '+SundayArray[1]);
 
               var JSONstring = `[{"day":0, "period": ["`+ SundayArray[0] +`" ,"`+ SundayArray[1] +`"]},
               {"day":1, "period": ["`+ MondayArray[0] +`","`+ MondayArray[1] +`"]},
