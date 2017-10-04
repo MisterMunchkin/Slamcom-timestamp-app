@@ -372,15 +372,15 @@ include("../AdminServer/AdminLoginVerification.php");
                 </div>
             </div>
 
-
-            <button type="button" id="AddScheduleModalButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddScheduleModal" style="display: none">Open Modal</button>
+            <!--template for inserting or editing schedule-->
+            <!--<button type="button" id="AddScheduleModalButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddScheduleModal" style="display: none">Open Modal</button>
             <div class="modal fade" id="AddScheduleModal" role="dialog">
                 <div class="modal-dialog">
 
-                        <!-- Modal content-->
+
                         <div class="modal-content">
                             <div class="modal-header">
-                                <!--<input id="teamNameText" class="form-control" readonly></input>-->
+
                                 <div id="teamNameText">
                                 </div>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -499,7 +499,7 @@ include("../AdminServer/AdminLoginVerification.php");
                         </div>
 
                 </div>
-            </div>
+            </div>-->
 
         </div>
         <!-- /#page-wrapper -->
@@ -675,8 +675,9 @@ include("../AdminServer/AdminLoginVerification.php");
                       method: "POST",
                       data: {TeamID: data[0]},
                       success: function(data){
-                        alert(data);
-                        $("#resurrectno").trigger("click");
+                        //alert(data);
+                        window.location.replace("AdminTeamPage.php");
+                        //$("#resurrectno").trigger("click");
                       },
                       error: function(data){
                         alert(data);
@@ -699,9 +700,9 @@ include("../AdminServer/AdminLoginVerification.php");
                           method: "POST",
                           data: {TeamID: data[0]},
                           success: function(data){
-                            alert(data);
-                            $("#deleteno").trigger("click");
-
+                            //alert(data);
+                            //$("#deleteno").trigger("click");
+                            window.location.replace("AdminTeamPage.php");
                           },
                           error: function(data){
                             alert(data);
@@ -716,17 +717,22 @@ include("../AdminServer/AdminLoginVerification.php");
                       });
                 }else{
                     var data = TeamTable.row($(this).parents('tr')).data();
-                    $("#teamNameText").html("<h4>"+data[1]+"</h4>");
-                    $("#AddScheduleModalButton").trigger("click");
+                    //$("#teamNameText").html("<h4>"+data[1]+"</h4>");
+                    //$("#AddScheduleModalButton").trigger("click");
 
                     $.ajax({
-                        url: "../AdminServer/loadScheduleBackground.php",
+                        url: "../AdminServer/TransferDataToTeamProfile.php",
                         data: {TeamID: data[0]},
+                        method: "POST",
                         success: function(data){
-                          alert(data);
+                            if(data == "cookie success"){
+                                window.location.replace("AdminTeamProfilePage.php");
+                            }else{
+                                console.log("what the shit");
+                            }
                         },
                         error: function(data){
-
+                            console.log(data);
                         }
                     });
 

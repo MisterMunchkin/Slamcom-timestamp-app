@@ -158,7 +158,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                                       <?php
 
                                                           include("../AdminServer/DBconnect.php");
-                                                          $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress`,`role` FROM `adminusers` WHERE `Active` = 1';
+                                                          $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress` FROM `adminusers` WHERE `Active` = 1';
 
                                                           $result = mysqli_query($conn,$query);
                                                           if($result){
@@ -207,7 +207,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                                     <!-- turn this into a form so we can serialize and pass to ajax POST  -->
                                                         <?php
                                                             include("../AdminServer/DBconnect.php");
-                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress`, `role` FROM `adminusers` WHERE `Active` = 0';
+                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress` FROM `adminusers` WHERE `Active` = 0';
 
                                                             $result = mysqli_query($conn,$query);
 
@@ -336,7 +336,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                       </div>
                                       <div class="form-group">
                                         <h4>email address</h4>
-                                          <input class="form-control" id="addEmailadd" placeholder="email address" name="txt_signUpEmail" type="email" required>
+                                          <input class="form-control emailInput" id="addEmailadd" placeholder="email address" name="txt_signUpEmail" type="email" required>
                                       </div>
                                       <div class="form-group">
                                         <h4>password</h4>
@@ -484,6 +484,30 @@ include("../AdminServer/AdminLoginVerification.php");
             /*$("#AddAdminTrigger").on("click", function(){
               //alert("add button");
             });*/
+
+            function validateEmail($email){
+                var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,6})?$/;
+
+                return ($email.length > 0 && emailReg.test($email));
+            }
+
+            $("#addEmailadd").on("input",function(){
+                if(!validateEmail($("#addEmailadd").val())){
+                    $("#addEmailadd").css('border-color', 'red');
+                    $("#addEmailadd").css('border-width', '2px');
+                }else{
+                    $("#addEmailadd").css('border-color', 'green');
+                }
+            });
+
+            $("#editEmailadd").on("input",function(){
+                if(!validateEmail($("#editEmailadd").val())){
+                    $("#editEmailadd").css('border-color', 'red');
+                    $("#editEmailadd").css('border-width', '2px');
+                }else{
+                    $("#editEmailadd").css('border-color', 'green');
+                }
+            })
 
             $("#btnAddAdmin").on("click",function(data){
 

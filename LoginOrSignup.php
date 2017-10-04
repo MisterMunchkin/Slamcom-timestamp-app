@@ -255,7 +255,6 @@
 
 
 
-    <script src="HomePageBootStrap/js/app.js"></script>
 
     <script>
         var app = angular.module("Application", ['ngMaterial', 'ngMessages']);
