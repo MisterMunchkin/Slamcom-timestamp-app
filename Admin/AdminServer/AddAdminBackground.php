@@ -7,6 +7,7 @@
         $emailaddress = mysqli_real_escape_string($conn, $_POST['emailaddress']);
         $password = mysqli_real_escape_string($conn, $_POST['password']);
 
+
         $sql = "SELECT `userID`, `firstname`, `lastname`, `emailaddress`, `password`
            FROM `adminusers`
            WHERE `emailaddress` = '$emailaddress'";

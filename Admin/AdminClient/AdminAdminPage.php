@@ -158,7 +158,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                                       <?php
 
                                                           include("../AdminServer/DBconnect.php");
-                                                          $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress` FROM `adminusers` WHERE `Active` = 1';
+                                                          $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress`,`role` FROM `adminusers` WHERE `Active` = 1';
 
                                                           $result = mysqli_query($conn,$query);
                                                           if($result){
@@ -207,7 +207,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                                     <!-- turn this into a form so we can serialize and pass to ajax POST  -->
                                                         <?php
                                                             include("../AdminServer/DBconnect.php");
-                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress` FROM `adminusers` WHERE `Active` = 0';
+                                                            $query = 'SELECT `userID`, `firstname`, `lastname`, `emailaddress`, `role` FROM `adminusers` WHERE `Active` = 0';
 
                                                             $result = mysqli_query($conn,$query);
 
@@ -297,6 +297,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                         <h4>email address</h4>
                                           <input class="form-control" id="editEmailadd" placeholder="email address" name="txt_signUpEmail" type="email" required>
                                       </div>
+
                                       <div class="form-group">
                                           <button style="float: middle;" id="btnEditEmp" class="btn btn-lg btn-primary">Edit</button>
                                       </div>
@@ -338,8 +339,10 @@ include("../AdminServer/AdminLoginVerification.php");
                                           <input class="form-control" id="addEmailadd" placeholder="email address" name="txt_signUpEmail" type="email" required>
                                       </div>
                                       <div class="form-group">
+                                        <h4>password</h4>
                                           <input class="form-control" id="addPassword" placeholder="password" name="txt_password" type="password" required>
                                       </div>
+
 
                                 </div>
                                 <div class="modal-footer">
@@ -490,11 +493,12 @@ include("../AdminServer/AdminLoginVerification.php");
                 data: {firstname: $("#addFirstname").val(),
                       lastname: $("#addLastname").val(),
                       emailaddress: $("#addEmailadd").val(),
-                      password: $("#addPassword").val()
+                      password: $("#addPassword").val(),
                 },
                 success: function(data){
-                  alert(data);
-                  $("#addCloseButton").trigger("click");
+                  //alert(data);
+                  window.location.replace("AdminAdminPage.php");
+                  //$("#addCloseButton").trigger("click");
                 },
                 error: function(data){
                   alert(data);
@@ -514,7 +518,7 @@ include("../AdminServer/AdminLoginVerification.php");
                 data: {userID : data[0]},
 
                 success: function(data){
-                  alert(data);
+                  //alert(data);
                   window.location.reload();
                 },
                 error: function(){
@@ -546,14 +550,16 @@ include("../AdminServer/AdminLoginVerification.php");
                       data: {userID: data[0],
                             txt_firstname : $("#editFirstname").val(),
                             txt_lastname : $("#editLastname").val(),
-                            txt_signUpEmail : $("#editEmailadd").val()},
+                            txt_signUpEmail : $("#editEmailadd").val(),
+                            },
                       url: '../AdminServer/editAdminBackground.php',
                       success: function(data){
                         //login popup
                         //alert(data);
                         if(data == "user successfully edited"){
                           console.log("user edited");
-                          userEditsuccess();
+                          window.location.replace("AdminAdminPage.php");
+                          //'userEditsuccess();
                         }else{
                           alert(data);
                         }
@@ -573,7 +579,7 @@ include("../AdminServer/AdminLoginVerification.php");
               $("#DeleteUsertrapButton").trigger('click');
 
               $("#deleteYes").on("click",function(){
-                alert(data[0]);
+              //  alert(data[0]);
 
                 $.ajax({
                     type: 'POST',
@@ -581,8 +587,8 @@ include("../AdminServer/AdminLoginVerification.php");
                     data: {userID : data[0]},
 
                     success: function(data){
-                        alert(data);
-
+                        //alert(data);
+                        window.location.replace("AdminAdminPage.php");
                     },
                     error: function(){
                         console.log("failed in retrieving user hours");
