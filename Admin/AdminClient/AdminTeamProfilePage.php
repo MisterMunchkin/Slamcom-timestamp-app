@@ -47,6 +47,10 @@ include("../AdminServer/AdminLoginVerification.php");
 
 
     <style>
+        .grid{
+            width: 500px;
+            height: 400px;
+        }
         #wrapper{
           height: 100%;
         }
@@ -124,9 +128,9 @@ include("../AdminServer/AdminLoginVerification.php");
                         <h1 class="page-header">
                              <?php
 
-                                                $firstname = $_SESSION['firstname'];
-                                                $lastname = $_SESSION['lastname'];
-                                                echo "$firstname";
+                                                //$firstname = $_SESSION['firstname'];
+                                                //$lastname = $_SESSION['lastname'];
+                                                echo "Should echo team name";
                                             ?>
                         </h1>
 
@@ -145,7 +149,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                 <md-tab-label>{{data.firstLabel}}</md-tab-label>
                                 <md-tab-body>
 
-                                    <table id="UserscheduleTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
+                                    <!--<table id="UserscheduleTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
                                       <thead>
                                           <tr>
                                               <th>Monday Time In</th>
@@ -165,11 +169,13 @@ include("../AdminServer/AdminLoginVerification.php");
                                           </tr>
                                       </thead>
                                       <tbody>
-
-
-
                                       </tbody>
-                                    </table>
+                                  </table>-->
+
+                                    <div ng-controller="GridTableController">
+                                        <div ui-grid="gridOptions" ui-grid-importer class="grid">
+                                        </div>
+                                    </div>
                                 </md-tab-body>
                             </md-tab>
                             <md-tab id = "tab2">
@@ -334,11 +340,18 @@ include("../AdminServer/AdminLoginVerification.php");
 
         <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
           <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+          <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-touch.js"></script>
           <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
           <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
           <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
           <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+          <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+            <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+            <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+            <script src="../../ui-grid/ui-grid.js"></script>
+            <script src="../../ui-grid/ui-grid.css"></script>
 
 
 
@@ -365,7 +378,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
     <script>
 
-         var app = angular.module("tableApplication", ['ngMaterial', 'ngMessages']);
+         var app = angular.module("tableApplication", ['ngMaterial', 'ngMessages', 'ui.grid','ui.grid.importer','ngTouch','ngAnimate']);
        var STARTDate;
        var ENDDate;
         app.controller('tabController', function($scope){
@@ -387,10 +400,25 @@ include("../AdminServer/AdminLoginVerification.php");
 
 
         });
+
+        app.controller('GridTableController', ['$scope', '$http', '$interval', function($scope, $http, $interval){
+            $scope.data = [];
+            $scope.gridOptions = {
+                enableGridMenu: true,
+                data: 'data',
+                importerDataAddCallback: function(grid,newObjects){
+                    $scope.data = $scope.data.concat(newObjects);
+                },
+                onRegisterApi: function(gridApi){
+                    $scope.gridApi = gridApi;
+                }
+            }
+        }]);
+
         app.controller('inputController', function($scope){
 
         });
-        app.controller('StartdateController', function($scope){
+        /*app.controller('StartdateController', function($scope){
 
 
          //  STARTDate = moment(this.startDate).format('YYYY-MM-DD');
@@ -401,7 +429,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
 
           //  ENDDate = moment(this.endDate).format('YYYY-MM-DD');
-        });
+      });*/
 
 
 
