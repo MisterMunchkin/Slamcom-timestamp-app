@@ -130,10 +130,14 @@ include("../AdminServer/AdminLoginVerification.php");
 
                                                 //$firstname = $_SESSION['firstname'];
                                                 //$lastname = $_SESSION['lastname'];
-                                                echo "Should echo team name";
+                                                echo $_SESSION["ProfileTeamName"];
                                             ?>
                         </h1>
-
+                        <h4>
+                            <?php
+                                echo $_SESSION["ProfileTeamDesc"];
+                            ?>
+                        </h4>
                     </div>
                 </div>
                 <!-- /.row -->

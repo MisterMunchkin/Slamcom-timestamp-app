@@ -722,7 +722,10 @@ include("../AdminServer/AdminLoginVerification.php");
 
                     $.ajax({
                         url: "../AdminServer/TransferDataToTeamProfile.php",
-                        data: {TeamID: data[0]},
+                        data: {TeamID: data[0],
+                                TeamName: data[1],
+                                TeamDesc: data[2]
+                        },
                         method: "POST",
                         success: function(data){
                             if(data == "cookie success"){
