@@ -148,8 +148,8 @@ include("../AdminServer/AdminLoginVerification.php");
                             <md-tab id = "tab1">
                                 <md-tab-label>{{data.firstLabel}}</md-tab-label>
                                 <md-tab-body>
-
-                                    <!--<table id="UserscheduleTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
+                                    <button id="AddorEditSchedule" data-toggle="modal" data-target="#TeamSchedModal" type="button">Add or Edit Schedule</button>
+                                    <table id="TeamscheduleTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
                                       <thead>
                                           <tr>
                                               <th>Monday Time In</th>
@@ -169,19 +169,91 @@ include("../AdminServer/AdminLoginVerification.php");
                                           </tr>
                                       </thead>
                                       <tbody>
-                                      </tbody>
-                                  </table>-->
+                                          <?php
+                                                include("../AdminServer/DBconnect.php");
 
-                                    <div ng-controller="GridTableController">
-                                        <div ui-grid="gridOptions" ui-grid-importer class="grid">
+                                                $teamID = $_SESSION["ProfileTeamID"];
+
+                                                $sql = "SELECT  `mondayTimeIn`, `mondayTimeOut`,
+                                                                `tuesdayTimeIn`, `tuesdayTimeOut`,
+                                                                `wednesdayTimeIn`, `wednesdayTimeOut`,
+                                                                `thursdayTimeIn`, `thursdayTimeOut`,
+                                                                `fridayTimeIn`, `fridayTimeOut`,
+                                                                 `saturdayTimeIn`, `saturdayTimeOut`,
+                                                                 `sundayTimeIn`, `sundayTimeOut` FROM `teamschedule` WHERE `TeamID` = '$teamID'";
+
+                                                $result = mysqli_query($conn,$sql);
+
+                                                if(mysqli_num_rows($result)){
+                                                    $row = mysqli_fetch_array($result);
+
+                                                    echo '<tr>
+                                                            <td>'.$row[0].'</td>
+                                                            <td>'.$row[1].'</td>
+                                                            <td>'.$row[2].'</td>
+                                                            <td>'.$row[3].'</td>
+                                                            <td>'.$row[4].'</td>
+                                                            <td>'.$row[5].'</td>
+                                                            <td>'.$row[6].'</td>
+                                                            <td>'.$row[7].'</td>
+                                                            <td>'.$row[8].'</td>
+                                                            <td>'.$row[9].'</td>
+                                                            <td>'.$row[10].'</td>
+                                                            <td>'.$row[11].'</td>
+                                                            <td>'.$row[12].'</td>
+                                                            <td>'.$row[13].'</td>
+                                                            </tr>';
+                                                }
+                                           ?>
+                                      </tbody>
+                                  </table>
+
+                                    <!--<div ng-controller="GridTableController">
+                                        <div ui-grid="gridOptions" ui-grid-edit class="grid">
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </md-tab-body>
                             </md-tab>
                             <md-tab id = "tab2">
                                 <md-tab-label>{{data.secondLabel}}</md-tab-label>
                                 <md-tab-body>
-                                    <!--teammates tab-->
+
+                                    <table id="TeamMatesTable" class="table table-hover table-striped" cellspacing="0" width="100%" height="100%">
+                                      <thead>
+                                          <tr>
+                                              <th>userID</th>
+                                              <th>firstname</th>
+                                              <th>lastname</th>
+                                              <th>email address</th>
+
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <?php
+                                                include("../AdminServer/DBconnect.php");
+
+                                                $teamID = $_SESSION["ProfileTeamID"];
+
+                                                $sql = "SELECT `userID`, `firstname`,
+                                                                `lastname`, `emailadd`
+                                                        FROM `user`
+                                                        WHERE `TeamID` = '$teamID' AND `active` = 1";
+
+                                                $result = mysqli_query($conn,$sql);
+
+                                                if(mysqli_num_rows($result)){
+                                                    while($row = mysqli_fetch_array($result)){
+                                                        echo '<tr>
+                                                                <td>'.$row[0].'</td>
+                                                                <td>'.$row[1].'</td>
+                                                                <td>'.$row[2].'</td>
+                                                                <td>'.$row[3].'</td>
+                                                                </tr>';
+                                                    }
+                                                }
+                                           ?>
+                                      </tbody>
+                                  </table>
                                 </md-tab-body>
                             </md-tab>
                         </md-tabs>
@@ -192,7 +264,7 @@ include("../AdminServer/AdminLoginVerification.php");
 
 
             <!-- /.container-fluid -->
-            <div class="modal fade" id="AddUserSchedModal" role="dialog">
+            <div class="modal fade" id="TeamSchedModal" role="dialog">
                 <div class="modal-dialog">
 
                         <!-- Modal content-->
@@ -204,11 +276,6 @@ include("../AdminServer/AdminLoginVerification.php");
 
                             </div>
                             <div ng-controller="inputController" layout="column" ng-cloak class="md-inline-form">
-
-
-                                <div class = "Column buttonSize">
-                                    <md-button id="submitEmployeeSchedule" flex="15" class="md-raised md-primary">submit</md-button>
-                                </div>
 
                                 <md-content layout-gt-sm="column" layout-padding>
                                     <div class="form-group">
@@ -307,11 +374,12 @@ include("../AdminServer/AdminLoginVerification.php");
 
 
                             <div class="modal-footer">
-
-                                <div class="form-group">
-
+                                <div class = "Column buttonSize">
+                                    <button id="submitTeamSchedule" class="btn btn-primary">submit</button>
                                 </div>
-                                <button id="addTeamcloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <div class = "Column buttonSize">
+                                    <button id="addTeamcloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
 
@@ -351,7 +419,7 @@ include("../AdminServer/AdminLoginVerification.php");
             <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
             <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
             <script src="../../ui-grid/ui-grid.js"></script>
-            <script src="../../ui-grid/ui-grid.css"></script>
+            <!--<script src="../../ui-grid/ui-grid.css"></script>-->
 
 
 
@@ -402,17 +470,29 @@ include("../AdminServer/AdminLoginVerification.php");
         });
 
         app.controller('GridTableController', ['$scope', '$http', '$interval', function($scope, $http, $interval){
-            $scope.data = [];
+            $scope.myData = [];
             $scope.gridOptions = {
                 enableGridMenu: true,
-                data: 'data',
-                importerDataAddCallback: function(grid,newObjects){
-                    $scope.data = $scope.data.concat(newObjects);
-                },
-                onRegisterApi: function(gridApi){
-                    $scope.gridApi = gridApi;
-                }
+                enableSorting: true,
+                columnDefs: [
+                    {name: 'MondayTimeIn',field: 'mondayTimeIn'},
+                    {name: 'MondayTimeOut',field: 'mondayTimeOut'}
+                ]
+
             }
+
+            $http.get('../AdminServer/TeamScheduleLoader.php')
+                .then(function(response){
+                    $scope.gridOptions.data = response;
+                })
+                .catch(function(err){
+                    $scope.loading = false;
+                    console.log($scope.gridOptions.data);
+                })
+                .finally(function(){
+                    $scope.loading = false;
+                    console.log($scope.gridOptions.data);
+                });
         }]);
 
         app.controller('inputController', function($scope){
@@ -434,6 +514,9 @@ include("../AdminServer/AdminLoginVerification.php");
 
 
         jQuery(document).ready(function(){
+            $("#TeamscheduleTable").DataTable();
+            $("#TeamMatesTable").DataTable();
+
             $("#timepickerSundayTimeIn").mdtimepicker();
             $("#timepickerSundayTimeOut").mdtimepicker();
             $("#timepickerMondayTimeIn").mdtimepicker();
@@ -470,6 +553,10 @@ include("../AdminServer/AdminLoginVerification.php");
             $("#saturdayCheck").change(function(){
               $("#saturdayGroup").toggle();
             });
+        });
+
+        $("#submitTeamSchedule").on("click", function(){
+            alert("shit");
         });
     </script>
 
