@@ -60,7 +60,7 @@ include("../AdminServer/AdminLoginVerification.php");
         <div id="page-wrapper">
 
             <div class="container-fluid">
-
+                <!--just make it a list of days where its special holiday-->
 
                 <div class="row">
                     <div class="col-lg-12">

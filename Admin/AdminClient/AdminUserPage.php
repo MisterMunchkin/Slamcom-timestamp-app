@@ -177,7 +177,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                               if(mysqli_num_rows($result)){
                                                 $row = mysqli_fetch_array($result);
 
-                                                echo '<tr id='.$row['UserID'].'>
+                                                echo '<tr>
                                                         <td>'.$row['mondayTimeIn'].'</td>
                                                         <td>'.$row['mondayTimeOut'].'</td>
                                                         <td>'.$row['tuesdayTimeIn'].'</td>
@@ -194,10 +194,10 @@ include("../AdminServer/AdminLoginVerification.php");
                                                       <td>'.$row['sundayTimeOut'].'</td>
                                                       </tr>';
 
-                                              }else{
-                                                //should say, user has no team and no schedule, would you like to give a schedule?
-                                                echo "<button id='AddSchedule' type='button' class='btn btn-primary' data-toggle='modal' data-target='#AddUserSchedModal'>Add Schedule</button>";
                                               }
+                                                //should say, user has no team and no schedule, would you like to give a schedule?
+                                                echo "<button id='AddSchedule' type='button' class='btn btn-primary' data-toggle='modal' data-target='#AddUserSchedModal'>Add/Edit Schedule</button>";
+
                                             }else{
                                               echo "user query error";
                                             }
@@ -209,7 +209,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                             if($result){
                                               if(mysqli_num_rows($result)){
                                                 $row = mysqli_fetch_array($result);
-                                                echo '<tr id='.$row['TeamID'].'>
+                                                echo '<tr>
                                                         <td>'.$row[2].'</td>
                                                         <td>'.$row[3].'</td>
                                                         <td>'.$row[5].'</td>
@@ -231,7 +231,7 @@ include("../AdminServer/AdminLoginVerification.php");
                                             }else{
                                               echo "team query error";
                                             }
-                                          }
+                                        }
                                         ?>
 
 
@@ -606,22 +606,7 @@ include("../AdminServer/AdminLoginVerification.php");
                 });
 
             });*/
-            $.ajax({
-              type: "POST",
-              url: "../AdminServer/EmployeeTeamSchedTableLoader.php",
-              dataType: "json",
-              cache: false,
-              success: function(data){
-                $("#UserscheduleTable").DataTable({
-                  "searching": false,
-                  "aaData": [data]
-
-                });
-              },
-              error: function(data){
-
-              }
-            });
+            $("#UserscheduleTable").DataTable();
             $("#schedule-demo").jqs({
                 mode: "read",
                 hour: 12
@@ -632,21 +617,56 @@ include("../AdminServer/AdminLoginVerification.php");
 
             $("#submitEmployeeSchedule").on("click",function(){
                 alert($("#schedule-demo").jqs("export"));
-                var schedule = $("#schedule-demo").jqs("export");
+                var JSONData = getSchedJSONformat();
 
                  $.ajax({
-                    url: "insertScheduleBackground.php",
+                    url: "../AdminServer/insertUserScheduleBackground.php",
                     method: "POST",
 
-                    data: {schedule: schedule},
+                    data: {schedule: JSONData, userID: <?php echo $_SESSION["employeeID"]?>},
                     success: function(data){
-
+                        if(data == "user schedule successful"){
+                            window.location.replace("AdminUserPage.php");
+                        }else{
+                            console.log(data);
+                        }
                     },
                     error: function(data){
-
+                        console.log(data);
                     }
                 });
             })
+
+            function getSchedJSONformat(){
+
+              var SundayArray = new Array($("#timepickerSundayTimeIn").val(),
+                    $("#timepickerSundayTimeOut").val());
+              var MondayArray = new Array($("#timepickerMondayTimeIn").val(),
+                    $("#timepickerMondayTimeOut").val());
+              var TuesdayArray = new Array($("#timepickerTuesdayTimeIn").val(),
+                    $("#timepickerTuesdayTimeOut").val());
+              var WednesdayArray = new Array($("#timepickerWednesdayTimeIn").val(),
+                    $("#timepickerWednesdayTimeOut").val());
+              var ThursdayArray = new Array($("#timepickerThursdayTimeIn").val(),
+                    $("#timepickerThursdayTimeOut").val());
+              var FridayArray = new Array($("#timepickerFridayTimeIn").val(),
+                    $("#timepickerFridayTimeOut").val());
+              var SaturdayArray = new Array($("#timepickerSaturdayTimeIn").val(),
+                    $("#timepickerSaturdayTimeOut").val())
+            //  var ModayArray = new
+              //alert(SundayArray[0]+' '+SundayArray[1]);
+
+              var JSONstring = `[{"day":0, "period": ["`+ SundayArray[0] +`" ,"`+ SundayArray[1] +`"]},
+              {"day":1, "period": ["`+ MondayArray[0] +`","`+ MondayArray[1] +`"]},
+              {"day":2, "period": ["`+ TuesdayArray[0] +`","`+ TuesdayArray[1] +`"]},
+              {"day":3, "period": ["`+ WednesdayArray[0] +`","`+ WednesdayArray[1] +`"]},
+              {"day":4, "period": ["`+ ThursdayArray[0] +`","`+ ThursdayArray[1] +`"]},
+              {"day":5, "period": ["`+ FridayArray[0] +`","`+ FridayArray[1] +`"]},
+              {"day":6, "period": ["`+ SaturdayArray[0] +`","`+ SaturdayArray[1] +`"]}]`;//add the other days into the string same format
+
+
+              return JSONstring;
+            }
             //initialization of datepickers
             $("#startDate").datepicker({dateFormat: 'yy-mm-dd'});
             $("#endDate").datepicker({dateFormat: 'yy-mm-dd'});
